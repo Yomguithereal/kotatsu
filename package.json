@@ -1,0 +1,37 @@
+{
+  "name": "kotatsu",
+  "version": "0.0.1",
+  "description": "Straightforward command line tool to setup server-side HMR with Webpack.",
+  "main": "index.js",
+  "bin": {
+    "kotatsu": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yomguithereal/kotatsu"
+  },
+  "keywords": [
+    "hmr",
+    "development",
+    "cli",
+    "webpack"
+  ],
+  "contributors": [
+    {
+      "name": "Guillaume Plique",
+      "url": "http://github.com/Yomguithereal"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yomguithereal/kotatsu/issues"
+  },
+  "homepage": "https://github.com/Yomguithereal/kotatsu",
+  "dependencies": {
+    "webpack": "^1.12.9",
+    "yargs": "^3.31.0"
+  }
+}
