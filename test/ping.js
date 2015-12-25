@@ -1,5 +1,5 @@
 var dummy = require('./dummy.js');
 
-setTimeout(function() {
+setInterval(function() {
   console.log(dummy);
 }, 1000);

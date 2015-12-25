@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
+    "memory-fs": "^0.3.0",
     "webpack": "^1.12.9",
     "yargs": "^3.31.0"
   }
