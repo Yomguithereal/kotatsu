@@ -9,4 +9,4 @@ var kotatsu = require('./index.js'),
 
 var entry = argv._[0];
 
-var compiler = kotatsu({entry: entry});
+var watcher = kotatsu({entry: entry});

@@ -4,21 +4,24 @@
  *
  */
 var webpack = require('webpack'),
-    MemoryFS = require('memory-fs'),
-    vm = require('vm');
+    spawn =  require('child_process').spawn,
+    rmrf = require('rimraf'),
+    path = require('path');
 
 module.exports = function(opts) {
   opts = opts || {};
 
   // TODO: Poll or signal?
+  // TODO: configurable
+  // TODO: file location
   var config = {
     entry: [
-      'webpack/hot/poll?1000',
+      'webpack/hot/signal',
       opts.entry
     ],
     target: 'node',
     output: {
-      path: '/kotatsu',
+      path: path.join(__dirname, '.kotatsu'),
       filename: 'bundle.js'
     },
     plugins: [
@@ -28,25 +31,43 @@ module.exports = function(opts) {
 
   var compiler = webpack(config);
 
-  // Compiling to memory
-  var fs = new MemoryFS();
-  compiler.outputFileSystem = fs;
-
   // Starting to watch
-  var running = false;
-  compiler.watch({
-    aggregateTimeout: 300,
-    poll: true
-  }, function(err, stats) {
+  var running = false,
+      child;
 
-    // Running in VM
+  var watcher = compiler.watch(100, function(err, stats) {
+    if (err)
+      return console.error(err);
+
+    // Running the script
     if (!running) {
-      var bundle = fs.readFileSync('/kotatsu/bundle.js', 'utf-8');
-      vm.runInThisContext(bundle);
+      child = spawn('node', [path.join(__dirname, '.kotatsu', 'bundle.js')]);
+
+      child.stdout.on('data', function(data) {
+        console.log(data.toString('utf-8').replace(/\n$/, ''));
+      });
 
       running = true;
     }
+    else {
+
+      // TODO: replace this by custom handling through messages
+      child.kill('SIGUSR2');
+    }
   });
 
-  return compiler;
+  // Cleaning up on exit
+  function cleanup(isSignal) {
+    if (child)
+      child.kill();
+    rmrf.sync(path.join(__dirname, '.kotatsu'));
+
+    if (isSignal)
+      process.exit();
+  }
+
+  process.on('exit', cleanup.bind(null, false));
+  process.on('SIGINT', cleanup.bind(null, true));
+
+  return watcher;
 };
