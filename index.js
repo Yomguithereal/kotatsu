@@ -34,7 +34,7 @@ module.exports = function(opts) {
     ],
     target: 'node',
     output: {
-      path: path.join(__dirname, '.kotatsu'),
+      path: path.join('.kotatsu'),
       filename: 'bundle.js'
     },
     plugins: [
