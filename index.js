@@ -24,6 +24,8 @@ function rewire(child) {
 module.exports = function(opts) {
   opts = opts || {};
 
+  var base = path.join(process.cwd(), '.kotatsu');
+
   // TODO: Poll or signal?
   // TODO: configurable
   // TODO: file location
@@ -34,13 +36,12 @@ module.exports = function(opts) {
     ],
     target: 'node',
     output: {
-      path: path.join('.kotatsu'),
+      path: base,
       filename: 'bundle.js'
     },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin()
     ]
   };
 
@@ -56,7 +57,7 @@ module.exports = function(opts) {
 
     // Running the script
     if (!running) {
-      child = spawn('node', [path.join('.kotatsu', 'bundle.js')]);
+      child = spawn('node', [path.join(base, 'bundle.js')]);
 
       rewire(child);
 
@@ -73,7 +74,7 @@ module.exports = function(opts) {
   function cleanup(isSignal) {
     if (child)
       child.kill();
-    rmrf.sync(path.join('.kotatsu'));
+    rmrf.sync(base);
 
     if (isSignal)
       process.exit();
