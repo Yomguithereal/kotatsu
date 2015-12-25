@@ -1,6 +1,6 @@
 {
   "name": "kotatsu",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Straightforward command line tool to setup server-side HMR with Webpack.",
   "main": "index.js",
   "bin": {
@@ -31,8 +31,14 @@
   },
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
+    "lodash": "^3.10.1",
     "rimraf": "^2.5.0",
     "webpack": "^1.12.9",
     "yargs": "^3.31.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13"
   }
 }

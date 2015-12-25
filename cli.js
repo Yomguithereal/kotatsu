@@ -7,6 +7,10 @@
 var kotatsu = require('./index.js'),
     argv = require('yargs').argv;
 
-var entry = argv._[0];
+var entry = argv._[0],
+    config = {};
 
-var watcher = kotatsu({entry: entry});
+if (argv.config)
+  config = require(argv.config);
+
+var watcher = kotatsu({entry: entry, config: config});

@@ -6,8 +6,21 @@
 var webpack = require('webpack'),
     spawn =  require('child_process').spawn,
     rmrf = require('rimraf'),
-    path = require('path');
+    path = require('path'),
+    _ = require('lodash');
 
+/**
+ * Helpers.
+ */
+function rewire(child) {
+
+  child.stdout.pipe(process.stdout);
+  child.stderr.pipe(process.stderr);
+}
+
+/**
+ * Main.
+ */
 module.exports = function(opts) {
   opts = opts || {};
 
@@ -31,7 +44,7 @@ module.exports = function(opts) {
     ]
   };
 
-  var compiler = webpack(config);
+  var compiler = webpack(_.extend({}, config, opts.config));
 
   // Starting to watch
   var running = false,
@@ -45,9 +58,7 @@ module.exports = function(opts) {
     if (!running) {
       child = spawn('node', [path.join('.kotatsu', 'bundle.js')]);
 
-      child.stdout.on('data', function(data) {
-        console.log(data.toString('utf-8').replace(/\n$/, ''));
-      });
+      rewire(child);
 
       running = true;
     }

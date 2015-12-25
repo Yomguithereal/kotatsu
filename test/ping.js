@@ -6,6 +6,8 @@ if (module.hot) {
   });
 }
 
+var fn = () => true;
+
 setInterval(function() {
   console.log(dummy);
 }, 1000);
