@@ -25,7 +25,9 @@ module.exports = function(opts) {
       filename: 'bundle.js'
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
     ]
   };
 
@@ -41,7 +43,7 @@ module.exports = function(opts) {
 
     // Running the script
     if (!running) {
-      child = spawn('node', [path.join(__dirname, '.kotatsu', 'bundle.js')]);
+      child = spawn('node', [path.join('.kotatsu', 'bundle.js')]);
 
       child.stdout.on('data', function(data) {
         console.log(data.toString('utf-8').replace(/\n$/, ''));
@@ -60,7 +62,7 @@ module.exports = function(opts) {
   function cleanup(isSignal) {
     if (child)
       child.kill();
-    rmrf.sync(path.join(__dirname, '.kotatsu'));
+    rmrf.sync(path.join('.kotatsu'));
 
     if (isSignal)
       process.exit();
