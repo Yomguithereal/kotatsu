@@ -42,10 +42,15 @@ module.exports = function(opts) {
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    module: {
+
+      // NOTE: popular node libraries issues handling
+      noParse: /node_modules\/json-schema\/lib\/validate\.js/
+    }
   };
 
-  var compiler = webpack(_.extend({}, config, opts.config));
+  var compiler = webpack(_.merge({}, config, opts.config));
 
   // Starting to watch
   var running = false,
