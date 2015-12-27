@@ -1,1 +1,1 @@
-module.exports = 'pong';
+module.exports = 'ping';

@@ -38,9 +38,6 @@ module.exports = function(opts) {
     complete: '='
   });
 
-  // TODO: configurable
-  // TODO: file location
-
   // Variables
   var running = false,
       child;
@@ -124,17 +121,21 @@ module.exports = function(opts) {
   });
 
   // Cleaning up on exit
-  function cleanup(isSignal) {
+  process.on('SIGINT', function() {
     if (child)
       child.kill();
+
     rmrf.sync(base);
 
-    if (isSignal)
-      process.exit();
-  }
+    process.exit();
+  });
 
-  process.on('exit', cleanup.bind(null, false));
-  process.on('SIGINT', cleanup.bind(null, true));
+  process.on('exit', function() {
+    if (child)
+      child.kill();
+
+    rmrf.sync(base);
+  });
 
   return watcher;
 };
