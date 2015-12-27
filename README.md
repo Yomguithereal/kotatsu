@@ -6,6 +6,16 @@ A typical use case for this tool would be to setup a comfortable environment to 
 
 It uses [webpack](https://webpack.github.io/docs/)'s HMR under the hood to perform its magic.
 
+## Summary
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Express example](#express-example)
+* [Node API](#node-api)
+* [What on earth is a kotatsu?](#explanation)
+* [Inspiration](#inspiration)
+* [License](#license)
+
 ## Installation
 
 Kotatsu can be installed globally or within your node.js project using npm:
@@ -120,7 +130,28 @@ Launching our app with HMR so we can work comfortably.
 kotatsu --source-maps --config webpack.config.js ./start.js
 ```
 
-## What on earth is a kotatsu?
+## Node API
+
+The kotatsu function takes a single parameter object having the following keys:
+
+* **entry** [required] *string*: Path towards the entry.
+* **cwd** *string*: current working directory.
+* **config** *object*: a webpack config object.
+* **output** *string*: path of the directory where built files will be written.
+* **sourcemaps** *boolean* [`false`]: should it compute sourcemaps?
+
+*Example*
+
+```js
+var kotatsu = require('kotatsu');
+
+var watcher = kotatsu({
+  entry: 'script.js',
+  sourcemaps: true
+})
+```
+
+<h2 id="explanation">What on earth is a kotatsu?</h2>
 
 A [kotatsu](https://en.wikipedia.org/wiki/Kotatsu) is a low Japanase table covered by a heavy blanket with an underneath heat source that keeps you warm in the cold season.
 
