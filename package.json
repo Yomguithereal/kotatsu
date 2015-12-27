@@ -9,7 +9,7 @@
   "scripts": {
     "ping": "./cli.js -s -c ./test/config.js ./test/ping/ping.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "thrower": "./cli.js -s -c ./test/config.js ./test/sourcemaps/thrower.js"
+    "thrower": "./cli.js -s -c ./test/config.js ./test/thrower.js"
   },
   "repository": {
     "type": "git",

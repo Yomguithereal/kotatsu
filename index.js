@@ -91,6 +91,11 @@ module.exports = function(opts) {
 
   var compiler = webpack(_.merge({}, opts.config, config));
 
+  // Creating a cleanup function
+  var cleanup = function() {
+    rmrf.sync(base);
+  }
+
   // Announcing
   console.log(chalk.yellow('Kotatsu ') + '(v' + pkg.version + ')');
 
@@ -111,6 +116,12 @@ module.exports = function(opts) {
         gid: process.getgid()
       });
 
+      // Listening to child's exit
+      child.on('exit', function() {
+        cleanup();
+        process.exit();
+      });
+
       running = true;
     }
     else {
@@ -125,7 +136,7 @@ module.exports = function(opts) {
     if (child)
       child.kill();
 
-    rmrf.sync(base);
+    cleanup();
 
     process.exit();
   });
@@ -134,7 +145,7 @@ module.exports = function(opts) {
     if (child)
       child.kill();
 
-    rmrf.sync(base);
+    cleanup();
   });
 
   return watcher;
