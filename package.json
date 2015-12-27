@@ -7,6 +7,7 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
+    "ping": "./cli.js --config ./test/config.js ./test/ping.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,7 +32,9 @@
   },
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
+    "chalk": "^1.1.1",
     "lodash": "^3.10.1",
+    "progress": "^1.1.8",
     "rimraf": "^2.5.0",
     "webpack": "^1.12.9",
     "yargs": "^3.31.0"

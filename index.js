@@ -3,30 +3,38 @@
  * ================
  *
  */
-var webpack = require('webpack'),
-    spawn =  require('child_process').spawn,
+var ProgressBar = require('progress'),
+    webpack = require('webpack'),
+    chalk = require('chalk'),
+    fork =  require('child_process').fork,
     rmrf = require('rimraf'),
     path = require('path'),
     _ = require('lodash');
 
 /**
- * Helpers.
- */
-function rewire(child) {
-
-  child.stdout.pipe(process.stdout);
-  child.stderr.pipe(process.stderr);
-}
-
-/**
  * Main.
  */
 module.exports = function(opts) {
-  opts = opts || {};
+  opts = _.cloneDeep(opts) || {};
 
-  var base = path.join(process.cwd(), '.kotatsu');
+  // Handling defaults
+  if (!opts.cwd)
+    opts.cwd = process.cwd();
 
-  // TODO: Poll or signal?
+  // Integrity of the options
+  if (!opts.entry)
+    throw Error('kotatsu: no entry provided.');
+
+  var base = path.join(opts.cwd, '.kotatsu');
+
+  // Creating the progress bar
+  var fmt = 'Compiling - [:bar] :percent ';
+  var bar = new ProgressBar(fmt, {
+    total: 30,
+    width: 30,
+    incomplete: ' '
+  });
+
   // TODO: configurable
   // TODO: file location
   var config = {
@@ -41,7 +49,11 @@ module.exports = function(opts) {
     },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.ProgressPlugin(function(percent, message) {
+        bar.fmt = fmt + message;
+        bar.update(percent);
+      })
     ],
     module: {
 
@@ -62,15 +74,17 @@ module.exports = function(opts) {
 
     // Running the script
     if (!running) {
-      child = spawn('node', [path.join(base, 'bundle.js')]);
-
-      rewire(child);
+      child = fork(path.join(base, 'bundle.js'), [], {
+        uid: process.getuid(),
+        gid: process.getgid()
+      });
 
       running = true;
     }
     else {
 
       // TODO: replace this by custom handling through messages
+      // TODO: need to fork then
       child.kill('SIGUSR2');
     }
   });
