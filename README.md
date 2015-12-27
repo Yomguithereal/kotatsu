@@ -93,14 +93,13 @@ if (module.hot) {
 }
 ```
 
-*4. Creating a webpack config*
+**4. Creating a webpack config**
 
 ```js
 // file: webpack.config.js
 
 // express modules use .json files and we should tell webpack to load them
-// note that this is here that one should add a `babel` loader to use ES2015, for instance.
-
+// note that this is where one should add a `babel` loader to use ES2015, for instance.
 module.exports = {
   module: {
     loaders: {
@@ -113,12 +112,12 @@ module.exports = {
 
 For more information about this part, see webpack's [docs](https://webpack.github.io/docs/).
 
-*5. Using kotatsu*
+**5. Using kotatsu**
 
 Launching our app with HMR so we can work comfortably.
 
 ```bash
-kotastu --source-maps --config webpack.config.js ./start.js
+kotatsu --source-maps --config webpack.config.js ./start.js
 ```
 
 ## What on earth is a kotatsu?
