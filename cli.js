@@ -22,7 +22,7 @@ var argv = require('yargs')
   })
   .option('o', {
     alias: 'output',
-    describe: 'Optional output directory where built files should be written.'
+    describe: 'Optional output directory where built files should be written (DO NOT use an existing directory because it will be erased).'
   })
   .option('s', {
     alias: 'sourcemaps',
