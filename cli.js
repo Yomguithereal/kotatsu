@@ -19,6 +19,12 @@ var argv = require('yargs')
     alias: 'config',
     describe: 'Optional webpack config that will be merged with kotatsu\'s one (useful if you need specific loaders).'
   })
+  .option('s', {
+    alias: 'sourcemaps',
+    describe: 'Should source maps be computed for easier debugging?',
+    type: 'boolean',
+    default: false
+  })
 
   // Help
   .help('h')
@@ -33,5 +39,6 @@ if (argv.config)
 
 var watcher = kotatsu({
   entry: entry,
-  config: config
+  config: config,
+  sourcemaps: argv.sourcemaps
 });

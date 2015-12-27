@@ -7,8 +7,9 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
-    "ping": "./cli.js --config ./test/config.js ./test/ping.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ping": "./cli.js --config ./test/config.js ./test/ping/ping.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "thrower": "./cli.js -s -c ./test/config.js ./test/sourcemaps/thrower.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "lodash": "^3.10.1",
     "progress": "^1.1.8",
     "rimraf": "^2.5.0",
+    "source-map-support": "^0.4.0",
     "webpack": "^1.12.9",
     "yargs": "^3.31.0"
   },

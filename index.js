@@ -83,7 +83,16 @@ module.exports = function(opts) {
     }
   };
 
-  var compiler = webpack(_.merge({}, config, opts.config));
+  // Sourcemaps?
+  if (opts.sourcemaps) {
+    config.devtool = 'source-map';
+    config.plugins.push(new webpack.BannerPlugin('require(\'source-map-support\').install();', {
+      raw: true,
+      entryOnly: false
+    }))
+  }
+
+  var compiler = webpack(_.merge({}, opts.config, config));
 
   // Announcing
   console.log(chalk.yellow('Kotatsu ') + '(v' + pkg.version + ')');
