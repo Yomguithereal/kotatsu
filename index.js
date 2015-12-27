@@ -68,7 +68,8 @@ module.exports = function(opts) {
     },
     output: {
       path: base,
-      filename: 'bundle.js'
+      filename: 'bundle.js',
+      devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
@@ -134,9 +135,13 @@ module.exports = function(opts) {
       });
 
       // Listening to child's exit
-      child.on('exit', function() {
+      child.on('exit', function(code) {
         cleanup();
-        process.exit();
+
+        // Waiting for changes to reload
+        log('error', 'The script crashed. Waiting for changes to reload...');
+        running = false;
+        child = null;
       });
 
       running = true;

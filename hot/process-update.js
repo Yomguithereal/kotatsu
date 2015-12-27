@@ -48,7 +48,7 @@ module.exports = function(hash, moduleMap, options) {
       if (err) return handleError(err);
 
       if (!updatedModules) {
-        log('warn', 'Cannot find update (Full reload needed)');
+        log('warning', 'Cannot find update (Full reload needed)');
         return;
       }
 
