@@ -5,6 +5,7 @@
  */
 var ProgressBar = require('progress'),
     webpack = require('webpack'),
+    pkg = require('./package.json'),
     chalk = require('chalk'),
     fork =  require('child_process').fork,
     rmrf = require('rimraf'),
@@ -32,11 +33,18 @@ module.exports = function(opts) {
   var bar = new ProgressBar(fmt, {
     total: 30,
     width: 30,
-    incomplete: ' '
+    incomplete: ' ',
+    complete: '='
   });
 
   // TODO: configurable
   // TODO: file location
+
+  // Variables
+  var running = false,
+      child;
+
+  // Creating the webpack compiler
   var config = {
     entry: [
       'webpack/hot/signal',
@@ -51,6 +59,9 @@ module.exports = function(opts) {
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.ProgressPlugin(function(percent, message) {
+        if (running)
+          return;
+
         bar.fmt = fmt + message;
         bar.update(percent);
       })
@@ -64,16 +75,21 @@ module.exports = function(opts) {
 
   var compiler = webpack(_.merge({}, config, opts.config));
 
-  // Starting to watch
-  var running = false,
-      child;
+  // Announcing
+  console.log(chalk.yellow('Kotatsu ') + '(v' + pkg.version + ')');
 
+  // Starting to watch
   var watcher = compiler.watch(100, function(err, stats) {
     if (err)
       return console.error(err);
 
     // Running the script
     if (!running) {
+
+      // Announcing we are done!
+      console.log(chalk.green('Done!'));
+      console.log('Starting your script...\n');
+
       child = fork(path.join(base, 'bundle.js'), [], {
         uid: process.getuid(),
         gid: process.getgid()
