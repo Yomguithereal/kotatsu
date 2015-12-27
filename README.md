@@ -23,15 +23,15 @@ npm install --save-dev kotatsu
 Usage: kotatsu {options} [entry]
 
 Options:
-  -c, --config       Optional webpack config that will be merged with kotatsu's
-                     one (useful if you need specific loaders).
-  -o, --output       Optional output directory where built files should be
-                     written (DO NOT use an existing directory because it will
-                     be erased).
-  -s, --source-maps  Should source maps be computed for easier debugging?
-                                                      [boolean] [default: false]
-  -h, --help         Show help                                         [boolean]
+  -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
+                     need specific loaders).
+  -o, --output       Optional output directory where built files should be written (DO NOT use an
+                     existing directory because it will be erased).
+  -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
+  -h, --help         Show help                                                             [boolean]
 ```
+
+*Examples*
 
 ```bash
 kotatsu script.js
