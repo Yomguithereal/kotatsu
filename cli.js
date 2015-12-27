@@ -25,7 +25,7 @@ var argv = require('yargs')
     describe: 'Optional output directory where built files should be written (DO NOT use an existing directory because it will be erased).'
   })
   .option('s', {
-    alias: 'sourcemaps',
+    alias: 'source-maps',
     describe: 'Should source maps be computed for easier debugging?',
     type: 'boolean',
     default: false
