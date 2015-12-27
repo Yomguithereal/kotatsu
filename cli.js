@@ -3,6 +3,7 @@
  * Kotatsu CLI
  * ============
  *
+ * The CLI tool that will call the lib's function.
  */
 var kotatsu = require('./index.js'),
     path = require('path');

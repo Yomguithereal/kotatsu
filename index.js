@@ -2,6 +2,7 @@
  * Kotatsu Library
  * ================
  *
+ * The main function responsible of the table's heating.
  */
 var ProgressBar = require('progress'),
     webpack = require('webpack'),
@@ -47,7 +48,7 @@ module.exports = function(opts) {
   // Creating the webpack compiler
   var config = {
     entry: [
-      'webpack/hot/signal',
+      path.join(__dirname, 'hot.js'),
       opts.entry
     ],
     target: 'node',
@@ -99,9 +100,8 @@ module.exports = function(opts) {
     }
     else {
 
-      // TODO: replace this by custom handling through messages
-      // TODO: need to fork then
-      child.kill('SIGUSR2');
+      // Notify the child
+      child.send({__hmrUpdate: true});
     }
   });
 
