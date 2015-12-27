@@ -5,8 +5,24 @@
  *
  */
 var kotatsu = require('./index.js'),
-    path = require('path'),
-    argv = require('yargs').argv;
+    path = require('path');
+
+// Building the CLI
+var argv = require('yargs')
+  .locale('en')
+  .usage('Usage: kotatsu {options} [entry]')
+  .demand(1)
+
+  // Options
+  .option('c', {
+    alias: 'config',
+    describe: 'Optional webpack config that will be merged with kotatsu\'s one (useful if you need specific loaders).'
+  })
+
+  // Help
+  .help('h')
+  .alias('h', 'help')
+  .argv;
 
 var entry = argv._[0],
     config = {};
@@ -14,4 +30,7 @@ var entry = argv._[0],
 if (argv.config)
   config = require(path.join(process.cwd(), argv.config));
 
-var watcher = kotatsu({entry: entry, config: config});
+var watcher = kotatsu({
+  entry: entry,
+  config: config
+});
