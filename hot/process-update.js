@@ -4,7 +4,7 @@
  *
  * Processing the HMR updates.
  */
-var chalk = require('chalk');
+var log = require('../helpers.js').log;
 
 if (!module.hot)
   throw Error('[kotatsu]: Hot Module Replacement is disabled.');
@@ -12,13 +12,6 @@ if (!module.hot)
 /**
  * Constants.
  */
-var LOG_COLORS = {
-  info: 'blue',
-  success: 'green',
-  warning: 'yellow',
-  error: 'red'
-};
-
 var FAILURE_STATUSES = {
   abort: true,
   fail: true
@@ -40,14 +33,6 @@ function upToDate(hash) {
   if (hash)
     lastHash = hash;
   return lastHash === __webpack_hash__;
-}
-
-function log(status, lines) {
-  lines = [].concat(lines).map(function(line) {
-    return '[' + chalk[LOG_COLORS[status]]('kotatsu') + '] ' + line;
-  });
-
-  console.log(lines.join('\n'));
 }
 
 /**
@@ -105,7 +90,7 @@ module.exports = function(hash, moduleMap, options) {
     if (unacceptedModules.length > 0) {
       log('warning', 'The following modules couldn\'t be hot updated: (They would need a full reload!)');
       log('warning', unacceptedModules.map(function(moduleId) {
-        return '  - ' + moduleId;
+        return '  - ' + moduleMap[moduleId] || moduleId;
       }));
     }
 
@@ -114,7 +99,7 @@ module.exports = function(hash, moduleMap, options) {
 
     log('success', 'Updated modules:');
     log('success', renewedModules.map(function(moduleId) {
-      return '  - ' + moduleId;
+      return '  - ' + moduleMap[moduleId] || moduleId;
     }));
   }
 

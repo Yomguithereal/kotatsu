@@ -7,11 +7,19 @@
 var ProgressBar = require('progress'),
     webpack = require('webpack'),
     pkg = require('./package.json'),
+    log = require('./helpers.js').log,
     chalk = require('chalk'),
     fork =  require('child_process').fork,
     rmrf = require('rimraf'),
     path = require('path'),
     _ = require('lodash');
+
+/**
+ * Helpers.
+ */
+function message(data) {
+  return _.extend({__hmrUpdate: true}, data);
+}
 
 /**
  * Main.
@@ -94,7 +102,13 @@ module.exports = function(opts) {
   // Creating a cleanup function
   var cleanup = function() {
     rmrf.sync(base);
-  }
+  };
+
+  // Hooking into the compiler
+  compiler.plugin('compile', function() {
+    if (running)
+      log('info', 'Bundle rebuilding...');
+  });
 
   // Announcing
   console.log(chalk.yellow('Kotatsu ') + '(v' + pkg.version + ')');
@@ -103,6 +117,8 @@ module.exports = function(opts) {
   var watcher = compiler.watch(100, function(err, stats) {
     if (err)
       return console.error(err);
+
+    stats = stats.toJson();
 
     // Running the script
     if (!running) {
@@ -126,8 +142,16 @@ module.exports = function(opts) {
     }
     else {
 
+      log('info', 'Built in ' + stats.time + 'ms.');
+
+      // Building module map
+      var map = {};
+      stats.modules.forEach(function(m) {
+        map[m.id] = m.name
+      });
+
       // Notify the child
-      child.send({__hmrUpdate: true, hash: stats.hash});
+      child.send(message({hash: stats.hash, modules: map}));
     }
   });
 

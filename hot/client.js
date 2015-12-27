@@ -25,5 +25,5 @@ process.on('message', function(data) {
     return;
   }
 
-  processUpdate(data.hash);
+  processUpdate(data.hash, data.modules || {});
 });
