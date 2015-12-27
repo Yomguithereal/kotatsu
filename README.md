@@ -1,6 +1,6 @@
 # kotatsu
 
-**kotatsu** is straightforward CLI tool aiming at running your server-side node.js code in a [HMR](https://webpack.github.io/docs/hot-module-replacement.html) (Hot Module Replacement) environment.
+**kotatsu** is a straightforward CLI tool aiming at running your server-side node.js code in a [HMR](https://webpack.github.io/docs/hot-module-replacement.html) (Hot Module Replacement) environment.
 
 A typical use case for this tool would be to setup a comfortable environment to develop an [express](http://expressjs.com/) API, for instance.
 
@@ -32,8 +32,6 @@ Options:
   -h, --help         Show help                                                             [boolean]
 ```
 
-If this is your first time using **kotatsu**, you should really read the express part below to have a full example on how you might integrate this tool in your project.
-
 *Examples*
 
 ```bash
@@ -45,6 +43,8 @@ kotastu --config webpack.config.js script.js
 # Source map support
 kotatsu --source-maps script.js
 ```
+
+If this is your first time using **kotatsu**, you should really read the express part below to have a full example on how you might integrate this tool in your project.
 
 ## Express example
 
