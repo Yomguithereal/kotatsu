@@ -45,7 +45,7 @@ module.exports = function(opts) {
   // Creating the webpack compiler
   var config = {
     entry: [
-      path.join(__dirname, 'hot.js'),
+      path.join(__dirname, 'hot', 'client.js'),
       opts.entry
     ],
     target: 'node',
@@ -116,7 +116,7 @@ module.exports = function(opts) {
     else {
 
       // Notify the child
-      child.send({__hmrUpdate: true});
+      child.send({__hmrUpdate: true, hash: stats.hash});
     }
   });
 
