@@ -48,7 +48,7 @@ Options:
 kotatsu script.js
 
 # Needing some more configuration e.g. for loaders
-kotastu --config webpack.config.js script.js
+kotatsu --config webpack.config.js script.js
 
 # Source map support
 kotatsu --source-maps script.js
