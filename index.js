@@ -27,7 +27,7 @@ module.exports = function(opts) {
   if (!opts.entry)
     throw Error('kotatsu: no entry provided.');
 
-  var base = path.join(opts.cwd, '.kotatsu');
+  var base = path.resolve(opts.cwd, opts.output || '.kotatsu');
 
   // Creating the progress bar
   var fmt = 'Compiling - [:bar] :percent ';
