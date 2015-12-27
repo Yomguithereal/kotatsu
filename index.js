@@ -79,7 +79,8 @@ module.exports = function(opts) {
 
         bar.fmt = fmt + message;
         bar.update(percent);
-      })
+      }),
+      new webpack.NoErrorsPlugin()
     ],
     module: {
 
@@ -150,8 +151,20 @@ module.exports = function(opts) {
         map[m.id] = m.name
       });
 
+      var errors = stats.errors || [],
+          warnings = stats.warnings || [];
+
+      // TODO: handle errors
+      // TODO: handle child script exiting because of error
+
       // Notify the child
-      child.send(message({hash: stats.hash, modules: map}));
+      if (errors.length || warnings.length)
+        return;
+
+      child.send(message({
+        hash: stats.hash,
+        modules: map
+      }));
     }
   });
 

@@ -4,7 +4,8 @@
  *
  * The library's take on Webpack's client hot loading logic.
  */
-var processUpdate = require('./process-update.js');
+var processUpdate = require('./process-update.js'),
+    log = require('../helpers.js').log;
 
 if (!module.hot)
   throw Error('[kotatsu]: Hot Module Replacement is disabled.');
@@ -25,5 +26,5 @@ process.on('message', function(data) {
     return;
   }
 
-  processUpdate(data.hash, data.modules || {});
+  return processUpdate(data.hash, data.modules || {});
 });
