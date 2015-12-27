@@ -91,8 +91,10 @@ module.exports = function(opts) {
 
   // Sourcemaps?
   if (opts.sourcemaps) {
+    var sourceMapModulePath = require.resolve('source-map-support');
+
     config.devtool = 'source-map';
-    config.plugins.push(new webpack.BannerPlugin('require(\'source-map-support\').install();', {
+    config.plugins.push(new webpack.BannerPlugin('require(\'' + sourceMapModulePath + '\').install();', {
       raw: true,
       entryOnly: false
     }))
