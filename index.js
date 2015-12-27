@@ -80,8 +80,7 @@ module.exports = function(opts) {
 
         bar.fmt = fmt + message;
         bar.update(percent);
-      }),
-      new webpack.NoErrorsPlugin()
+      })
     ],
     module: {
 
@@ -159,13 +158,11 @@ module.exports = function(opts) {
       var errors = stats.errors || [],
           warnings = stats.warnings || [];
 
-      // TODO: handle errors
-      // TODO: handle child script exiting because of error
+      // TODO: handle compilation errors?
+      // if (errors.length || warnings.length)
+      //   return;
 
       // Notify the child
-      if (errors.length || warnings.length)
-        return;
-
       child.send(message({
         hash: stats.hash,
         modules: map

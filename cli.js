@@ -6,7 +6,8 @@
  * The CLI tool that will call the lib's function.
  */
 var kotatsu = require('./index.js'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 // Building the CLI
 var argv = require('yargs')
@@ -38,9 +39,25 @@ var argv = require('yargs')
 var entry = argv._[0],
     config = {};
 
+// Should we load a config file?
 if (argv.config)
   config = require(path.join(process.cwd(), argv.config));
 
+// Ensuring that our entry exists
+try {
+  var stats = fs.lstatSync(entry);
+}
+catch (e) {
+  console.error('Entry file does not exist:', entry);
+  process.exit(1);
+}
+
+if (!stats.isFile()) {
+  console.error('Entry file does not exist:', entry);
+  process.exit(1);
+}
+
+// Creating the watcher
 var watcher = kotatsu({
   cwd: process.cwd(),
   entry: entry,
