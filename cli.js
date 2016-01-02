@@ -7,6 +7,7 @@
  */
 var kotatsu = require('./index.js'),
     path = require('path'),
+    pkg = require('./package.json'),
     fs = require('fs');
 
 // Building the CLI
@@ -32,12 +33,15 @@ var argv = require('yargs')
   })
 
   // Help
+  .version(pkg.version)
   .help('h')
   .alias('h', 'help')
   .argv;
 
 var entry = argv._[0],
     config = {};
+
+// Version?
 
 // Should we load a config file?
 if (argv.config)
