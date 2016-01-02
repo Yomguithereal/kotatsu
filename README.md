@@ -39,6 +39,8 @@ Options:
   -o, --output       Optional output directory where built files should be written (DO NOT use an
                      existing directory because it will be erased).
   -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
+
+  --version          Show version number                                                   [boolean]
   -h, --help         Show help                                                             [boolean]
 ```
 
