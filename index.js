@@ -62,8 +62,8 @@ module.exports = function(opts) {
       global: false,
       process: false,
       Buffer: false,
-      __filename: false,
-      __dirname: false,
+      __filename: true,
+      __dirname: true,
       setImmediate: false
     },
     output: {
