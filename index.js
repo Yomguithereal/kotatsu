@@ -108,7 +108,7 @@ module.exports = function(opts) {
 
   loaders.push({
     test: /\.json$/,
-    loader: 'json'
+    loader: require.resolve('json-loader')
   });
 
   config.module.loaders = loaders;
