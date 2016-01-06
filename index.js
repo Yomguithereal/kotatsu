@@ -100,6 +100,9 @@ module.exports = function(opts) {
     }))
   }
 
+  // Merging with user's config
+  config = _.merge({}, opts.config, config);
+
   // JSON loader
   var loaders = config.module.loaders || [];
 
@@ -110,7 +113,8 @@ module.exports = function(opts) {
 
   config.module.loaders = loaders;
 
-  var compiler = webpack(_.merge({}, opts.config, config));
+  // Creating the compiler
+  var compiler = webpack(config);
 
   // Creating a cleanup function
   var cleanup = function() {
