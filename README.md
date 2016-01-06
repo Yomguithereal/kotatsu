@@ -115,7 +115,7 @@ kotatsu ./start.js
 
 ## ES2015 example
 
-To compile your ES2O15, you can optionally pass a webpack config to kotatsu to use any needed loaders.
+To compile your ES2015 code, you can optionally pass a webpack config to kotatsu to tweak its compiler and use any needed loaders.
 
 ```bash
 npm install --save-dev babel-core babel-loader babel-preset-es2015
