@@ -61,10 +61,12 @@ if (!stats.isFile()) {
   process.exit(1);
 }
 
+var cwd = process.cwd();
+
 // Creating the watcher
 var watcher = kotatsu({
-  cwd: process.cwd(),
-  entry: entry,
+  cwd: cwd,
+  entry: path.resolve(cwd, entry),
   config: config,
   output: argv.output,
   sourcemaps: argv.sourcemaps
