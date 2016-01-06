@@ -41,8 +41,6 @@ var argv = require('yargs')
 var entry = argv._[0],
     config = {};
 
-// Version?
-
 // Should we load a config file?
 if (argv.config)
   config = require(path.join(process.cwd(), argv.config));
