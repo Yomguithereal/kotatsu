@@ -66,7 +66,7 @@ Let's setup a quick hot-reloaded express app:
 
 ```bash
 npm i --save express
-npm i --save-dev kotatsu json-loader
+npm i --save-dev kotatsu
 ```
 
 **2. Creating our app**
@@ -105,32 +105,45 @@ if (module.hot) {
 }
 ```
 
-**4. Creating a webpack config**
-
-```js
-// file: webpack.config.js
-
-// express modules use .json files and we should tell webpack to load them
-// note that this is where one should add a `babel` loader to use ES2015, for instance.
-module.exports = {
-  module: {
-    loaders: {
-      test: /\.json$/,
-      loader: 'json'
-    }
-  }
-}
-```
-
-For more information about this part, see webpack's [docs](https://webpack.github.io/docs/).
-
-**5. Using kotatsu**
+**4. Using kotatsu**
 
 Launching our app with HMR so we can work comfortably.
 
 ```bash
-kotatsu --source-maps --config webpack.config.js ./start.js
+kotatsu ./start.js
 ```
+
+## ES2015 example
+
+To compile your ES2O15, you can optionally pass a webpack config to kotatsu to use any needed loaders.
+
+```bash
+npm install --save-dev babel-core babel-loader babel-preset-es2015
+```
+
+```js
+// file: webpack.config.js
+module.exports = {
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015']
+        }
+      }
+    ]
+  }
+}
+```
+
+```bash
+kotatsu --source-maps --config webpack.config.js ./es2015-script.js
+```
+
+For more information about this part, see webpack's [docs](https://webpack.github.io/docs/).
 
 ## Node API
 

@@ -7,7 +7,7 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
-    "express": "./cli.js -s -c ./test/config.js -o .express ./test/express/start.js",
+    "express": "./cli.js -s -o .express ./test/express/start.js",
     "ping": "./cli.js -s -c ./test/config.js ./test/ping/ping.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "thrower": "./cli.js -s -c ./test/config.js ./test/thrower.js"
@@ -35,6 +35,7 @@
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
     "chalk": "^1.1.1",
+    "json-loader": "^0.5.4",
     "lodash": "^3.10.1",
     "progress": "^1.1.8",
     "rimraf": "^2.5.0",
@@ -46,7 +47,6 @@
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
-    "express": "^4.13.3",
-    "json-loader": "^0.5.4"
+    "express": "^4.13.3"
   }
 }

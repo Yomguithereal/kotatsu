@@ -100,6 +100,16 @@ module.exports = function(opts) {
     }))
   }
 
+  // JSON loader
+  var loaders = config.module.loaders || [];
+
+  loaders.push({
+    test: /\.json$/,
+    loader: 'json'
+  });
+
+  config.module.loaders = loaders;
+
   var compiler = webpack(_.merge({}, opts.config, config));
 
   // Creating a cleanup function
