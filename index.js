@@ -123,6 +123,17 @@ module.exports = function(opts) {
 
     stats = stats.toJson();
 
+    // Errors?
+    var errors = stats.errors || [];
+
+    if (errors.length) {
+      errors.forEach(function(error) {
+        console.error(chalk.red(error));
+      });
+
+      return;
+    }
+
     // Running the script
     if (!running) {
 
@@ -156,13 +167,6 @@ module.exports = function(opts) {
       stats.modules.forEach(function(m) {
         map[m.id] = m.name
       });
-
-      var errors = stats.errors || [],
-          warnings = stats.warnings || [];
-
-      // TODO: handle compilation errors?
-      // if (errors.length || warnings.length)
-      //   return;
 
       // Notify the child
       child.send(message({
