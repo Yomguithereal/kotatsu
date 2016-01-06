@@ -1,6 +1,6 @@
 {
   "name": "kotatsu",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Straightforward command line tool to setup server-side HMR with Webpack.",
   "main": "index.js",
   "bin": {
