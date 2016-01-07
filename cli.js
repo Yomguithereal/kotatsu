@@ -6,12 +6,13 @@
  * The CLI tool that will call the lib's function.
  */
 var kotatsu = require('./index.js'),
+    yargs = require('yargs'),
     path = require('path'),
     pkg = require('./package.json'),
     fs = require('fs');
 
 // Building the CLI
-var argv = require('yargs')
+var argv = yargs
   .locale('en')
   .usage('Usage: kotatsu {options} [entry]')
   .demand(1)
@@ -31,8 +32,22 @@ var argv = require('yargs')
     type: 'boolean',
     default: false
   })
+  .option('client-side', {
+    describe: 'Should kotatsu setup client-side HMR rather than server-side?',
+    type: 'boolean',
+    default: false
+  })
+  .option('i', {
+    alias: 'index',
+    describe: 'Which HTML index file should we serve? If not provided, kotatsu will generate a basic one for you.'
+  })
 
-  // Help
+  // Examples
+  .example('kotatsu ./script.js', 'Launching the given script with HMR.')
+  .example('kotatsu -c webpack.config.js ./script.js', 'Using a specific webpack config.')
+  .example('kotatsu --source-maps ./script.js', 'Computing source maps.')
+
+  // Help & Version
   .version(pkg.version)
   .help('h')
   .alias('h', 'help')
