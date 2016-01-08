@@ -18,11 +18,10 @@ var createCompiler = require('./src/createCompiler.js'),
  */
 var DEFAULTS = {
   cwd: process.cwd(),
-  command: 'start',
   config: null,
   index: null,
   mountNode: 'app',
-  progress: true,
+  progress: false,
   output: '.kotatsu',
   sourcemaps: false,
 };
@@ -30,6 +29,10 @@ var DEFAULTS = {
 /**
  * Helpers.
  */
+function announce() {
+  logger.info('(v' + pkg.version + ')');
+}
+
 function message(data) {
   return _.extend({__hmrUpdate: true}, data);
 }
@@ -39,10 +42,12 @@ function defaultsPolicy(value, other) {
 }
 
 /**
- * Main.
+ * Start a long-living node.js process:
  */
-module.exports = function(opts) {
+function start(opts) {
   opts = _.extend({}, DEFAULTS, opts, defaultsPolicy);
+
+  opts.command = 'start';
 
   // Ensuring we do have an entry
   if (!opts.entry)
@@ -70,7 +75,10 @@ module.exports = function(opts) {
   });
 
   // Announcing
-  logger.info(chalk.yellow('Kotatsu') + '(v' + pkg.version + ')', {plain: true});
+  announce();
+
+  if (!opts.progress)
+    logger.info('Compiling...');
 
   // Starting to watch
   var watcher = compiler.watch(100, function(err, stats) {
@@ -156,4 +164,11 @@ module.exports = function(opts) {
   });
 
   return watcher;
+};
+
+/**
+ * Exporting
+ */
+module.exports = {
+  start: start
 };

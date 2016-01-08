@@ -50,13 +50,16 @@ module.exports = function createCompiler(opts) {
     node: NODE_ENVIRONMENT,
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      progress()
+      new webpack.HotModuleReplacementPlugin()
     ],
     module: {
       noParse: NO_PARSE
     }
   };
+
+  // Should we display a progress bar?
+  if (opts.progress)
+    config.plugins.push(progress());
 
   // Do we want sourcemaps
   if (opts.sourcemaps) {
