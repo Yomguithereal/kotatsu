@@ -41,6 +41,7 @@
     "rimraf": "^2.5.0",
     "source-map-support": "^0.4.0",
     "webpack": "^1.12.9",
+    "winston": "^2.1.1",
     "yargs": "^3.31.0"
   },
   "devDependencies": {

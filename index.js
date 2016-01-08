@@ -4,15 +4,28 @@
  *
  * The main function responsible of the table's heating.
  */
-var ProgressBar = require('progress'),
-    webpack = require('webpack'),
+var createCompiler = require('./src/createCompiler.js'),
+    logger = require('./src/logger.js'),
     pkg = require('./package.json'),
-    log = require('./helpers.js').log,
     chalk = require('chalk'),
     fork =  require('child_process').fork,
     rmrf = require('rimraf'),
     path = require('path'),
     _ = require('lodash');
+
+/**
+ * Constants.
+ */
+var DEFAULTS = {
+  cwd: process.cwd(),
+  config: {},
+  index: null,
+  mountNode: 'app',
+  progress: true,
+  output: '.kotatsu',
+  side: 'back-end',
+  sourcemaps: false,
+};
 
 /**
  * Helpers.
@@ -21,120 +34,49 @@ function message(data) {
   return _.extend({__hmrUpdate: true}, data);
 }
 
+function defaultsPolicy(value, other) {
+  return value === undefined ? other : value;
+}
+
 /**
  * Main.
  */
 module.exports = function(opts) {
-  opts = _.cloneDeep(opts) || {};
+  opts = _.extend({}, DEFAULTS, opts, defaultsPolicy);
 
-  // Handling defaults
-  if (!opts.cwd)
-    opts.cwd = process.cwd();
-
-  // Integrity of the options
+  // Ensuring we do have an entry
   if (!opts.entry)
     throw Error('kotatsu: no entry provided.');
 
-  var base = path.resolve(opts.cwd, opts.output || '.kotatsu');
+  // Creating base path
+  var output = path.resolve(opts.cwd, opts.output);
 
-  // Creating the progress bar
-  var fmt = 'Compiling - [:bar] :percent ';
-  var bar = new ProgressBar(fmt, {
-    total: 30,
-    width: 30,
-    incomplete: ' ',
-    complete: '='
-  });
-
-  // Variables
+  // State
   var running = false,
       child;
 
   // Creating the webpack compiler
-  var config = {
-    entry: [
-      path.join(__dirname, 'hot', 'client.js'),
-      opts.entry
-    ],
-    target: 'node',
-    node: {
-      console: false,
-      global: false,
-      process: false,
-      Buffer: false,
-      __filename: true,
-      __dirname: true,
-      setImmediate: false
-    },
-    output: {
-      path: base,
-      filename: 'bundle.js',
-      devtoolModuleFilenameTemplate: '[absolute-resource-path]'
-    },
-    plugins: [
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.ProgressPlugin(function(percent, message) {
-        if (running)
-          return;
-
-        bar.fmt = fmt + message;
-        bar.update(percent);
-      })
-    ],
-    module: {
-
-      // NOTE: popular node libraries issues handling
-      noParse: /node_modules\/json-schema\/lib\/validate\.js/
-    }
-  };
-
-  // Sourcemaps?
-  if (opts.sourcemaps) {
-    var sourceMapModulePath = require.resolve('source-map-support');
-
-    config.devtool = 'source-map';
-    config.plugins.push(new webpack.BannerPlugin('require(\'' + sourceMapModulePath + '\').install();', {
-      raw: true,
-      entryOnly: false
-    }))
-  }
-
-  // Merging with user's config
-  config = _.merge({}, opts.config, config);
-
-  // JSON loader
-  var loaders = config.module.loaders || [];
-
-  loaders.push({
-    test: /\.json$/,
-    loader: require.resolve('json-loader')
-  });
-
-  config.module.loaders = loaders;
-
-  // Creating the compiler
-  var compiler = webpack(config);
+  var compiler = createCompiler(opts);
 
   // Creating a cleanup function
   var cleanup = function() {
-    rmrf.sync(base);
+    rmrf.sync(output);
   };
 
   // Hooking into the compiler
   compiler.plugin('compile', function() {
     if (running)
-      log('info', 'Bundle rebuilding...');
+      logger.info('Bundle rebuilding...');
   });
 
   // Announcing
-  console.log(chalk.yellow('Kotatsu ') + '(v' + pkg.version + ')');
+  logger.info(chalk.yellow('Kotatsu') + '(v' + pkg.version + ')', {plain: true});
 
   // Starting to watch
   var watcher = compiler.watch(100, function(err, stats) {
-    if (err)
-      return console.error(err);
+    if (err) throw err;
 
+    // Compiling stats to JSON
     stats = stats.toJson();
 
     // Errors?
@@ -142,7 +84,7 @@ module.exports = function(opts) {
 
     if (errors.length) {
       errors.forEach(function(error) {
-        console.error(chalk.red(error));
+        logger.error(error);
       });
 
       return;
@@ -152,10 +94,10 @@ module.exports = function(opts) {
     if (!running) {
 
       // Announcing we are done!
-      console.log(chalk.green('Done!'));
-      console.log('Starting your script...\n');
+      logger.success('Done!');
+      logger.info('Starting your script...\n');
 
-      child = fork(path.join(base, 'bundle.js'), [], {
+      child = fork(path.join(output, 'bundle.js'), [], {
         uid: process.getuid(),
         gid: process.getgid()
       });
@@ -165,7 +107,7 @@ module.exports = function(opts) {
         cleanup();
 
         // Waiting for changes to reload
-        log('error', 'The script crashed. Waiting for changes to reload...');
+        logger.error('The script crashed. Waiting for changes to reload...');
         running = false;
         child = null;
       });
@@ -174,12 +116,12 @@ module.exports = function(opts) {
     }
     else {
 
-      log('info', 'Built in ' + stats.time + 'ms.');
+      logger.info('Built in ' + stats.time + 'ms.');
 
       // Building module map
       var map = {};
       stats.modules.forEach(function(m) {
-        map[m.id] = m.name
+        map[m.id] = m.name;
       });
 
       // Notify the child
