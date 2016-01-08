@@ -29,8 +29,8 @@ var NO_PARSE = /node_modules\/json-schema\/lib\/validate\.js/;
  * Main function.
  */
 module.exports = function createCompiler(opts) {
-  var backEnd = opts.command === 'start',
-      frontEnd = opts.command === 'serve',
+  var frontEnd = opts.command === 'serve',
+      backEnd = !frontEnd,
       monitor = opts.command === 'monitor';
 
   var entry = opts.entry,
@@ -47,16 +47,19 @@ module.exports = function createCompiler(opts) {
       filename: 'bundle.js',
       devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
-    target: 'node',
-    node: NODE_ENVIRONMENT,
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin()
     ],
-    module: {
-      noParse: NO_PARSE
-    }
+    module: {}
   };
+
+  // Are we creating a config for backend?
+  if (backEnd) {
+    config.target = 'node';
+    config.node = NODE_ENVIRONMENT;
+    config.module.noParse = NO_PARSE;
+  }
 
   // Should we display a progress bar?
   if (opts.progress)

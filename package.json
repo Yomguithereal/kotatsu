@@ -7,10 +7,10 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
-    "express": "./cli.js start -s -o .express ./test/express/start.js",
-    "ping": "./cli.js start -s -c ./test/config.js ./test/ping/ping.js",
+    "express": "./cli.js start -sp -o .express ./test/express/start.js",
+    "ping": "./cli.js start -sp -c ./test/config.js ./test/ping/ping.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "thrower": "./cli.js start -s -c ./test/config.js ./test/thrower.js"
+    "thrower": "./cli.js start -sp -c ./test/config.js ./test/thrower.js"
   },
   "repository": {
     "type": "git",
