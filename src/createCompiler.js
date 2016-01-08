@@ -22,6 +22,7 @@ var NODE_ENVIRONMENT = {
   setImmediate: false
 };
 
+// NOTE: handling popular libraries issues with webpack compilation
 var NO_PARSE = /node_modules\/json-schema\/lib\/validate\.js/;
 
 /**
