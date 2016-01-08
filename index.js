@@ -18,7 +18,7 @@ var createCompiler = require('./src/createCompiler.js'),
  */
 var DEFAULTS = {
   cwd: process.cwd(),
-  config: {},
+  config: null,
   index: null,
   mountNode: 'app',
   progress: true,
@@ -35,7 +35,7 @@ function message(data) {
 }
 
 function defaultsPolicy(value, other) {
-  return value === undefined ? other : value;
+  return value === undefined || value === null ? other : value;
 }
 
 /**
@@ -95,11 +95,16 @@ module.exports = function(opts) {
 
       // Announcing we are done!
       logger.success('Done!');
-      logger.info('Starting your script...\n');
+      logger.info('Starting your script...');
 
       child = fork(path.join(output, 'bundle.js'), [], {
         uid: process.getuid(),
         gid: process.getgid()
+      });
+
+      // Listening to child's log
+      child.on('message', function(log) {
+        logger.log(log.level, log.message);
       });
 
       // Listening to child's exit
@@ -127,6 +132,7 @@ module.exports = function(opts) {
       // Notify the child
       child.send(message({
         hash: stats.hash,
+        type: 'update',
         modules: map
       }));
     }

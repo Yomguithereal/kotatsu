@@ -4,7 +4,7 @@
  *
  * Processing the HMR updates.
  */
-var log = require('../helpers.js').log;
+var logger = require('./logger.js');
 
 if (!module.hot)
   throw Error('[kotatsu]: Hot Module Replacement is disabled.');
@@ -40,7 +40,7 @@ function upToDate(hash) {
  */
 module.exports = function(hash, moduleMap, options) {
   if (!upToDate(hash) && module.hot.status() === 'idle')
-    log('info', 'Checking for updates...');
+    logger.info('Checking for updates...');
 
   // Checking updates
   function check() {
@@ -48,7 +48,7 @@ module.exports = function(hash, moduleMap, options) {
       if (err) return handleError(err);
 
       if (!updatedModules) {
-        log('warning', 'Cannot find update (Full reload needed)');
+        logger.warn('Cannot find update any update.');
         return;
       }
 
@@ -71,14 +71,12 @@ module.exports = function(hash, moduleMap, options) {
   // Handling errors
   function handleError(err) {
     if (module.hot.status() in FAILURE_STATUSES) {
-      log('error', [
-        'Cannot check for update (Full reload needed)',
-        err.stack || err.message
-      ]);
+      logger.error('Cannot check for update (Full reload needed)');
+      logger.error(err.stack || err.message);
       return;
     }
 
-    log('error', 'Update check failed: ' + err.stack || err.message);
+    logger.error('Update check failed: ' + err.stack || err.message);
   }
 
   // Logging results
@@ -88,19 +86,19 @@ module.exports = function(hash, moduleMap, options) {
     });
 
     if (unacceptedModules.length > 0) {
-      log('warning', 'The following modules couldn\'t be hot updated: (They would need a full reload!)');
-      log('warning', unacceptedModules.map(function(moduleId) {
-        return '  - ' + moduleMap[moduleId] || moduleId;
-      }));
+      logger.warn('The following modules couldn\'t be hot updated: (They would need a full reload!)');
+      unacceptedModules.forEach(function(moduleId) {
+        logger.warn('  - ' + moduleMap[moduleId] || moduleId);
+      });
     }
 
     if (!renewedModules || !renewedModules.length)
-      return log('warning', 'Nothing hot updated.');
+      return logger.warn('Nothing hot updated.');
 
-    log('success', 'Updated modules:');
-    log('success', renewedModules.map(function(moduleId) {
-      return '  - ' + moduleMap[moduleId] || moduleId;
-    }));
+    logger.success('Updated modules:');
+    renewedModules.forEach(function(moduleId) {
+      logger.success('  - ' + moduleMap[moduleId] || moduleId);
+    });
   }
 
   check();

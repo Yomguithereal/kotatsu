@@ -71,7 +71,7 @@ module.exports = function createCompiler(opts) {
 
   // Merging the user's config
   // NOTE: our config should take precedence over the user's one.
-  config = _.merge({}, opts.config, config);
+  config = _.merge({}, opts.config || {}, config);
 
   // Additional loaders
   var loaders = config.module.loaders || [];
