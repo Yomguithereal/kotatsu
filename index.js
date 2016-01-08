@@ -18,12 +18,12 @@ var createCompiler = require('./src/createCompiler.js'),
  */
 var DEFAULTS = {
   cwd: process.cwd(),
+  command: 'start',
   config: null,
   index: null,
   mountNode: 'app',
   progress: true,
   output: '.kotatsu',
-  side: 'back-end',
   sourcemaps: false,
 };
 

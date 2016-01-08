@@ -28,8 +28,9 @@ var NO_PARSE = /node_modules\/json-schema\/lib\/validate\.js/;
  * Main function.
  */
 module.exports = function createCompiler(opts) {
-  var backEnd = opts.side === 'back-end',
-      frontEnd = !backEnd;
+  var backEnd = opts.command === 'start',
+      frontEnd = opts.command === 'serve',
+      monitor = opts.command === 'monitor';
 
   var entry = opts.entry,
       output = opts.output;
