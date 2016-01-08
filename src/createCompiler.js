@@ -62,7 +62,7 @@ module.exports = function createCompiler(opts) {
     config.plugins.push(progress());
 
   // Do we want sourcemaps
-  if (opts.sourcemaps) {
+  if (opts.sourceMaps) {
     var sourceMapModulePath = require.resolve('source-map-support'),
         injectString = 'require(\'' + sourceMapModulePath + '\').install();';
 

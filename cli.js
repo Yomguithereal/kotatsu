@@ -48,6 +48,12 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('p', {
+    alias: 'progress',
+    describe: 'Should it display the compilation\'s progress?',
+    type: 'boolean',
+    default: false
+  })
 
   // Examples
   .example('kotatsu start ./script.js', 'Launching the given script with HMR.')
@@ -85,11 +91,22 @@ if (!stats.isFile()) {
 
 var cwd = process.cwd();
 
-// Creating the watcher
-var watcher = kotatsu.start({
+var opts = {
   cwd: cwd,
-  entry: path.resolve(cwd, entry),
   config: config,
-  output: argv.output,
-  sourcemaps: argv.sourcemaps
-});
+  entry: path.resolve(cwd, entry),
+  progress: argv.p,
+  output: argv.o,
+  sourceMaps: argv.s
+};
+
+// Creating the watcher
+var watcher;
+
+if (command === 'start') {
+  watcher = kotatsu.start(opts);
+}
+else {
+  console.error('The "' + command + '" command is not yet supported.');
+  process.exit(1);
+}

@@ -153,7 +153,7 @@ The kotatsu function takes a single parameter object having the following keys:
 * **cwd** *string*: current working directory.
 * **config** *object*: a webpack config object.
 * **output** *string*: path of the directory where built files will be written.
-* **sourcemaps** *boolean* [`false`]: should it compute sourcemaps?
+* **sourceMaps** *boolean* [`false`]: should it compute source maps?
 
 *Example*
 
@@ -162,7 +162,7 @@ var kotatsu = require('kotatsu');
 
 var watcher = kotatsu({
   entry: 'script.js',
-  sourcemaps: true
+  sourceMaps: true
 })
 ```
 

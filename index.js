@@ -23,7 +23,7 @@ var DEFAULTS = {
   mountNode: 'app',
   progress: false,
   output: '.kotatsu',
-  sourcemaps: false,
+  sourceMaps: false,
 };
 
 /**
@@ -37,15 +37,11 @@ function message(data) {
   return _.extend({__hmrUpdate: true}, data);
 }
 
-function defaultsPolicy(value, other) {
-  return value === undefined || value === null ? other : value;
-}
-
 /**
  * Start a long-living node.js process:
  */
 function start(opts) {
-  opts = _.extend({}, DEFAULTS, opts, defaultsPolicy);
+  opts = _.merge({}, DEFAULTS, opts);
 
   opts.command = 'start';
 
