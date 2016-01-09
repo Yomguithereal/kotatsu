@@ -1,15 +1,17 @@
 {
   "name": "kotatsu",
   "version": "0.1.2",
-  "description": "Straightforward command line tool to setup server-side HMR with Webpack.",
+  "description": "Straightforward command line tool to setup a development environment for modern JavaScript.",
   "main": "index.js",
   "bin": {
     "kotatsu": "./cli.js"
   },
   "scripts": {
-    "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/client/main.jsx",
+    "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "ping": "./cli.js start --es2015 --progress -s ./test/ping/ping.js",
+    "react": "./cli.js serve --es2015 --jsx --progress -m mount ./test/react/main.jsx",
+    "react-hmr": "./cli.js serve -c ./test/react/config.js --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run ping",
     "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
   },
@@ -52,6 +54,10 @@
     "yargs": "^3.31.0"
   },
   "devDependencies": {
-    "deku": "^2.0.0-rc11"
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.0.1",
+    "deku": "^2.0.0-rc11",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
   }
 }

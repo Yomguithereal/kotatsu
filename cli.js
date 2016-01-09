@@ -73,6 +73,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('index', {
+    describe: 'Path to a custom HMTL index file.',
+    type: 'string',
+    default: null
+  })
   .option('jsx', {
     describe: 'Does your code uses JSX syntax?',
     type: 'boolean',
@@ -141,6 +146,7 @@ var opts = {
   devtool: argv.devtool,
   entry: path.resolve(cwd, entry),
   es2015: argv.es2015,
+  index: argv.index ? path.resolve(cwd, argv.index) : null,
   jsx: argv.jsx,
   mountNode: argv.m,
   port: argv.port,

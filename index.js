@@ -190,6 +190,15 @@ function serve(opts) {
   compiler.plugin('done', function(stats) {
     stats = stats.toJson();
     logger.info('Built in ' + stats.time + 'ms.');
+
+    // Errors?
+    var errors = stats.errors || [];
+
+    if (errors.length) {
+      errors.forEach(function(error) {
+        logger.error(error);
+      });
+    }
   });
 
   // Announcing

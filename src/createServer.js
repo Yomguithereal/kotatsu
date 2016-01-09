@@ -44,8 +44,14 @@ module.exports = function createServer(compiler, opts) {
     log: false
   }));
 
+  var index = createIndex(opts.mountNode);
+
   app.get('/', function(req, res) {
-    res.send(createIndex(opts.mountNode));
+
+    if (opts.index)
+      return res.sendFile(opts.index);
+
+    return res.send(index);
   });
 
   // res.sendFile
