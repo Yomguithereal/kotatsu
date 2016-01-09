@@ -8,9 +8,9 @@
   },
   "scripts": {
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
-    "ping": "./cli.js start --progress -s -c ./test/config.js ./test/ping/ping.js",
+    "ping": "./cli.js start --es2015 --progress -s ./test/ping/ping.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "thrower": "./cli.js start --progress -s -c ./test/config.js ./test/thrower.js"
+    "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
   },
   "repository": {
     "type": "git",

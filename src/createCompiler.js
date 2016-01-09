@@ -106,8 +106,20 @@ module.exports = function createCompiler(opts) {
   config = _.merge({}, opts.config || {}, config);
 
   // Additional loaders
-  // var loaders = config.module.loaders || [];
-  // config.module.loaders = loaders;
+  var loaders = config.module.loaders || [];
+
+  //- ES2015
+  if (opts.es2015)
+    loaders.push({
+      test: /\.jsx?$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: require.resolve('babel-loader'),
+      query: {
+        presets: ['es2015']
+      }
+    });
+
+  config.module.loaders = loaders;
 
   return webpack(config);
 };

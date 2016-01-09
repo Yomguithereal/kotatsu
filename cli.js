@@ -17,7 +17,7 @@ var COMMANDS = [
   'monitor'
 ];
 
-// --es2015 --jsx --pragma --mount-node
+// --jsx --pragma
 
 // Building the CLI
 var argv = yargs
@@ -47,15 +47,15 @@ var argv = yargs
     alias: 'config',
     describe: 'Optional webpack config that will be merged with kotatsu\'s one (useful if you need specific loaders).'
   })
-  .option('s', {
-    alias: 'source-maps',
-    describe: 'Should source maps be computed for easier debugging?',
-    type: 'boolean',
-    default: false
-  })
   .option('d', {
     alias: 'devtool',
     describe: 'Webpack devtool spec to use to compute source maps.',
+    type: 'string',
+    default: null
+  })
+  .option('m', {
+    alias: 'mount-node',
+    describe: 'Id of the mount node in the generated HMTL index.',
     type: 'string',
     default: null
   })
@@ -64,16 +64,21 @@ var argv = yargs
     describe: 'Port that the server should listen to.',
     default: 3000
   })
+  .option('s', {
+    alias: 'source-maps',
+    describe: 'Should source maps be computed for easier debugging?',
+    type: 'boolean',
+    default: false
+  })
+  .option('es2015', {
+    describe: 'Is your code written in ES2015?',
+    type: 'boolean',
+    default: false
+  })
   .option('progress', {
     describe: 'Should it display the compilation\'s progress?',
     type: 'boolean',
     default: false
-  })
-  .option('m', {
-    alias: 'mount-node',
-    describe: 'Id of the mount node in the generated HMTL index.',
-    type: 'string',
-    default: null
   })
 
   // Examples
@@ -119,6 +124,7 @@ var opts = {
   config: config,
   devtool: argv.devtool,
   entry: path.resolve(cwd, entry),
+  es2015: argv.es2015,
   mountNode: argv.m,
   port: argv.port,
   progress: argv.progress,
