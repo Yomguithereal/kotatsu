@@ -88,6 +88,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('quiet', {
+    describe: 'Disable logs.',
+    type: 'boolean',
+    default: false
+  })
 
   // Examples
   .example('kotatsu start ./script.js', 'Launching the given script with HMR.')
@@ -138,6 +143,7 @@ var opts = {
   port: argv.port,
   pragma: argv.pragma,
   progress: argv.progress,
+  quiet: argv.quiet,
   output: argv.output,
   sourceMaps: argv.s
 };

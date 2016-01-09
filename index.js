@@ -6,9 +6,7 @@
  */
 var createCompiler = require('./src/createCompiler.js'),
     createServer = require('./src/createServer.js'),
-    logger = require('./src/logger.js'),
-    pkg = require('./package.json'),
-    chalk = require('chalk'),
+    createLogger = require('./src/createLogger.js'),
     fork =  require('child_process').fork,
     rmrf = require('rimraf'),
     path = require('path'),
@@ -28,6 +26,7 @@ var DEFAULTS = {
   port: 3000,
   pragma: null,
   progress: false,
+  quiet: false,
   output: '.kotatsu',
   sourceMaps: false,
 };
@@ -35,10 +34,6 @@ var DEFAULTS = {
 /**
  * Helpers.
  */
-function announce() {
-  logger.info('(v' + pkg.version + ')');
-}
-
 function message(data) {
   return _.extend({__hmrUpdate: true}, data);
 }
@@ -50,6 +45,8 @@ function start(opts) {
   opts = _.merge({}, DEFAULTS, opts);
 
   opts.command = 'start';
+
+  var logger = createLogger(opts.quiet);
 
   // Ensuring we do have an entry
   if (!opts.entry)
@@ -77,7 +74,7 @@ function start(opts) {
   });
 
   // Announcing
-  announce();
+  logger.announce();
 
   if (!opts.progress)
     logger.info('Compiling...');
@@ -176,6 +173,8 @@ function serve(opts) {
 
   opts.command = 'serve';
 
+  var logger = createLogger(opts.quiet);
+
   // State
   var running = false;
 
@@ -194,7 +193,7 @@ function serve(opts) {
   });
 
   // Announcing
-  announce();
+  logger.announce();
   logger.info('Serving your app on port ' + opts.port + '...');
 
   if (!opts.progress)
