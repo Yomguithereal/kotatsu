@@ -7,6 +7,7 @@
 var webpack = require('webpack'),
     progress = require('./progress.js'),
     path = require('path'),
+    fs = require('fs'),
     _ = require('lodash');
 
 /**
@@ -56,9 +57,21 @@ module.exports = function createCompiler(opts) {
 
   // Are we creating a config for backend?
   if (backEnd) {
+
+    // Env
     config.target = 'node';
     config.node = NODE_ENVIRONMENT;
     config.module.noParse = NO_PARSE;
+
+    // Registering node_modules as externals
+    config.externals = {};
+    fs.readdirSync(path.join(process.cwd(), 'node_modules'))
+      .filter(function(p) {
+        return p !== '.bin';
+      })
+      .forEach(function(m) {
+        config.externals[m] = 'commonjs ' + m;
+      });
   }
 
   // Should we display a progress bar?
@@ -82,16 +95,8 @@ module.exports = function createCompiler(opts) {
   config = _.merge({}, opts.config || {}, config);
 
   // Additional loaders
-  var loaders = config.module.loaders || [];
-
-  //- JSON
-  if (backEnd)
-    loaders.push({
-      test: /\.json$/,
-      loader: require.resolve('json-loader')
-    });
-
-  config.module.loaders = loaders;
+  // var loaders = config.module.loaders || [];
+  // config.module.loaders = loaders;
 
   return webpack(config);
 };

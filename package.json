@@ -35,7 +35,6 @@
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
     "chalk": "^1.1.1",
-    "json-loader": "^0.5.4",
     "lodash": "^3.10.1",
     "progress": "^1.1.8",
     "rimraf": "^2.5.0",
