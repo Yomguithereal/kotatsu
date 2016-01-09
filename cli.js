@@ -17,8 +17,6 @@ var COMMANDS = [
   'monitor'
 ];
 
-// --jsx --pragma
-
 // Building the CLI
 var argv = yargs
   .locale('en')
@@ -75,6 +73,16 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('jsx', {
+    describe: 'Does your code uses JSX syntax?',
+    type: 'boolean',
+    default: false
+  })
+  .option('pragma', {
+    describe: 'JSX pragma.',
+    type: 'string',
+    default: null
+  })
   .option('progress', {
     describe: 'Should it display the compilation\'s progress?',
     type: 'boolean',
@@ -125,8 +133,10 @@ var opts = {
   devtool: argv.devtool,
   entry: path.resolve(cwd, entry),
   es2015: argv.es2015,
+  jsx: argv.jsx,
   mountNode: argv.m,
   port: argv.port,
+  pragma: argv.pragma,
   progress: argv.progress,
   output: argv.output,
   sourceMaps: argv.s

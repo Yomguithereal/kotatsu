@@ -7,9 +7,10 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
+    "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/client/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "ping": "./cli.js start --es2015 --progress -s ./test/ping/ping.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run ping",
     "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
   },
   "repository": {
@@ -34,6 +35,10 @@
   },
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
+    "babel-core": "^6.3.26",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-transform-react-jsx": "^6.4.0",
+    "babel-preset-es2015": "^6.3.13",
     "chalk": "^1.1.1",
     "express": "^4.13.3",
     "lodash": "^3.10.1",
@@ -47,9 +52,6 @@
     "yargs": "^3.31.0"
   },
   "devDependencies": {
-    "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
     "deku": "^2.0.0-rc11"
   }
 }

@@ -91,14 +91,18 @@ module.exports = function createCompiler(opts) {
 
   // Do we want sourcemaps
   if (opts.sourceMaps) {
-    var sourceMapModulePath = require.resolve('source-map-support'),
-        injectString = 'require(\'' + sourceMapModulePath + '\').install();';
+
+    if (backEnd) {
+      var sourceMapModulePath = require.resolve('source-map-support'),
+          injectString = 'require(\'' + sourceMapModulePath + '\').install();';
+
+      config.plugins.push(new webpack.BannerPlugin(injectString, {
+        raw: true,
+        entryOnly: false
+      }));
+    }
 
     config.devtool = opts.devtool || 'source-map';
-    config.plugins.push(new webpack.BannerPlugin(injectString, {
-      raw: true,
-      entryOnly: false
-    }));
   }
 
   // Merging the user's config
@@ -109,15 +113,27 @@ module.exports = function createCompiler(opts) {
   var loaders = config.module.loaders || [];
 
   //- ES2015
-  if (opts.es2015)
-    loaders.push({
+  if (opts.es2015) {
+    var babel = {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
       loader: require.resolve('babel-loader'),
       query: {
         presets: ['es2015']
       }
-    });
+    };
+
+    if (opts.jsx) {
+      var plugins = [['transform-react-jsx']];
+
+      if (opts.pragma)
+        plugins[0].push({pragma: opts.pragma});
+
+      babel.query.plugins = plugins;
+    }
+
+    loaders.push(babel);
+  }
 
   config.module.loaders = loaders;
 
