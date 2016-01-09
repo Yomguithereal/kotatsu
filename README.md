@@ -1,27 +1,38 @@
 # kotatsu
 
-**kotatsu** is a straightforward CLI tool aiming at running your server-side node.js code in a [HMR](https://webpack.github.io/docs/hot-module-replacement.html) (Hot Module Replacement) environment.
+**kotatsu** is a straightforward CLI tool aiming either at running node.js scripts or serving JavaScript web applications in a modern environment (modules, ES2015, [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html), etc.).
 
-A typical use case for this tool would be to setup a comfortable environment to develop an [express](http://expressjs.com/) API, for instance.
+Its goal is to relieve developers from the really heavy stack that we now face on a daily basis when working with modern JavaScript.
 
-It uses [webpack](https://webpack.github.io/docs/)'s HMR under the hood to perform its magic.
+The idea is to let developers new to the stack forget about it as long as they can and to enable seasoned developers to setup their environment very fast and to start customizing the stack only progressively when this is really needed.
+
+Typical use cases for **kotatsu** are hot-reloaded [express](http://expressjs.com/) APIs written in ES2015, hot-reloaded [React](https://facebook.github.io/react/) or [deku](http://dekujs.github.io/deku/) applications etc. Check the [examples](#examples) for a quick glance of what can be achieved.
+
+Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) under the hood to perform its magic.
 
 ## Summary
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Express example](#express-example)
+* [Use Cases](#use-cases)
+  * [Ping](#ping)
+  * [Express](#express)
+  * [Deku](#deku)
+  * [React](#react)
 * [Node API](#node-api)
+  * [start](#start)
+  * [serve](#serve)
+  * [monitor](#monitor)
 * [What on earth is a kotatsu?](#explanation)
 * [Inspiration](#inspiration)
 * [License](#license)
 
 ## Installation
 
-Kotatsu can be installed globally or within your node.js project using npm:
+Kotatsu can be installed globally (you should avoid this!) or within your node.js project using npm:
 
 ```bash
-# For a local project
+# Within your project
 npm install --save-dev kotatsu
 
 # Globally:
@@ -31,34 +42,47 @@ npm install --save-dev kotatsu
 ## Usage
 
 ```
-Usage: kotatsu {options} [entry]
+Usage: kotatsu <command> {options} [entry]
+
+Commands:
+  start    Starts a node.js script.
+  serve    Serves a client-side application.
+  monitor  Monitors a terminating node.js script. [not implemented yet]
 
 Options:
   -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
                      need specific loaders).
-  -o, --output       Optional output directory where built files should be written (DO NOT use an
-                     existing directory because it will be erased).
+  -d, --devtool      Webpack devtool spec to use to compute source maps.    [string] [default: null]
+  -m, --mount-node   Id of the mount node in the generated HMTL index.      [string] [default: null]
+  -p, --port         Port that the server should listen to.                          [default: 3000]
   -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
-
+  --es2015           Is your code written in ES2015?                      [boolean] [default: false]
+  --index            Path to a custom HMTL index file.                      [string] [default: null]
+  --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
+  --pragma           JSX pragma.                                            [string] [default: null]
+  --progress         Should it display the compilation's progress?        [boolean] [default: false]
+  --quiet            Disable logs.                                        [boolean] [default: false]
   --version          Show version number                                                   [boolean]
   -h, --help         Show help                                                             [boolean]
+
+Examples:
+  kotatsu start ./script.js                       Launching the given script with HMR.
+  kotatsu start --es2015 ./scripts.js             Launching a ES2015 script.
+  kotatsu start -c webpack.config.js ./script.js  Using a specific webpack config.
+  kotatsu start --source-maps ./script.js         Computing source maps.
+
+  kotatsu serve ./entry.js                        Serving the given app.
+  kotatsu serve --es2015 --jsx ./entry.jsx        Serving the given ES2015 & JSX app.
+  kotatsu serve --port 8000 ./entry.jsx           Serving the app on a different port.
 ```
 
-*Examples*
+If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
 
-```bash
-kotatsu script.js
+## Use cases
 
-# Needing some more configuration e.g. for loaders
-kotatsu --config webpack.config.js script.js
+### Ping
 
-# Source map support
-kotatsu --source-maps script.js
-```
-
-If this is your first time using **kotatsu**, you should really read the express part below to have a full example on how you might integrate this tool in your project.
-
-## Express example
+### Express
 
 Let's setup a quick hot-reloaded express app:
 
@@ -113,39 +137,19 @@ Launching our app with HMR so we can work comfortably.
 kotatsu ./start.js
 ```
 
-## ES2015 example
+### Deku
 
-To compile your ES2015 code, you can optionally pass a webpack config to kotatsu to tweak its compiler and use any needed loaders.
-
-```bash
-npm install --save-dev babel-core babel-loader babel-preset-es2015
-```
-
-```js
-// file: webpack.config.js
-module.exports = {
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
-        }
-      }
-    ]
-  }
-}
-```
-
-```bash
-kotatsu --source-maps --config webpack.config.js ./es2015-script.js
-```
+### React
 
 For more information about this part, see webpack's [docs](https://webpack.github.io/docs/).
 
 ## Node API
+
+```js
+var kotatsu = require('kotatsu');
+```
+
+### start
 
 The kotatsu function takes a single parameter object having the following keys:
 
@@ -165,6 +169,12 @@ var watcher = kotatsu({
   sourceMaps: true
 })
 ```
+
+### serve
+
+### monitor
+
+Not yet implemented.
 
 <h2 id="explanation">What on earth is a kotatsu?</h2>
 
