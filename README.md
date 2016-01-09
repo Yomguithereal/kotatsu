@@ -356,7 +356,7 @@ Now visit `localhost:3000` and you are ready to develop.
 var kotatsu = require('kotatsu');
 ```
 
-Every method of the lib handles the same configuration object (similar to the CLI arguments):
+Every method of the library uses the same configuration object (similar to the CLI arguments):
 
 *required*
 
