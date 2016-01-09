@@ -48,6 +48,12 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('d', {
+    alias: 'devtool',
+    describe: 'Webpack devtool spec to use to compute source maps.',
+    type: 'string',
+    default: null
+  })
   .option('p', {
     alias: 'progress',
     describe: 'Should it display the compilation\'s progress?',
@@ -94,6 +100,7 @@ var cwd = process.cwd();
 var opts = {
   cwd: cwd,
   config: config,
+  devtool: argv.d,
   entry: path.resolve(cwd, entry),
   progress: argv.p,
   output: argv.o,

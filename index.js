@@ -19,6 +19,7 @@ var createCompiler = require('./src/createCompiler.js'),
 var DEFAULTS = {
   cwd: process.cwd(),
   config: null,
+  devtool: null,
   index: null,
   mountNode: 'app',
   progress: false,

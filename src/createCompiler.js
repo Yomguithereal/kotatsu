@@ -83,7 +83,7 @@ module.exports = function createCompiler(opts) {
     var sourceMapModulePath = require.resolve('source-map-support'),
         injectString = 'require(\'' + sourceMapModulePath + '\').install();';
 
-    config.devtool = 'source-map';
+    config.devtool = opts.devtool || 'source-map';
     config.plugins.push(new webpack.BannerPlugin(injectString, {
       raw: true,
       entryOnly: false
