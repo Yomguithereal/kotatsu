@@ -194,9 +194,161 @@ You can now edit the express app live and it will automatically update without h
 
 ### Deku
 
+**1. Installing necessary dependencies**
+
+```bash
+npm i --save deku
+npm i --save-dev kotatsu
+```
+
+**2. Creating our main component**
+
+```jsx
+// file: App.jsx
+import {element} from 'deku';
+
+export default function App() {
+  return <div>Hello World!</div>;
+}
+```
+
+**3. Creating our application's entry**
+
+```jsx
+// file: main.jsx
+import {dom, element} from 'deku';
+import InitalApp from './App.jsx';
+
+const mountNode = document.getElementById('app'),
+      render = dom.createRenderer(mountNode);
+
+function refresh(Component) {
+  render(<Component />);
+}
+refresh(InitalApp);
+
+// Let's handle our code's updates
+if (module.hot) {
+  module.hot.accept('./App.jsx', function() {
+    const NextApp = require('./App.jsx');
+    refresh(NextApp);
+  });
+}
+```
+
+**4. Using kotatsu**
+
+Now let's run a server to host our app:
+
+```bash
+kotatsu serve --es2015 --jsx --pragma element main.jsx
+```
+
+Note that **kotatsu** will serve for you a HTML index file looking quite like this:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>kotatsu</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript" src="/build/bundle.js"></script>
+  </body>
+</html>
+```
+
+If you need a custom one, just use the `--index` argument.
+
+Now visit `localhost:3000` and you are ready to develop.
+
 ### React
 
-For more information about this part, see webpack's [docs](https://webpack.github.io/docs/).
+React is a bit more tricky because we need babel plugins so that HMR can work. To make it work, we will use a custom webpack config to handle those plugins.
+
+**1. Installing necessary dependencies**
+
+```bash
+npm i --save react react-dom
+npm i --save-dev kotatsu babel-core babel-loader babel-preset-es2015 babel-preset-react babel-preset-react-hmre
+```
+
+**2. Creating a custom webpack config**
+
+```js
+// file: webpack.config.js
+module.exports = {
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react', 'react-hmre']
+        }
+      }
+    ]
+  }
+};
+```
+
+For more information about webpack configuration, see webpack's [docs](https://webpack.github.io/docs/).
+
+
+**3. Creating our main component**
+
+```jsx
+// file: App.jsx
+import React, {Component} from 'react';
+
+export default class App extends Component {
+  render() {
+    return <div>Hello World!</div>;
+  }
+}
+```
+
+**4. Creating our application's entry**
+
+```jsx
+// file: main.jsx
+import React from 'react';
+import {render} from 'react-dom';
+import App from './App.jsx';
+
+const mountNode = document.getElementById('app');
+
+render(<App />);
+```
+
+**5. Using kotatsu**
+
+Now let's run a server to host our app:
+
+```bash
+kotatsu serve --config webpack.config.js ./main.jsx
+```
+
+Note that **kotatsu** will serve for you a HTML index file looking quite like this:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>kotatsu</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript" src="/build/bundle.js"></script>
+  </body>
+</html>
+```
+
+If you need a custom one, just use the `--index` argument.
+
+Now visit `localhost:3000` and you are ready to develop.
 
 ## Node API
 
