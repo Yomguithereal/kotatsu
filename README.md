@@ -80,7 +80,7 @@ If this is your first time using **kotatsu**, you should really check the use ca
 
 ## Use cases
 
-### Ping
+### Interval
 
 This example does not really serve a real-life purpose but merely shows you how to hot-reload a very simple node.js script.
 
@@ -96,7 +96,7 @@ setInterval(function() {
   console.log(string);
 }, 2000);
 
-// Here is the twist, whenever the `string` dependency is updated, we will swap it:
+// Here is the twist: whenever the `string` dependency is updated, we will swap it:
 if (module.hot) {
   module.hot.accept('./string.js', function() {
     string = require('./string.js');
@@ -117,11 +117,11 @@ kotatsu start interval.js
 
 Now the script will start and you should see it logging `ping` into the console every two seconds.
 
-Just try editing the `string.js` file and the script will automatically update to log the new exported value of the file.
+Now edit the `string.js` file and the script will automatically update and log the new exported value of the file.
 
 **3. Let's use the same script in the browser**
 
-You would rather run this script in the browser? As you wish:
+You would rather run this script in the browser?
 
 ```js
 kotatsu serve interval.js
