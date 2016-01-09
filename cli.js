@@ -96,10 +96,13 @@ var argv = yargs
 
   // Examples
   .example('kotatsu start ./script.js', 'Launching the given script with HMR.')
+  .example('kotatsu start --es2015 ./scripts.js', 'Launching a ES2015 script.')
   .example('kotatsu start -c webpack.config.js ./script.js', 'Using a specific webpack config.')
   .example('kotatsu start --source-maps ./script.js', 'Computing source maps.')
   .example('')
   .example('kotatsu serve ./entry.js', 'Serving the given app.')
+  .example('kotatsu serve --es2015 --jsx ./entry.jsx', 'Serving the given ES2015 & JSX app.')
+  .example('kotatsu serve --port 8000 ./entry.jsx', 'Serving the app on a different port.')
 
   // Help & Version
   .version(pkg.version)
