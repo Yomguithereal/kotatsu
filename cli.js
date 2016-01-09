@@ -17,6 +17,8 @@ var COMMANDS = [
   'monitor'
 ];
 
+// --es2015 --jsx --pragma --port --mount-node
+
 // Building the CLI
 var argv = yargs
   .locale('en')
@@ -34,8 +36,8 @@ var argv = yargs
 
   // Commands
   .command('start', 'Starts a node.js script.')
-  .command('serve', 'Serves a client-side application endpoint.')
-  .command('monitor', 'Monitors a terminating node.js script.')
+  .command('serve', 'Serves a client-side application.')
+  .command('monitor', 'Monitors a terminating node.js script. [not implemented yet]')
 
   // Generic options
   .option('c', {
@@ -54,8 +56,7 @@ var argv = yargs
     type: 'string',
     default: null
   })
-  .option('p', {
-    alias: 'progress',
+  .option('progress', {
     describe: 'Should it display the compilation\'s progress?',
     type: 'boolean',
     default: false
@@ -65,6 +66,8 @@ var argv = yargs
   .example('kotatsu start ./script.js', 'Launching the given script with HMR.')
   .example('kotatsu start -c webpack.config.js ./script.js', 'Using a specific webpack config.')
   .example('kotatsu start --source-maps ./script.js', 'Computing source maps.')
+  .example('')
+  .example('kotatsu serve ./entry.js', 'Serving the given app.')
 
   // Help & Version
   .version(pkg.version)
@@ -100,10 +103,10 @@ var cwd = process.cwd();
 var opts = {
   cwd: cwd,
   config: config,
-  devtool: argv.d,
+  devtool: argv.devtool,
   entry: path.resolve(cwd, entry),
-  progress: argv.p,
-  output: argv.o,
+  progress: argv.progress,
+  output: argv.output,
   sourceMaps: argv.s
 };
 
@@ -112,6 +115,9 @@ var watcher;
 
 if (command === 'start') {
   watcher = kotatsu.start(opts);
+}
+else if (command === 'serve') {
+  watcher = kotatsu.serve(opts);
 }
 else {
   console.error('The "' + command + '" command is not yet supported.');

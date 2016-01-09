@@ -37,16 +37,24 @@ module.exports = function createCompiler(opts) {
   var entry = opts.entry,
       output = opts.output;
 
+  // Building the entry
+  var entries = [];
+
+  if (backEnd)
+    entries.push(path.join(__dirname, '..', 'hot', 'client.js'));
+
+  if (frontEnd)
+    entries.push('webpack-hot-middleware/client');
+
+  entries.push(entry);
+
   // Creating the webpack config
   var config = {
-    entry: [
-      path.join(__dirname, '..', 'hot', 'client.js'),
-      entry
-    ],
+    entry: entries,
     output: {
-      path: output,
+      path: frontEnd ? '/kotatsu' : output,
       filename: 'bundle.js',
-      devtoolModuleFilenameTemplate: '[absolute-resource-path]'
+      publicPath: '/build/'
     },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
@@ -62,6 +70,9 @@ module.exports = function createCompiler(opts) {
     config.target = 'node';
     config.node = NODE_ENVIRONMENT;
     config.module.noParse = NO_PARSE;
+
+    // Source maps
+    config.devtoolModuleFilenameTemplate = '[absolute-resource-path]';
 
     // Registering node_modules as externals
     config.externals = {};
@@ -97,6 +108,6 @@ module.exports = function createCompiler(opts) {
   // Additional loaders
   // var loaders = config.module.loaders || [];
   // config.module.loaders = loaders;
-
+console.log(config)
   return webpack(config);
 };

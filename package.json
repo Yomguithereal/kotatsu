@@ -7,10 +7,10 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
-    "express": "./cli.js start -sp -o .express ./test/express/start.js",
-    "ping": "./cli.js start -sp -c ./test/config.js ./test/ping/ping.js",
+    "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
+    "ping": "./cli.js start --progress -s -c ./test/config.js ./test/ping/ping.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "thrower": "./cli.js start -sp -c ./test/config.js ./test/thrower.js"
+    "thrower": "./cli.js start --progress -s -c ./test/config.js ./test/thrower.js"
   },
   "repository": {
     "type": "git",
@@ -35,18 +35,20 @@
   "homepage": "https://github.com/Yomguithereal/kotatsu",
   "dependencies": {
     "chalk": "^1.1.1",
+    "express": "^4.13.3",
     "lodash": "^3.10.1",
     "progress": "^1.1.8",
     "rimraf": "^2.5.0",
     "source-map-support": "^0.4.0",
     "webpack": "^1.12.9",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.6.0",
     "winston": "^2.1.1",
     "yargs": "^3.31.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "express": "^4.13.3"
+    "babel-preset-es2015": "^6.3.13"
   }
 }
