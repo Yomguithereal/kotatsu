@@ -108,6 +108,6 @@ module.exports = function createCompiler(opts) {
   // Additional loaders
   // var loaders = config.module.loaders || [];
   // config.module.loaders = loaders;
-console.log(config)
+
   return webpack(config);
 };

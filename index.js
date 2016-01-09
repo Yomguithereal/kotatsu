@@ -176,12 +176,16 @@ function serve(opts) {
 
   opts.command = 'serve';
 
+  // State
+  var running = false;
+
   // Creating the compiler
   var compiler = createCompiler(opts);
 
   // Hooking into the compiler
   compiler.plugin('compile', function() {
-    logger.info('Bundle rebuilding...');
+    if (running)
+      logger.info('Bundle rebuilding...');
   });
 
   compiler.plugin('done', function(stats) {
@@ -200,6 +204,7 @@ function serve(opts) {
   var app = createServer(compiler, opts),
       server = app.listen(opts.port);
 
+  running = true;
   return server;
 }
 

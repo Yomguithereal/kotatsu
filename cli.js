@@ -17,7 +17,7 @@ var COMMANDS = [
   'monitor'
 ];
 
-// --es2015 --jsx --pragma --port --mount-node
+// --es2015 --jsx --pragma --mount-node
 
 // Building the CLI
 var argv = yargs
@@ -28,8 +28,11 @@ var argv = yargs
   .check(function(argv) {
     var command = argv._[0];
 
+    if (!Number.isInteger(argv.port))
+      throw Error('Invalid port: ' + argv.port);
+
     if (!~COMMANDS.indexOf(command))
-      throw Error('Invalid command: ' + command + '.');
+      throw Error('Invalid command: ' + command);
 
     return true;
   })
@@ -55,6 +58,11 @@ var argv = yargs
     describe: 'Webpack devtool spec to use to compute source maps.',
     type: 'string',
     default: null
+  })
+  .option('p', {
+    alias: 'port',
+    describe: 'Port that the server should listen to.',
+    default: 3000
   })
   .option('progress', {
     describe: 'Should it display the compilation\'s progress?',
@@ -105,6 +113,7 @@ var opts = {
   config: config,
   devtool: argv.devtool,
   entry: path.resolve(cwd, entry),
+  port: argv.port,
   progress: argv.progress,
   output: argv.output,
   sourceMaps: argv.s
