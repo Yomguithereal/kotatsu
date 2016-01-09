@@ -149,11 +149,11 @@ var opts = {
   index: argv.index ? path.resolve(cwd, argv.index) : null,
   jsx: argv.jsx,
   mountNode: argv.m,
+  output: argv.output,
   port: argv.port,
   pragma: argv.pragma,
   progress: argv.progress,
   quiet: argv.quiet,
-  output: argv.output,
   sourceMaps: argv.s
 };
 

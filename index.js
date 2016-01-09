@@ -23,11 +23,11 @@ var DEFAULTS = {
   index: null,
   jsx: false,
   mountNode: 'app',
+  output: '.kotatsu',
   port: 3000,
   pragma: null,
   progress: false,
   quiet: false,
-  output: '.kotatsu',
   sourceMaps: false,
 };
 

@@ -4,9 +4,9 @@
 
 Its goal is to relieve developers from the really heavy stack that we now face on a daily basis when working with modern JavaScript.
 
-The idea is to let developers new to the stack forget about it as long as they can and to enable seasoned developers to setup their environment very fast and to start customizing the stack only progressively when this is really needed.
+The idea is to let developers new to the stack forget about it as long as they can while enabling seasoned developers to setup their environment very fast and to start customizing the stack progressively only when this is really needed.
 
-Typical use cases for **kotatsu** are hot-reloaded [express](http://expressjs.com/) APIs written in ES2015, hot-reloaded [React](https://facebook.github.io/react/) or [deku](http://dekujs.github.io/deku/) applications etc. Check the [examples](#examples) for a quick glance of what can be achieved.
+Typical use cases for **kotatsu** are hot-reloaded [express](http://expressjs.com/) APIs written in ES2015, hot-reloaded [React](https://facebook.github.io/react/) or [deku](http://dekujs.github.io/deku/) applications etc. Check the [use cases](#use-cases) for a quick glance of what can be achieved.
 
 Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) under the hood to perform its magic.
 
@@ -15,7 +15,7 @@ Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) 
 * [Installation](#installation)
 * [Usage](#usage)
 * [Use Cases](#use-cases)
-  * [Ping](#ping)
+  * [Interval](#interval)
   * [Express](#express)
   * [Deku](#deku)
   * [React](#react)
@@ -82,9 +82,62 @@ If this is your first time using **kotatsu**, you should really check the use ca
 
 ### Ping
 
+This example does not really serve a real-life purpose but merely shows you how to hot-reload a very simple node.js script.
+
+The idea here is to create a script that will continuously print a required string into the console every 2 seconds:
+
+**1. Creating the necessary files**
+
+```js
+// file: interval.js
+var string = require('./string.js');
+
+setInterval(function() {
+  console.log(string);
+}, 2000);
+
+// Here is the twist, whenever the `string` dependency is updated, we will swap it:
+if (module.hot) {
+  module.hot.accept('./string.js', function() {
+    string = require('./string.js');
+  });
+}
+```
+
+```js
+// file: string.js
+module.exports = 'ping';
+```
+
+**2. Using kotatsu to start the script**
+
+```bash
+kotatsu start interval.js
+```
+
+Now the script will start and you should see it logging `ping` into the console every two seconds.
+
+Just try editing the `string.js` file and the script will automatically update to log the new exported value of the file.
+
+**3. Let's use the same script in the browser**
+
+You would rather run this script in the browser? As you wish:
+
+```js
+kotatsu serve interval.js
+```
+
+Now go to `localhost:3000` and you should be able to observe the same kind of results in the console.
+
+**Remarks**
+
+This example serves another purposes: showing you that **kotatsu** is meant to be used on long-running scripts such as servers or UIs. If what you need is to code a terminating script, check the `monitor` command instead.
+
+If you need more information about `module.hot` and Hot Module Replacement (HMR), go check webpack's [docs](https://webpack.github.io/docs/hot-module-replacement.html) on the subject.
+
 ### Express
 
-Let's setup a quick hot-reloaded express app:
+Let's setup a very simple hot-reloaded express app:
 
 **1. Installing necessary dependencies**
 
@@ -134,8 +187,10 @@ if (module.hot) {
 Launching our app with HMR so we can work comfortably.
 
 ```bash
-kotatsu ./start.js
+kotatsu start ./start.js
 ```
+
+You can now edit the express app live and it will automatically update without having to reload the script.
 
 ### Deku
 
@@ -149,28 +204,45 @@ For more information about this part, see webpack's [docs](https://webpack.githu
 var kotatsu = require('kotatsu');
 ```
 
-### start
+Every method of the lib handles the same configuration object (similar to the CLI arguments):
 
-The kotatsu function takes a single parameter object having the following keys:
+*required*
 
-* **entry** [required] *string*: Path towards the entry.
-* **cwd** *string*: current working directory.
-* **config** *object*: a webpack config object.
-* **output** *string*: path of the directory where built files will be written.
+* **entry** *string*: Path towards the entry.
+
+*optional*
+
+* **cwd** *string* [`process.cwd()`]: current working directory.
+* **config** *object* [`null`]: a webpack config object.
+* **devtool** *string* [`null`]: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).
+* **es2015** *boolean* [`false`]: should we handle ES2015 files?
+* **index** *string* [`null`]: path of the HTML index file to serve.
+* **jsx** *boolean* [`false`]: should we handle JSX?
+* **mountNode** *string* [`'app'`]: id of the mount node in the generated HTML index file.
+* **output** *string* [`.kotatsu`]: path of the directory where built should go.
+* **port** *integer* [`3000`]: port that the server should listen to.
+* **pragma** *string* [`null`]: custom JSX pragma.
+* **progress** *boolean* [`false`]: should the compiler display a progress bar?
+* **quiet** *boolean* [`false`]: if true, will disable all console logs.
 * **sourceMaps** *boolean* [`false`]: should it compute source maps?
 
-*Example*
+### start
 
 ```js
-var kotatsu = require('kotatsu');
-
-var watcher = kotatsu({
+var watcher = kotatsu.start({
   entry: 'script.js',
-  sourceMaps: true
+  ...
 })
 ```
 
 ### serve
+
+```js
+var watcher = kotatsu.serve({
+  entry: 'script.js',
+  ...
+})
+```
 
 ### monitor
 
