@@ -69,6 +69,12 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('m', {
+    alias: 'mount-node',
+    describe: 'Id of the mount node in the generated HMTL index.',
+    type: 'string',
+    default: null
+  })
 
   // Examples
   .example('kotatsu start ./script.js', 'Launching the given script with HMR.')
@@ -113,6 +119,7 @@ var opts = {
   config: config,
   devtool: argv.devtool,
   entry: path.resolve(cwd, entry),
+  mountNode: argv.m,
   port: argv.port,
   progress: argv.progress,
   output: argv.output,
