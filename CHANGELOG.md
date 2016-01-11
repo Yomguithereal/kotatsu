@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+* Fixing json support for node.
+
 ## 0.3.0
 
 * Adding `--output`.
