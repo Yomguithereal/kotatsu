@@ -1,9 +1,10 @@
 # Changelog
 
-## 0.3.0 (provisional)
+## 0.3.0
 
 * Adding `--output`.
 * Adding `--presets`.
+* Better logs.
 * Supporting script arguments through `--`.
 * Fixing `--es2015` and `--jsx`.
 
