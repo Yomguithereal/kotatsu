@@ -27,6 +27,7 @@ var DEFAULTS = {
   output: '.kotatsu',
   port: 3000,
   pragma: null,
+  presets: [],
   progress: false,
   quiet: false,
   sourceMaps: false,

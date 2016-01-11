@@ -14,7 +14,8 @@ var kotatsu = require('./index.js'),
 var COMMANDS = [
   'start',
   'serve',
-  'monitor'
+  'monitor',
+  'build'
 ];
 
 var EXPECTED_PARTS = 2;
@@ -41,6 +42,7 @@ var argv = yargs
   .command('start', 'Starts a node.js script.')
   .command('serve', 'Serves a client-side application.')
   .command('monitor', 'Monitors a terminating node.js script. [not implemented yet]')
+  .command('build', 'Builds your code for production. [not implemented yet]')
 
   // Generic options
   .option('c', {
@@ -50,20 +52,17 @@ var argv = yargs
   .option('d', {
     alias: 'devtool',
     describe: 'Webpack devtool spec to use to compute source maps.',
-    type: 'string',
-    default: null
+    type: 'string'
   })
   .option('m', {
     alias: 'mount-node',
     describe: 'Id of the mount node in the generated HMTL index.',
-    type: 'string',
-    default: null
+    type: 'string'
   })
   .option('o', {
     alias: 'output',
     describe: 'Output directory.',
-    type: 'string',
-    default: null
+    type: 'string'
   })
   .option('p', {
     alias: 'port',
@@ -83,8 +82,7 @@ var argv = yargs
   })
   .option('index', {
     describe: 'Path to a custom HMTL index file.',
-    type: 'string',
-    default: null
+    type: 'string'
   })
   .option('jsx', {
     describe: 'Does your code uses JSX syntax?',
@@ -93,8 +91,11 @@ var argv = yargs
   })
   .option('pragma', {
     describe: 'JSX pragma.',
-    type: 'string',
-    default: null
+    type: 'string'
+  })
+  .option('presets', {
+    describe: 'Babel 6 presets to apply.',
+    type: 'string'
   })
   .option('progress', {
     describe: 'Should it display the compilation\'s progress?',
@@ -162,6 +163,7 @@ var opts = {
   output: argv.output,
   port: argv.port,
   pragma: argv.pragma,
+  presets: argv.presets ? argv.split(',') : null,
   progress: argv.progress,
   quiet: argv.quiet,
   sourceMaps: argv.sourceMaps
@@ -169,7 +171,7 @@ var opts = {
 
 // Cleaning null values
 for (var k in opts)
-  if (opts[k] === null)
+  if (opts[k] === null || opts[k] === undefined)
     delete opts[k];
 
 // Creating the watcher
@@ -182,6 +184,6 @@ else if (command === 'serve') {
   watcher = kotatsu.serve(opts);
 }
 else {
-  console.error('The "' + command + '" command is not yet supported.');
+  console.error('The "' + command + '" command is not yet implemented.');
   process.exit(1);
 }

@@ -119,12 +119,12 @@ module.exports = function createCompiler(opts) {
       exclude: /(node_modules|bower_components)/,
       loader: require.resolve('babel-loader'),
       query: {
-        presets: ['es2015']
+        presets: [require.resolve('babel-preset-es2015')]
       }
     };
 
     if (opts.jsx) {
-      var plugins = [['transform-react-jsx']];
+      var plugins = [[require.resolve('transform-react-jsx')]];
 
       if (opts.pragma)
         plugins[0].push({pragma: opts.pragma});
