@@ -72,8 +72,10 @@ function start(opts) {
 
   // Hooking into the compiler
   compiler.plugin('compile', function() {
-    if (running)
+    if (running) {
+      console.log('');
       logger.info('Bundle rebuilding...');
+    }
   });
 
   // Announcing
@@ -186,8 +188,10 @@ function serve(opts) {
 
   // Hooking into the compiler
   compiler.plugin('compile', function(compilation) {
-    if (running)
+    if (running) {
+      console.log('');
       logger.info('Bundle rebuilding...');
+    }
   });
 
   var lastMap = {};
