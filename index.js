@@ -16,6 +16,7 @@ var createCompiler = require('./src/createCompiler.js'),
  * Constants.
  */
 var DEFAULTS = {
+  args: [],
   cwd: process.cwd(),
   config: null,
   devtool: null,
@@ -104,7 +105,7 @@ function start(opts) {
       logger.success('Done!');
       logger.info('Starting your script...');
 
-      child = fork(path.join(output, 'bundle.js'), [], {
+      child = fork(path.join(output, 'bundle.js'), opts.args || [], {
         uid: process.getuid(),
         gid: process.getgid()
       });

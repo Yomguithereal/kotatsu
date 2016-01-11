@@ -17,6 +17,8 @@ var COMMANDS = [
   'monitor'
 ];
 
+var EXPECTED_PARTS = 2;
+
 // Building the CLI
 var argv = yargs
   .locale('en')
@@ -61,7 +63,7 @@ var argv = yargs
     alias: 'output',
     describe: 'Output directory.',
     type: 'string',
-    default: null
+    default: '.kotatsu'
   })
   .option('p', {
     alias: 'port',
@@ -110,6 +112,7 @@ var argv = yargs
   .example('kotatsu start --es2015 ./scripts.js', 'Launching a ES2015 script.')
   .example('kotatsu start -c webpack.config.js ./script.js', 'Using a specific webpack config.')
   .example('kotatsu start --source-maps ./script.js', 'Computing source maps.')
+  .example('kotatsu start ./script.js -- --flag ./test.js', 'Passing arguments to the script.')
   .example('')
   .example('kotatsu serve ./entry.js', 'Serving the given app.')
   .example('kotatsu serve --es2015 --jsx ./entry.jsx', 'Serving the given ES2015 & JSX app.')
@@ -147,6 +150,7 @@ if (!stats.isFile()) {
 var cwd = process.cwd();
 
 var opts = {
+  args: argv._.slice(EXPECTED_PARTS),
   cwd: cwd,
   config: config,
   devtool: argv.devtool,
@@ -154,13 +158,13 @@ var opts = {
   es2015: argv.es2015,
   index: argv.index ? path.resolve(cwd, argv.index) : null,
   jsx: argv.jsx,
-  mountNode: argv.m,
+  mountNode: argv.mountNode,
   output: argv.output,
   port: argv.port,
   pragma: argv.pragma,
   progress: argv.progress,
   quiet: argv.quiet,
-  sourceMaps: argv.s
+  sourceMaps: argv.sourceMaps
 };
 
 // Creating the watcher

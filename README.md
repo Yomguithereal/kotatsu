@@ -365,6 +365,7 @@ Every method of the library uses the same configuration object (similar to the C
 
 *optional*
 
+* **args** *array* [`null`]: array of arguments to pass to the child script.
 * **cwd** *string* [`process.cwd()`]: current working directory.
 * **config** *object* [`null`]: a webpack config object.
 * **devtool** *string* [`null`]: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).

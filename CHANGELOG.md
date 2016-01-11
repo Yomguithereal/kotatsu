@@ -3,6 +3,7 @@
 ## 0.3.0 (provisional)
 
 * Adding `--output`.
+* Supporting script arguments through `--`.
 
 ## 0.2.0
 
