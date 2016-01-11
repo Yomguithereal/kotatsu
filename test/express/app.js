@@ -1,10 +1,15 @@
 var express = require('express'),
-    response = require('./response.js');
+    hello = require('./hello.js'),
+    goodbye = require('./goodbye.json');
 
 var app = express();
 
 app.get('/hello', function(req, res) {
-  return res.json(response());
+  return res.json(hello());
+});
+
+app.get('/goodbye', function(req, res) {
+  return res.json(goodbye);
 });
 
 module.exports = app;

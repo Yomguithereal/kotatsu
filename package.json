@@ -43,6 +43,7 @@
     "babel-preset-es2015": "^6.3.13",
     "chalk": "^1.1.1",
     "express": "^4.13.3",
+    "json-loader": "^0.5.4",
     "lodash": "^3.10.1",
     "pretty-ms": "^2.1.0",
     "progress": "^1.1.8",
