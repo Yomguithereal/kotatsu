@@ -373,7 +373,7 @@ var watcher = kotatsu.start({
 ### serve
 
 ```js
-var watcher = kotatsu.serve({
+var server = kotatsu.serve({
   entry: 'script.js',
   ...
 })
