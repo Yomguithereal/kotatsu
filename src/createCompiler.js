@@ -136,7 +136,7 @@ module.exports = function createCompiler(opts) {
     };
 
     if (opts.jsx && !~opts.presets.indexOf('react')) {
-      var plugins = [[require.resolve('transform-react-jsx')]];
+      var plugins = [[BABEL_JSX]];
 
       if (opts.pragma)
         plugins[0].push({pragma: opts.pragma});
