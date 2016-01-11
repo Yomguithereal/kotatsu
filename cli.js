@@ -63,7 +63,7 @@ var argv = yargs
     alias: 'output',
     describe: 'Output directory.',
     type: 'string',
-    default: '.kotatsu'
+    default: null
   })
   .option('p', {
     alias: 'port',
@@ -166,6 +166,11 @@ var opts = {
   quiet: argv.quiet,
   sourceMaps: argv.sourceMaps
 };
+
+// Cleaning null values
+for (var k in opts)
+  if (opts[k] === null)
+    delete opts[k];
 
 // Creating the watcher
 var watcher;
