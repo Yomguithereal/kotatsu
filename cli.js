@@ -57,6 +57,12 @@ var argv = yargs
     type: 'string',
     default: null
   })
+  .option('o', {
+    alias: 'output',
+    describe: 'Output directory.',
+    type: 'string',
+    default: null
+  })
   .option('p', {
     alias: 'port',
     describe: 'Port that the server should listen to.',

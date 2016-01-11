@@ -3,7 +3,7 @@ var app = require('./app.js'),
 
 var server = http.createServer(app);
 
-server.listen(3000);
+server.listen(2000);
 
 if (module.hot) {
   module.hot.accept('./app.js', function() {

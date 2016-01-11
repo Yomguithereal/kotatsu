@@ -54,6 +54,7 @@ Options:
                      need specific loaders).
   -d, --devtool      Webpack devtool spec to use to compute source maps.    [string] [default: null]
   -m, --mount-node   Id of the mount node in the generated HMTL index.      [string] [default: null]
+  -o, --output       Output directory.                                      [string] [default: null]
   -p, --port         Port that the server should listen to.                          [default: 3000]
   -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
