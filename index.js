@@ -185,14 +185,58 @@ function serve(opts) {
   var compiler = createCompiler(opts);
 
   // Hooking into the compiler
-  compiler.plugin('compile', function() {
+  compiler.plugin('compile', function(compilation) {
     if (running)
       logger.info('Bundle rebuilding...');
+  });
+
+  var lastMap = {};
+  compiler.plugin('bundle-update', function(newModules, changedModules, removedModules, stats) {
+    newModules = Object.keys(newModules);
+    changedModules = Object.keys(changedModules);
+    removedModules = Object.keys(removedModules);
+
+    stats = stats.toJson();
+
+    // Building module map
+    var map = {};
+    stats.modules.forEach(function(m) {
+      map[m.id] = m.name;
+    });
+
+    if (newModules.length) {
+      logger.info('Added modules:');
+      newModules.forEach(function(m) {
+        logger.info('  - ' + map[m] || m);
+      });
+    }
+
+    if (changedModules.length) {
+      logger.info('Updated modules:');
+      changedModules.forEach(function(m) {
+        logger.info('  - ' + map[m] || m);
+      });
+    }
+
+    if (removedModules.length) {
+      logger.info('Removed modules:');
+      removedModules.forEach(function(m) {
+        logger.info('  - ' + lastMap[m] || m);
+      });
+    }
+
+    lastMap = map;
   });
 
   compiler.plugin('done', function(stats) {
     stats = stats.toJson();
     logger.info('Built in ' + pretty(stats.time) + '.');
+
+    if (!running) {
+      logger.success('Done!');
+      logger.info('Serving your app on port ' + opts.port + '...');
+      running = true;
+    }
 
     // Errors?
     var errors = stats.errors || [];
@@ -206,7 +250,6 @@ function serve(opts) {
 
   // Announcing
   logger.announce();
-  logger.info('Serving your app on port ' + opts.port + '...');
 
   if (!opts.progress)
     logger.info('Compiling...');
@@ -215,7 +258,6 @@ function serve(opts) {
   var app = createServer(compiler, opts),
       server = app.listen(opts.port);
 
-  running = true;
   return server;
 }
 

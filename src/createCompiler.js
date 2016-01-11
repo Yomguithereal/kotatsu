@@ -5,6 +5,7 @@
  * Function in charge of creating the webpack compilers for the library.
  */
 var webpack = require('webpack'),
+    BundleUpdateHookPlugin = require('webpack-bundle-update-hook-plugin'),
     progress = require('./progress.js'),
     path = require('path'),
     fs = require('fs'),
@@ -61,7 +62,8 @@ module.exports = function createCompiler(opts) {
     },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new BundleUpdateHookPlugin()
     ],
     module: {}
   };
