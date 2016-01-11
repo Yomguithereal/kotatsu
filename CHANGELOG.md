@@ -4,6 +4,7 @@
 
 * Adding `--output`.
 * Supporting script arguments through `--`.
+* Fixing `--es2015` and `--jsx`.
 
 ## 0.2.0
 

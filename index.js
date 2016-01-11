@@ -7,6 +7,7 @@
 var createCompiler = require('./src/createCompiler.js'),
     createServer = require('./src/createServer.js'),
     createLogger = require('./src/createLogger.js'),
+    pretty = require('pretty-ms'),
     fork =  require('child_process').fork,
     rmrf = require('rimraf'),
     path = require('path'),
@@ -130,7 +131,7 @@ function start(opts) {
     }
     else {
 
-      logger.info('Built in ' + stats.time + 'ms.');
+      logger.info('Built in ' + pretty(stats.time) + '.');
 
       // Building module map
       var map = {};
@@ -191,7 +192,7 @@ function serve(opts) {
 
   compiler.plugin('done', function(stats) {
     stats = stats.toJson();
-    logger.info('Built in ' + stats.time + 'ms.');
+    logger.info('Built in ' + pretty(stats.time) + '.');
 
     // Errors?
     var errors = stats.errors || [];
