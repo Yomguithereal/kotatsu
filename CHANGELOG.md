@@ -3,6 +3,7 @@
 ## 0.3.0 (provisional)
 
 * Adding `--output`.
+* Adding `--presets`.
 * Supporting script arguments through `--`.
 * Fixing `--es2015` and `--jsx`.
 

@@ -48,19 +48,21 @@ Commands:
   start    Starts a node.js script.
   serve    Serves a client-side application.
   monitor  Monitors a terminating node.js script. [not implemented yet]
+  build    Builds your code for production. [not implemented yet]
 
 Options:
   -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
                      need specific loaders).
-  -d, --devtool      Webpack devtool spec to use to compute source maps.    [string] [default: null]
-  -m, --mount-node   Id of the mount node in the generated HMTL index.      [string] [default: null]
-  -o, --output       Output directory.                                      [string] [default: null]
+  -d, --devtool      Webpack devtool spec to use to compute source maps.                    [string]
+  -m, --mount-node   Id of the mount node in the generated HMTL index.                      [string]
+  -o, --output       Output directory.                                                      [string]
   -p, --port         Port that the server should listen to.                          [default: 3000]
   -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
-  --index            Path to a custom HMTL index file.                      [string] [default: null]
+  --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
-  --pragma           JSX pragma.                                            [string] [default: null]
+  --pragma           JSX pragma.                                                            [string]
+  --presets          Babel 6 presets separated by a comma (example: es2015,react).          [string]
   --progress         Should it display the compilation's progress?        [boolean] [default: false]
   --quiet            Disable logs.                                        [boolean] [default: false]
   --version          Show version number                                                   [boolean]
@@ -71,6 +73,7 @@ Examples:
   kotatsu start --es2015 ./scripts.js             Launching a ES2015 script.
   kotatsu start -c webpack.config.js ./script.js  Using a specific webpack config.
   kotatsu start --source-maps ./script.js         Computing source maps.
+  kotatsu start ./script.js -- --flag ./test.js   Passing arguments to the script.
 
   kotatsu serve ./entry.js                        Serving the given app.
   kotatsu serve --es2015 --jsx ./entry.jsx        Serving the given ES2015 & JSX app.
@@ -266,39 +269,16 @@ Now visit `localhost:3000` and you are ready to develop.
 
 ### React
 
-React is a bit more tricky because we need babel plugins so that HMR can work. To make it work, we will use a custom webpack config to handle those plugins.
+React is a bit more tricky because we need to install a Babel 6 preset (`react-hmre`) to handle hot-loading.
 
 **1. Installing necessary dependencies**
 
 ```bash
 npm i --save react react-dom
-npm i --save-dev kotatsu babel-core babel-loader babel-preset-es2015 babel-preset-react babel-preset-react-hmre
+npm i --save-dev kotatsu babel-preset-react babel-preset-react-hmre
 ```
 
-**2. Creating a custom webpack config**
-
-```js
-// file: webpack.config.js
-module.exports = {
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react', 'react-hmre']
-        }
-      }
-    ]
-  }
-};
-```
-
-For more information about webpack configuration, see webpack's [docs](https://webpack.github.io/docs/).
-
-
-**3. Creating our main component**
+**2. Creating our main component**
 
 ```jsx
 // file: App.jsx
@@ -311,7 +291,7 @@ export default class App extends Component {
 }
 ```
 
-**4. Creating our application's entry**
+**3. Creating our application's entry**
 
 ```jsx
 // file: main.jsx
@@ -324,12 +304,12 @@ const mountNode = document.getElementById('app');
 render(<App />);
 ```
 
-**5. Using kotatsu**
+**4. Using kotatsu**
 
 Now let's run a server to host our app:
 
 ```bash
-kotatsu serve --config webpack.config.js ./main.jsx
+kotatsu serve --presets es2015,react,react-hmre ./main.jsx
 ```
 
 Note that **kotatsu** will serve for you a HTML index file looking quite like this:
@@ -376,6 +356,7 @@ Every method of the library uses the same configuration object (similar to the C
 * **output** *string* [`.kotatsu`]: path of the directory where built should go.
 * **port** *integer* [`3000`]: port that the server should listen to.
 * **pragma** *string* [`null`]: custom JSX pragma.
+* **presets** *array* [`null`]: Babel 6 presets to apply.
 * **progress** *boolean* [`false`]: should the compiler display a progress bar?
 * **quiet** *boolean* [`false`]: if true, will disable all console logs.
 * **sourceMaps** *boolean* [`false`]: should it compute source maps?

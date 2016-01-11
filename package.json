@@ -10,8 +10,8 @@
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "ping": "./cli.js start --es2015 --progress -s ./test/ping/ping.js",
-    "react": "./cli.js serve --es2015 --jsx --progress -m mount ./test/react/main.jsx",
-    "react-hmr": "./cli.js serve -c ./test/react/config.js --progress --index ./test/react/index.html ./test/react/main.jsx",
+    "react": "./cli.js serve --presets es2015,react --progress -m mount ./test/react/main.jsx",
+    "react-hmr": "./cli.js serve --presets es2015,react,react-hmre --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run ping",
     "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
   },

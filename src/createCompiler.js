@@ -23,6 +23,9 @@ var NODE_ENVIRONMENT = {
   setImmediate: false
 };
 
+var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
+    BABEL_JSX = require.resolve('babel-plugin-transform-react-jsx');
+
 // NOTE: handling popular libraries issues with webpack compilation
 var NO_PARSE = /node_modules\/json-schema\/lib\/validate\.js/;
 
@@ -113,17 +116,26 @@ module.exports = function createCompiler(opts) {
   var loaders = config.module.loaders || [];
 
   //- ES2015
-  if (opts.es2015) {
+  if (opts.es2015 || opts.presets.length) {
+    var presets = opts.presets.map(function(p) {
+      if (p === 'es2015')
+        return BABEL_ES2015;
+      return p;
+    });
+
+    if (!presets.length)
+      presets = [BABEL_ES2015];
+
     var babel = {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
       loader: require.resolve('babel-loader'),
       query: {
-        presets: [require.resolve('babel-preset-es2015')]
+        presets: presets
       }
     };
 
-    if (opts.jsx) {
+    if (opts.jsx && !~opts.presets.indexOf('react')) {
       var plugins = [[require.resolve('transform-react-jsx')]];
 
       if (opts.pragma)

@@ -94,7 +94,7 @@ var argv = yargs
     type: 'string'
   })
   .option('presets', {
-    describe: 'Babel 6 presets to apply.',
+    describe: 'Babel 6 presets separated by a comma (example: es2015,react).',
     type: 'string'
   })
   .option('progress', {
@@ -163,7 +163,7 @@ var opts = {
   output: argv.output,
   port: argv.port,
   pragma: argv.pragma,
-  presets: argv.presets ? argv.split(',') : null,
+  presets: argv.presets ? argv.presets.split(',') : null,
   progress: argv.progress,
   quiet: argv.quiet,
   sourceMaps: argv.sourceMaps
