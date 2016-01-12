@@ -91,7 +91,7 @@ module.exports = function createCompiler(opts) {
     config.plugins.push(progress());
 
   // Do we want sourcemaps
-  if (opts.sourceMaps) {
+  if (opts.sourceMaps) {
 
     if (backEnd) {
       var sourceMapModulePath = require.resolve('source-map-support'),
@@ -103,17 +103,17 @@ module.exports = function createCompiler(opts) {
       }));
     }
 
-    config.devtool = opts.devtool || 'source-map';
+    config.devtool = opts.devtool || 'source-map';
   }
 
   // Merging the user's config
   // NOTE: our config should take precedence over the user's one.
-  config = _.merge({}, opts.config || {}, config);
+  config = _.merge({}, opts.config || {}, config);
 
   // Additional loaders
-  var loaders = config.module.loaders || [];
+  var loaders = config.module.loaders || [];
 
-  //- JSON
+  // - JSON
   if (backEnd) {
     loaders.push({
       test: /\.json$/,
@@ -121,7 +121,7 @@ module.exports = function createCompiler(opts) {
     });
   }
 
-  //- ES2015
+  // - ES2015
   if (opts.es2015 || opts.presets.length) {
     var presets = opts.presets.map(function(p) {
       if (p === 'es2015')

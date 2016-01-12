@@ -8,7 +8,7 @@ var createCompiler = require('./src/createCompiler.js'),
     createServer = require('./src/createServer.js'),
     createLogger = require('./src/createLogger.js'),
     pretty = require('pretty-ms'),
-    fork =  require('child_process').fork,
+    fork = require('child_process').fork,
     rmrf = require('rimraf'),
     path = require('path'),
     _ = require('lodash');
@@ -120,7 +120,7 @@ function start(opts) {
       });
 
       // Listening to child's exit
-      child.on('exit', function(code) {
+      child.on('exit', function() {
         cleanup();
 
         // Waiting for changes to reload
@@ -168,7 +168,7 @@ function start(opts) {
   });
 
   return watcher;
-};
+}
 
 /**
  * Serve a client-side app:
@@ -187,7 +187,7 @@ function serve(opts) {
   var compiler = createCompiler(opts);
 
   // Hooking into the compiler
-  compiler.plugin('compile', function(compilation) {
+  compiler.plugin('compile', function() {
     if (running) {
       console.log('');
       logger.info('Bundle rebuilding...');
