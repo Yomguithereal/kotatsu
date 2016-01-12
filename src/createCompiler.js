@@ -69,6 +69,7 @@ module.exports = function createCompiler(opts) {
   if (backEnd) {
 
     // Env
+    config.context = opts.cwd;
     config.target = 'node';
     config.node = NODE_ENVIRONMENT;
 
