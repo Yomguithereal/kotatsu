@@ -27,9 +27,6 @@ var NODE_ENVIRONMENT = {
 var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
     BABEL_JSX = require.resolve('babel-plugin-transform-react-jsx');
 
-// NOTE: handling popular libraries issues with webpack compilation
-var NO_PARSE = /node_modules\/json-schema\/lib\/validate\.js/;
-
 /**
  * Main function.
  */
@@ -74,7 +71,6 @@ module.exports = function createCompiler(opts) {
     // Env
     config.target = 'node';
     config.node = NODE_ENVIRONMENT;
-    config.module.noParse = NO_PARSE;
 
     // Source maps
     config.devtoolModuleFilenameTemplate = '[absolute-resource-path]';
