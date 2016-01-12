@@ -6,6 +6,7 @@
  */
 var webpack = require('webpack'),
     BundleUpdateHookPlugin = require('webpack-bundle-update-hook-plugin'),
+    NodePlugin = require('./NodePlugin.js'),
     progress = require('./progress.js'),
     path = require('path'),
     fs = require('fs'),
@@ -19,8 +20,8 @@ var NODE_ENVIRONMENT = {
   global: false,
   process: false,
   Buffer: false,
-  __filename: true,
-  __dirname: true,
+  __filename: false,
+  __dirname: false,
   setImmediate: false
 };
 
@@ -85,6 +86,9 @@ module.exports = function createCompiler(opts) {
       .forEach(function(m) {
         config.externals[m] = 'commonjs ' + m;
       });
+
+    // Applying the node plugin
+    config.plugins.unshift(new NodePlugin());
   }
 
   // Should we display a progress bar?
