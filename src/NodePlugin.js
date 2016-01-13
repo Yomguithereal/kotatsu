@@ -17,7 +17,7 @@ function NodePlugin() {}
 NodePlugin.prototype.apply = function(compiler) {
 
   // __dirname
-  compiler.parser.plugin('expression __dirname', function(expr) {
+  compiler.parser.plugin('expression __dirname', function() {
     if (!this.state.module)
       return;
 
@@ -29,7 +29,7 @@ NodePlugin.prototype.apply = function(compiler) {
   });
 
   // __filename
-  compiler.parser.plugin('expression __filename', function(expr) {
+  compiler.parser.plugin('expression __filename', function() {
     if (!this.state.module)
       return;
 

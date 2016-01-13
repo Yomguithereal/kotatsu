@@ -134,8 +134,11 @@ module.exports = function createCompiler(opts) {
       return p;
     });
 
-    if (!presets.length)
-      presets = [BABEL_ES2015];
+    if (opts.es2015)
+      presets.push(BABEL_ES2015);
+
+    // Deduping
+    presets = _.uniq(presets);
 
     var babel = {
       test: /\.jsx?$/,

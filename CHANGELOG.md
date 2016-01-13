@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+* Fixing a bug when using both `--es2015` and `--presets`.
+
 ## 0.3.2
 
 * Fixing `__dirname` and `__filename`.

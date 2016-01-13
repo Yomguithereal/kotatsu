@@ -3,6 +3,7 @@
   "rules": {
     "brace-style": [2, "stroustrup"],
     "comma-dangle": 0,
+    "consistent-return": 0,
     "curly": 0,
     "func-names": 0,
     "indent": 0,
