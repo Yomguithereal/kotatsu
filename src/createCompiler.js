@@ -61,6 +61,7 @@ module.exports = function createCompiler(opts) {
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
       new BundleUpdateHookPlugin()
     ],
     module: {}
