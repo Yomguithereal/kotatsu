@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+* Fixing `__dirname` and `__filename`.
+
 ## 0.3.1
 
 * Fixing json support for node.
