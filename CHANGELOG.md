@@ -3,6 +3,7 @@
 ## 0.3.3
 
 * Fixing a bug when using both `--es2015` and `--presets`.
+* Adding `NoErrorsPlugin` back.
 
 ## 0.3.2
 
