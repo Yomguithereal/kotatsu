@@ -61,6 +61,7 @@ Options:
   --babel            Use Babel to compile the files.                      [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
+  --public           Path to a static assets folder.                                        [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
   --pragma           JSX pragma.                                                            [string]
   --presets          Babel 6 presets separated by a comma (example: es2015,react).          [string]

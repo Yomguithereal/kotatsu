@@ -47,6 +47,10 @@ module.exports = function createServer(compiler, opts) {
 
   var index = createIndex(opts.mountNode);
 
+  if (opts.public) {
+    app.use(express.static(opts.public));
+  }
+
   app.get('/', function(req, res) {
 
     if (opts.index)

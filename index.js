@@ -24,6 +24,7 @@ var DEFAULTS = {
   devtool: null,
   es2015: false,
   index: null,
+  public: null,
   jsx: false,
   mountNode: 'app',
   output: '.kotatsu',
