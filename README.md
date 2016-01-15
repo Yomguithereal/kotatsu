@@ -58,6 +58,7 @@ Options:
   -o, --output       Output directory.                                                      [string]
   -p, --port         Port that the server should listen to.                          [default: 3000]
   -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
+  --babel            Use Babel to compile the files.                      [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
@@ -78,6 +79,7 @@ Examples:
   kotatsu serve ./entry.js                        Serving the given app.
   kotatsu serve --es2015 --jsx ./entry.jsx        Serving the given ES2015 & JSX app.
   kotatsu serve --port 8000 ./entry.jsx           Serving the app on a different port.
+  kotatsu serve --babel ./entry.js                Enable Babel to use .babelrc files.
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.

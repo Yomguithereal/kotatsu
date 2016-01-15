@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+* Adding `--babel`.
+
 ## 0.4.2
 
 * Using `--devtool` now implicitly enables `--source-maps`.

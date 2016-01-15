@@ -18,6 +18,7 @@ var createCompiler = require('./src/createCompiler.js'),
  */
 var DEFAULTS = {
   args: [],
+  babel: false,
   cwd: process.cwd(),
   config: null,
   devtool: null,

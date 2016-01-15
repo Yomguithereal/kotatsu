@@ -125,8 +125,8 @@ module.exports = function createCompiler(opts) {
     loader: require.resolve('json-loader')
   });
 
-  // - ES2015
-  if (opts.es2015 || opts.presets.length) {
+  // - Babel & ES2015
+  if (opts.babel || opts.es2015 || opts.presets.length) {
     var presets = opts.presets.map(function(p) {
       if (p === 'es2015')
         return BABEL_ES2015;

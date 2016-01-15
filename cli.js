@@ -75,6 +75,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('babel', {
+    describe: 'Use Babel to compile the files.',
+    type: 'boolean',
+    default: false
+  })
   .option('es2015', {
     describe: 'Is your code written in ES2015?',
     type: 'boolean',
@@ -118,6 +123,7 @@ var argv = yargs
   .example('kotatsu serve ./entry.js', 'Serving the given app.')
   .example('kotatsu serve --es2015 --jsx ./entry.jsx', 'Serving the given ES2015 & JSX app.')
   .example('kotatsu serve --port 8000 ./entry.jsx', 'Serving the app on a different port.')
+  .example('kotatsu serve --babel ./entry.js', 'Enable Babel to use .babelrc files.')
 
   // Help & Version
   .version(pkg.version)
@@ -152,6 +158,7 @@ var cwd = process.cwd();
 
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
+  babel: argv.babel,
   cwd: cwd,
   config: config,
   devtool: argv.devtool,
