@@ -246,14 +246,20 @@ function serve(opts) {
       running = true;
     }
 
-    // Errors?
-    var errors = stats.errors || [];
+    // Errors & warnings?
+    var errors = stats.errors || [],
+        warnings = stats.warnings || [];
 
     if (errors.length) {
       errors.forEach(function(error) {
         logger.error(error);
       });
     }
+
+    if (warnings.length)
+      warnings.forEach(function(warning) {
+        logger.warn(warning);
+      });
   });
 
   // Announcing
