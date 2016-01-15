@@ -120,12 +120,10 @@ module.exports = function createCompiler(opts) {
   var loaders = config.module.loaders || [];
 
   // - JSON
-  if (backEnd) {
-    loaders.push({
-      test: /\.json$/,
-      loader: require.resolve('json-loader')
-    });
-  }
+  loaders.push({
+    test: /\.json$/,
+    loader: require.resolve('json-loader')
+  });
 
   // - ES2015
   if (opts.es2015 || opts.presets.length) {
