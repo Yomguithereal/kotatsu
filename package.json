@@ -1,6 +1,6 @@
 {
   "name": "kotatsu",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Straightforward command line tool to setup a development environment for modern JavaScript.",
   "main": "index.js",
   "bin": {
