@@ -85,7 +85,7 @@ function start(opts) {
     logger.info('Compiling...');
 
   // Starting to watch
-  var watcher = compiler.watch(100, function(err, stats) {
+  var watcher = compiler.watch({aggregateTimeout: 200}, function(err, stats) {
     if (err) throw err;
 
     // Compiling stats to JSON
