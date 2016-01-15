@@ -61,6 +61,7 @@
     "@yomguithereal/eslint-config": "^1.1.0",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
+    "babel-preset-stage-2": "^6.3.13",
     "deku": "^2.0.0-rc11",
     "eslint": "^1.10.3",
     "react": "^0.14.6",
