@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+* Adding json support for client.
+* Fixing a progress bar collision.
+
 ## 0.3.3
 
 * Fixing a bug when using both `--es2015` and `--presets`.
