@@ -91,8 +91,9 @@ function start(opts) {
     // Compiling stats to JSON
     stats = stats.toJson();
 
-    // Errors?
-    var errors = stats.errors || [];
+    // Errors & warnings?
+    var errors = stats.errors || [],
+        warnings = stats.warnings || [];
 
     if (errors.length) {
       errors.forEach(function(error) {
@@ -100,6 +101,12 @@ function start(opts) {
       });
 
       return;
+    }
+
+    if (warnings.length) {
+      warnings.forEach(function(warning) {
+        logger.warn(warning);
+      });
     }
 
     // Running the script

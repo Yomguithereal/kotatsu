@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+* Handling warnings correctly.
+
 ## 0.4.0
 
 * Adding json support for client.
