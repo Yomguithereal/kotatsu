@@ -97,7 +97,7 @@ module.exports = function createCompiler(opts) {
     config.plugins.push(progress());
 
   // Do we want sourcemaps
-  if (opts.sourceMaps) {
+  if (opts.sourceMaps || opts.devtool) {
 
     if (backEnd) {
       var sourceMapModulePath = require.resolve('source-map-support'),

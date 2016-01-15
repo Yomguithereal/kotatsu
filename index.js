@@ -93,7 +93,7 @@ function start(opts) {
 
     // Errors & warnings?
     var errors = stats.errors || [],
-        warnings = stats.warnings || [];
+        warnings = stats.warnings || [];
 
     if (errors.length) {
       errors.forEach(function(error) {
@@ -255,7 +255,7 @@ function serve(opts) {
 
     // Errors & warnings?
     var errors = stats.errors || [],
-        warnings = stats.warnings || [];
+        warnings = stats.warnings || [];
 
     if (errors.length) {
       errors.forEach(function(error) {

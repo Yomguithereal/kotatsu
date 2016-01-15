@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.2
+
+* Using `--devtool` now implicitly enables `--source-maps`.
+
 ## 0.4.1
 
 * Handling warnings correctly.
