@@ -202,34 +202,38 @@ function serve(opts) {
 
     stats = stats.toJson();
 
-    // Building module map
-    var map = {};
-    stats.modules.forEach(function(m) {
-      map[m.id] = m.name;
+    // Delaying to next tick to avoid progress bar collision
+    process.nextTick(function() {
+
+      // Building module map
+      var map = {};
+      stats.modules.forEach(function(m) {
+        map[m.id] = m.name;
+      });
+
+      if (newModules.length) {
+        logger.info('Added modules:');
+        newModules.forEach(function(m) {
+          logger.info('  - ' + map[m] || m);
+        });
+      }
+
+      if (changedModules.length) {
+        logger.info('Updated modules:');
+        changedModules.forEach(function(m) {
+          logger.info('  - ' + map[m] || m);
+        });
+      }
+
+      if (removedModules.length) {
+        logger.info('Removed modules:');
+        removedModules.forEach(function(m) {
+          logger.info('  - ' + lastMap[m] || m);
+        });
+      }
+
+      lastMap = map;
     });
-
-    if (newModules.length) {
-      logger.info('Added modules:');
-      newModules.forEach(function(m) {
-        logger.info('  - ' + map[m] || m);
-      });
-    }
-
-    if (changedModules.length) {
-      logger.info('Updated modules:');
-      changedModules.forEach(function(m) {
-        logger.info('  - ' + map[m] || m);
-      });
-    }
-
-    if (removedModules.length) {
-      logger.info('Removed modules:');
-      removedModules.forEach(function(m) {
-        logger.info('  - ' + lastMap[m] || m);
-      });
-    }
-
-    lastMap = map;
   });
 
   compiler.plugin('done', function(stats) {
