@@ -32,9 +32,8 @@ var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
  * Main function.
  */
 module.exports = function createCompiler(opts) {
-  var frontEnd = opts.command === 'serve',
-      backEnd = !frontEnd,
-      monitor = opts.command === 'monitor';
+  var frontEnd = opts.side === 'front',
+      backEnd = !frontEnd;
 
   var hot = opts.hot !== false;
 

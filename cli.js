@@ -6,6 +6,7 @@
  * The CLI tool that will call the lib's function.
  */
 var kotatsu = require('./kotatsu.js'),
+    red = require('chalk').red,
     yargs = require('yargs'),
     path = require('path'),
     pkg = require('./package.json'),
@@ -21,6 +22,10 @@ var COMMANDS = [
 
 var EXPECTED_PARTS = 2;
 
+function error(message) {
+  throw Error('\n' + red('Error: ' + message));
+}
+
 // Building the CLI
 var argv = yargs
   .locale('en')
@@ -31,10 +36,18 @@ var argv = yargs
     var command = argv._[0];
 
     if (!Number.isInteger(argv.port))
-      throw Error('Invalid port: ' + argv.port);
+      error('Invalid port: ' + argv.port);
 
     if (!~COMMANDS.indexOf(command))
-      throw Error('Invalid command: ' + command);
+      error('Invalid command: ' + command);
+
+    if (command === 'build') {
+      if (argv._.length < 3)
+        error('The "build" command takes 2 arguments: client or server, and the entry.');
+
+      if (!~['client', 'server'].indexOf(argv._[1]))
+        error('Do you want to build for client or server? You gave: "' + argv._[1] + '".');
+    }
 
     return true;
   })
@@ -135,12 +148,19 @@ var argv = yargs
   .version(pkg.version)
   .help('h')
   .alias('h', 'help')
+  .showHelpOnFail(false, 'Use the --help option to get the list of available options.')
   .epilogue('Repository: ' + pkg.repository.url)
   .argv;
 
 var command = argv._[0],
     entry = argv._[1],
-    config = {};
+    config = {},
+    side;
+
+if (command === 'build') {
+  side = entry;
+  entry = argv._[2];
+}
 
 // Should we load a config file?
 if (argv.config)
@@ -203,6 +223,9 @@ else if (command === 'serve') {
 }
 else if (command === 'run') {
   kotatsu.run(opts);
+}
+else if (command === 'build') {
+  console.log('yeah');
 }
 else {
   console.error('The "' + command + '" command is not yet implemented.');

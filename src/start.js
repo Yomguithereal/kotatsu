@@ -27,7 +27,7 @@ function message(data) {
 module.exports = function start(command, opts) {
   opts = _.merge({}, defaults, opts);
 
-  opts.command = command;
+  opts.side = 'back';
   opts.hot = command !== 'run';
 
   var logger = createLogger(opts.quiet);

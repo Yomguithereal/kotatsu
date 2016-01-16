@@ -18,7 +18,7 @@ var defaults = require('./defaults.js'),
 module.exports = function serve(opts) {
   opts = _.merge({}, defaults, opts);
 
-  opts.command = 'serve';
+  opts.side = 'front';
 
   var logger = createLogger(opts.quiet);
 
