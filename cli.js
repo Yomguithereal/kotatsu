@@ -5,7 +5,7 @@
  *
  * The CLI tool that will call the lib's function.
  */
-var kotatsu = require('./index.js'),
+var kotatsu = require('./kotatsu.js'),
     yargs = require('yargs'),
     path = require('path'),
     pkg = require('./package.json'),
