@@ -15,6 +15,7 @@ var COMMANDS = [
   'start',
   'serve',
   'monitor',
+  'run',
   'build'
 ];
 
@@ -42,7 +43,8 @@ var argv = yargs
   .command('start', 'Starts a node.js script.')
   .command('serve', 'Serves a client-side application.')
   .command('monitor', 'Monitors a terminating node.js script. [not implemented yet]')
-  .command('build', 'Builds your code for production. [not implemented yet]')
+  .command('run', 'Run the given terminating node.js script. [not implemented yet]')
+  .command('build', 'Builds your code. [not implemented yet]')
 
   // Generic options
   .option('c', {
