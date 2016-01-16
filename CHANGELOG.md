@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+* Adding the `run` command.
+
 ## 0.6.0
 
 * Adding `--public`.

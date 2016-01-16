@@ -24,10 +24,11 @@ function message(data) {
 /**
  * Start function.
  */
-module.exports = function start(opts) {
+module.exports = function start(command, opts) {
   opts = _.merge({}, defaults, opts);
 
-  opts.command = 'start';
+  opts.command = command;
+  opts.hot = command !== 'run';
 
   var logger = createLogger(opts.quiet);
 
@@ -94,7 +95,11 @@ module.exports = function start(opts) {
 
       // Announcing we are done!
       logger.success('Done!');
-      logger.info('Starting your script...');
+
+      if (command === 'run')
+        logger.info('Running your script...');
+      else
+        logger.info('Starting your script...');
 
       child = fork(path.join(output, 'bundle.js'), opts.args || [], {
         uid: process.getuid(),
@@ -109,6 +114,10 @@ module.exports = function start(opts) {
       // Listening to child's exit
       child.on('exit', function() {
         cleanup();
+
+        // If we just ran the script, we stop right here
+        if (command === 'run')
+          process.exit(0);
 
         // Waiting for changes to reload
         logger.error('The script crashed. Waiting for changes to reload...');

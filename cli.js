@@ -42,8 +42,8 @@ var argv = yargs
   // Commands
   .command('start', 'Starts a node.js script.')
   .command('serve', 'Serves a client-side application.')
+  .command('run', 'Run the given node.js script.')
   .command('monitor', 'Monitors a terminating node.js script. [not implemented yet]')
-  .command('run', 'Run the given terminating node.js script. [not implemented yet]')
   .command('build', 'Builds your code. [not implemented yet]')
 
   // Generic options
@@ -194,14 +194,15 @@ for (var k in opts)
   if (opts[k] === null || opts[k] === undefined)
     delete opts[k];
 
-// Creating the watcher
-var watcher;
-
+// Applying the correct method.
 if (command === 'start') {
-  watcher = kotatsu.start(opts);
+  kotatsu.start(opts);
 }
 else if (command === 'serve') {
-  watcher = kotatsu.serve(opts);
+  kotatsu.serve(opts);
+}
+else if (command === 'run') {
+  kotatsu.run(opts);
 }
 else {
   console.error('The "' + command + '" command is not yet implemented.');

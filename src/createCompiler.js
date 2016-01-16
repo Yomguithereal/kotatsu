@@ -36,17 +36,21 @@ module.exports = function createCompiler(opts) {
       backEnd = !frontEnd,
       monitor = opts.command === 'monitor';
 
+  var hot = opts.hot !== false;
+
   var entry = opts.entry,
       output = opts.output;
 
   // Building the entry
   var entries = [];
 
-  if (backEnd)
+  if (hot) {
+    if (backEnd)
     entries.push(path.join(__dirname, '..', 'hot', 'client.js'));
 
-  if (frontEnd)
-    entries.push('webpack-hot-middleware/client');
+    if (frontEnd)
+      entries.push('webpack-hot-middleware/client');
+  }
 
   entries.push(entry);
 
@@ -58,12 +62,12 @@ module.exports = function createCompiler(opts) {
       filename: 'bundle.js',
       publicPath: '/build/'
     },
-    plugins: [
+    plugins: hot ? [
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
       new BundleUpdateHookPlugin()
-    ],
+    ] : [],
     module: {}
   };
 
@@ -114,6 +118,7 @@ module.exports = function createCompiler(opts) {
 
   // Merging the user's config
   // NOTE: our config should take precedence over the user's one.
+  // TODO: apply better merging when possible
   config = _.merge({}, opts.config || {}, config);
 
   // Additional loaders

@@ -23,6 +23,7 @@ Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) 
   * [start](#start)
   * [serve](#serve)
   * [monitor](#monitor)
+  * [run](#run)
 * [What on earth is a kotatsu?](#explanation)
 * [Inspiration](#inspiration)
 * [License](#license)
@@ -47,8 +48,9 @@ Usage: kotatsu <command> {options} [entry]
 Commands:
   start    Starts a node.js script.
   serve    Serves a client-side application.
+  run      Run the given node.js script.
   monitor  Monitors a terminating node.js script. [not implemented yet]
-  build    Builds your code for production. [not implemented yet]
+  build    Builds your code. [not implemented yet]
 
 Options:
   -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
@@ -61,11 +63,11 @@ Options:
   --babel            Use Babel to compile the files.                      [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
-  --public           Path to a static assets folder.                                        [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
   --pragma           JSX pragma.                                                            [string]
   --presets          Babel 6 presets separated by a comma (example: es2015,react).          [string]
   --progress         Should it display the compilation's progress?        [boolean] [default: false]
+  --public           Path to a public folder.                                               [string]
   --quiet            Disable logs.                                        [boolean] [default: false]
   --version          Show version number                                                   [boolean]
   -h, --help         Show help                                                             [boolean]
@@ -380,6 +382,15 @@ var server = kotatsu.serve({
   entry: 'script.js',
   ...
 })
+```
+
+### run
+
+```js
+kotatsu.run({
+  entry: 'script.js',
+  ...
+});
 ```
 
 ### monitor

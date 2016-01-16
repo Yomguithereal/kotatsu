@@ -4,7 +4,10 @@
  *
  * Exposing the API.
  */
+var start = require('./src/start.js');
+
 module.exports = {
+  run: start.bind(null, 'run'),
   serve: require('./src/serve.js'),
-  start: require('./src/start.js')
+  start: start.bind(null, 'start')
 };
