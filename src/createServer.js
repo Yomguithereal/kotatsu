@@ -48,7 +48,12 @@ module.exports = function createServer(compiler, opts) {
   var index = createIndex(opts.mountNode);
 
   if (opts.public) {
-    app.use(express.static(opts.public));
+
+    var paths = [].concat(opts.public);
+
+    paths.forEach(function(p) {
+      app.use(express.static(p));
+    });
   }
 
   app.get('/', function(req, res) {

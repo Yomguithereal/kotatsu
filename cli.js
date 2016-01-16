@@ -89,10 +89,6 @@ var argv = yargs
     describe: 'Path to a custom HMTL index file.',
     type: 'string'
   })
-  .option('public', {
-    describe: 'Path to a static assets folder.',
-    type: 'string'
-  })
   .option('jsx', {
     describe: 'Does your code uses JSX syntax?',
     type: 'boolean',
@@ -110,6 +106,10 @@ var argv = yargs
     describe: 'Should it display the compilation\'s progress?',
     type: 'boolean',
     default: false
+  })
+  .option('public', {
+    describe: 'Path to a public folder.',
+    type: 'string'
   })
   .option('quiet', {
     describe: 'Disable logs.',
@@ -160,6 +160,12 @@ if (!stats.isFile()) {
 
 var cwd = process.cwd();
 
+var publicPaths = argv.public ?
+  [].concat(argv.public).map(function(p) {
+    return path.resolve(cwd, p);
+  }) :
+  null;
+
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
   babel: argv.babel,
@@ -169,7 +175,7 @@ var opts = {
   entry: path.resolve(cwd, entry),
   es2015: argv.es2015,
   index: argv.index ? path.resolve(cwd, argv.index) : null,
-  public: argv.public ? path.resolve(cwd, argv.public) : null,
+  public: publicPaths,
   jsx: argv.jsx,
   mountNode: argv.mountNode,
   output: argv.output,

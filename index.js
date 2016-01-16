@@ -24,7 +24,6 @@ var DEFAULTS = {
   devtool: null,
   es2015: false,
   index: null,
-  public: null,
   jsx: false,
   mountNode: 'app',
   output: '.kotatsu',
@@ -32,6 +31,7 @@ var DEFAULTS = {
   pragma: null,
   presets: [],
   progress: false,
+  public: null,
   quiet: false,
   sourceMaps: false,
 };

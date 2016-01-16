@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0
+
+* Adding `--public`.
+* Back to lodash v3 for faster installation.
+
 ## 0.5.0
 
 * Adding `--babel`.

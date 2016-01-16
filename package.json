@@ -11,7 +11,7 @@
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --es2015 --progress -s ./test/interval/interval.js",
     "lint": "eslint -c eslint.config.js index.js cli.jsx ./src",
-    "react": "./cli.js serve -d cheap-eval-source-map --es2015 --presets react --progress -m mount ./test/react/main.jsx",
+    "react": "./cli.js serve -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "react-hmr": "./cli.js serve --presets es2015,react,react-hmre --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run interval",
     "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
