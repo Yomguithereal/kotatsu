@@ -49,22 +49,23 @@ Usage: kotatsu <command> {options} [entry]
 Commands:
   start    Starts a node.js script.
   serve    Serves a client-side application.
-  run      Run the given node.js script.
   monitor  Monitors a terminating node.js script. [not implemented yet]
-  build    Builds your code. [not implemented yet]
+  run      Run the given node.js script.
+  build    Builds your code.
 
 Options:
   -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
                      need specific loaders).
   -d, --devtool      Webpack devtool spec to use to compute source maps.                    [string]
   -m, --mount-node   Id of the mount node in the generated HMTL index.                      [string]
-  -o, --output       Output directory.                                                      [string]
+  -o, --output       Output path (either directory or filename).                            [string]
   -p, --port         Port that the server should listen to.                          [default: 3000]
   -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
   --babel            Use Babel to compile the files.                      [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
+  --minify           Minify the bundle.                                   [boolean] [default: false]
   --pragma           JSX pragma.                                                            [string]
   --presets          Babel 6 presets separated by a comma (example: es2015,react).          [string]
   --progress         Should it display the compilation's progress?        [boolean] [default: false]
@@ -74,16 +75,19 @@ Options:
   -h, --help         Show help                                                             [boolean]
 
 Examples:
-  kotatsu start ./script.js                       Launching the given script with HMR.
-  kotatsu start --es2015 ./scripts.js             Launching a ES2015 script.
-  kotatsu start -c webpack.config.js ./script.js  Using a specific webpack config.
-  kotatsu start --source-maps ./script.js         Computing source maps.
-  kotatsu start ./script.js -- --flag ./test.js   Passing arguments to the script.
+  kotatsu start script.js                       Launching the given script with HMR.
+  kotatsu start --es2015 scripts.js             Launching a ES2015 script.
+  kotatsu start -c webpack.config.js script.js  Using a specific webpack config.
+  kotatsu start --source-maps script.js         Computing source maps.
+  kotatsu start script.js -- --path test.js     Passing arguments to the script.
 
-  kotatsu serve ./entry.js                        Serving the given app.
-  kotatsu serve --es2015 --jsx ./entry.jsx        Serving the given ES2015 & JSX app.
-  kotatsu serve --port 8000 ./entry.jsx           Serving the app on a different port.
-  kotatsu serve --babel ./entry.js                Enable Babel to use .babelrc files.
+  kotatsu serve entry.js                        Serving the given app.
+  kotatsu serve --es2015 --jsx entry.jsx        Serving the given ES2015 & JSX app.
+  kotatsu serve --port 8000 entry.jsx           Serving the app on a different port.
+  kotatsu serve --babel entry.js                Enable Babel to use .babelrc files.
+
+  kotatsu build server --es2015 entry.js -o ./  Build the given script.
+  kotatsu build client entry.js -o build        Build the given client app.
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
