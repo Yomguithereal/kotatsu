@@ -24,6 +24,7 @@ Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) 
   * [serve](#serve)
   * [monitor](#monitor)
   * [run](#run)
+  * [build](#build)
 * [What on earth is a kotatsu?](#explanation)
 * [Inspiration](#inspiration)
 * [License](#license)
@@ -384,6 +385,10 @@ var server = kotatsu.serve({
 })
 ```
 
+### monitor
+
+Not yet implemented.
+
 ### run
 
 ```js
@@ -393,9 +398,15 @@ kotatsu.run({
 });
 ```
 
-### monitor
+### build
 
-Not yet implemented.
+```js
+// side can be either 'front' or 'back'
+kotatsu.build(side, {
+  entry: 'script.js',
+  ...
+});
+```
 
 <h2 id="explanation">What on earth is a kotatsu?</h2>
 

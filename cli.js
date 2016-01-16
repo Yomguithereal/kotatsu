@@ -55,9 +55,9 @@ var argv = yargs
   // Commands
   .command('start', 'Starts a node.js script.')
   .command('serve', 'Serves a client-side application.')
-  .command('run', 'Run the given node.js script.')
   .command('monitor', 'Monitors a terminating node.js script. [not implemented yet]')
-  .command('build', 'Builds your code. [not implemented yet]')
+  .command('run', 'Run the given node.js script.')
+  .command('build', 'Builds your code.')
 
   // Generic options
   .option('c', {
@@ -133,16 +133,19 @@ var argv = yargs
   })
 
   // Examples
-  .example('kotatsu start ./script.js', 'Launching the given script with HMR.')
-  .example('kotatsu start --es2015 ./scripts.js', 'Launching a ES2015 script.')
-  .example('kotatsu start -c webpack.config.js ./script.js', 'Using a specific webpack config.')
-  .example('kotatsu start --source-maps ./script.js', 'Computing source maps.')
-  .example('kotatsu start ./script.js -- --flag ./test.js', 'Passing arguments to the script.')
+  .example('kotatsu start script.js', 'Launching the given script with HMR.')
+  .example('kotatsu start --es2015 scripts.js', 'Launching a ES2015 script.')
+  .example('kotatsu start -c webpack.config.js script.js', 'Using a specific webpack config.')
+  .example('kotatsu start --source-maps script.js', 'Computing source maps.')
+  .example('kotatsu start script.js -- --path test.js', 'Passing arguments to the script.')
   .example('')
-  .example('kotatsu serve ./entry.js', 'Serving the given app.')
-  .example('kotatsu serve --es2015 --jsx ./entry.jsx', 'Serving the given ES2015 & JSX app.')
-  .example('kotatsu serve --port 8000 ./entry.jsx', 'Serving the app on a different port.')
-  .example('kotatsu serve --babel ./entry.js', 'Enable Babel to use .babelrc files.')
+  .example('kotatsu serve entry.js', 'Serving the given app.')
+  .example('kotatsu serve --es2015 --jsx entry.jsx', 'Serving the given ES2015 & JSX app.')
+  .example('kotatsu serve --port 8000 entry.jsx', 'Serving the app on a different port.')
+  .example('kotatsu serve --babel entry.js', 'Enable Babel to use .babelrc files.')
+  .example('')
+  .example('kotatsu build server --es2015 entry.js -o ./', 'Build the given script.')
+  .example('kotatsu build client entry.js -o build', 'Build the given client app.')
 
   // Help & Version
   .version(pkg.version)
@@ -158,7 +161,7 @@ var command = argv._[0],
     side;
 
 if (command === 'build') {
-  side = entry;
+  side = entry === 'client' ? 'front' : 'back';
   entry = argv._[2];
 }
 
@@ -225,7 +228,7 @@ else if (command === 'run') {
   kotatsu.run(opts);
 }
 else if (command === 'build') {
-  console.log('yeah');
+  kotatsu.build(side, opts);
 }
 else {
   console.error('The "' + command + '" command is not yet implemented.');

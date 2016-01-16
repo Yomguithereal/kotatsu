@@ -3,6 +3,7 @@
 ## 0.7.0
 
 * Adding the `run` command.
+* Adding the `build` command.
 
 ## 0.6.0
 
