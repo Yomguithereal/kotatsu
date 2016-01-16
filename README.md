@@ -47,11 +47,12 @@ npm install --save-dev kotatsu
 Usage: kotatsu <command> {options} [entry]
 
 Commands:
-  start    Starts a node.js script.
-  serve    Serves a client-side application.
-  monitor  Monitors a terminating node.js script. [not implemented yet]
+  start    Start a node.js script.
+  serve    Serve a client-side application.
+           ---
+  monitor  Monitor a terminating node.js script.
   run      Run the given node.js script.
-  build    Builds your code.
+  build    Build your code for client or server.
 
 Options:
   -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
@@ -392,7 +393,12 @@ var server = kotatsu.serve({
 
 ### monitor
 
-Not yet implemented.
+```js
+var watcher = kotatsu.monitor({
+  entry: 'script.js',
+  ...
+})
+```
 
 ### run
 

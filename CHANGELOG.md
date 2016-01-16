@@ -4,6 +4,7 @@
 
 * Adding the `run` command.
 * Adding the `build` command.
+* Adding the `monitor` command.
 * Adding the `--minify` option.
 * Better `--output` option.
 * Improving UX.

@@ -29,7 +29,7 @@ module.exports = function start(command, opts) {
   opts = _.merge({}, defaults, opts);
 
   opts.side = 'back';
-  opts.hot = command !== 'run';
+  opts.hot = command === 'start';
   opts.output = solveOutput(opts.output);
 
   var logger = createLogger(opts.quiet);
@@ -46,8 +46,12 @@ module.exports = function start(command, opts) {
   var compiler = createCompiler(opts);
 
   // Creating a cleanup function
+  var dirty = true;
   var cleanup = function() {
-    rmrf.sync(opts.output.directory);
+    if (dirty) {
+      rmrf.sync(opts.output.directory);
+      dirty = false;
+    }
   };
 
   // Hooking into the compiler
@@ -55,6 +59,12 @@ module.exports = function start(command, opts) {
     if (running) {
       console.log('');
       logger.info('Bundle rebuilding...');
+
+      if (command === 'monitor') {
+        child.kill();
+        child = null;
+        running = false;
+      }
     }
   });
 
@@ -95,10 +105,10 @@ module.exports = function start(command, opts) {
       // Announcing we are done!
       logger.success('Done!');
 
-      if (command === 'run')
-        logger.info('Running your script...');
-      else
+      if (command === 'start')
         logger.info('Starting your script...');
+      else
+        logger.info('Running your script...');
 
       var scriptPath = path.join(opts.output.directory, opts.output.filename)
 
@@ -113,15 +123,18 @@ module.exports = function start(command, opts) {
       });
 
       // Listening to child's exit
-      child.on('exit', function() {
-        cleanup();
+      child.on('exit', function(code) {
 
         // If we just ran the script, we stop right here
         if (command === 'run')
           process.exit(0);
 
         // Waiting for changes to reload
-        logger.error('The script crashed. Waiting for changes to reload...');
+        if (code)
+          logger.error('The script crashed. Waiting for changes to reload...');
+        else
+          logger.info('The script ended. Waiting for changes to reload...');
+
         running = false;
         child = null;
       });
@@ -139,11 +152,12 @@ module.exports = function start(command, opts) {
       });
 
       // Notify the child
-      child.send(message({
-        hash: stats.hash,
-        type: 'update',
-        modules: map
-      }));
+      if (opts.hot)
+        child.send(message({
+          hash: stats.hash,
+          type: 'update',
+          modules: map
+        }));
     }
   });
 

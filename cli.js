@@ -53,11 +53,12 @@ var argv = yargs
   })
 
   // Commands
-  .command('start', 'Starts a node.js script.')
-  .command('serve', 'Serves a client-side application.')
-  .command('monitor', 'Monitors a terminating node.js script. [not implemented yet]')
+  .command('start', 'Start a node.js script.')
+  .command('serve', 'Serve a client-side application.')
+  .command('', '---')
+  .command('monitor', 'Monitor a terminating node.js script.')
   .command('run', 'Run the given node.js script.')
-  .command('build', 'Builds your code.')
+  .command('build', 'Build your code for client or server.')
 
   // Generic options
   .option('c', {
@@ -224,19 +225,7 @@ for (var k in opts)
     delete opts[k];
 
 // Applying the correct method.
-if (command === 'start') {
-  kotatsu.start(opts);
-}
-else if (command === 'serve') {
-  kotatsu.serve(opts);
-}
-else if (command === 'run') {
-  kotatsu.run(opts);
-}
-else if (command === 'build') {
+if (command === 'build')
   kotatsu.build(side, opts);
-}
-else {
-  console.error('The "' + command + '" command is not yet implemented.');
-  process.exit(1);
-}
+else
+  kotatsu[command](opts);
