@@ -13,6 +13,7 @@ module.exports = {
   es2015: false,
   index: null,
   jsx: false,
+  minify: false,
   mountNode: 'app',
   output: '.kotatsu',
   port: 3000,
@@ -21,5 +22,5 @@ module.exports = {
   progress: false,
   public: null,
   quiet: false,
-  sourceMaps: false,
+  sourceMaps: false
 };

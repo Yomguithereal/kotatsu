@@ -109,6 +109,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('minify', {
+    describe: 'Minify the bundle.',
+    type: 'boolean',
+    default: false
+  })
   .option('pragma', {
     describe: 'JSX pragma.',
     type: 'string'
@@ -202,6 +207,7 @@ var opts = {
   index: argv.index ? path.resolve(cwd, argv.index) : null,
   public: publicPaths,
   jsx: argv.jsx,
+  minify: argv.minify,
   mountNode: argv.mountNode,
   output: argv.output,
   port: argv.port,

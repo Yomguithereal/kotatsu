@@ -62,13 +62,18 @@ module.exports = function createCompiler(opts) {
       publicPath: '/build/'
     },
     plugins: hot ? [
-      new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
       new BundleUpdateHookPlugin()
     ] : [],
     module: {}
   };
+
+  // Additional plugins
+  config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin());
+
+  if (opts.minify)
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 
   // Are we creating a config for backend?
   if (backEnd) {
