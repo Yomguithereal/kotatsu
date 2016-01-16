@@ -5,6 +5,7 @@
  * Function building the script as a bundle.
  */
 var defaults = require('./defaults.js'),
+    solveOutput = require('./solveOutput.js'),
     createCompiler = require('./createCompiler.js'),
     createLogger = require('./createLogger.js'),
     _ = require('lodash');
@@ -15,6 +16,7 @@ module.exports = function build(side, opts) {
   opts.side = side;
   opts.hot = false;
   opts.build = true;
+  opts.output = solveOutput(opts.output);
 
   var logger = createLogger(opts.quiet);
 

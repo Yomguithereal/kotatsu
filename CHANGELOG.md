@@ -5,6 +5,7 @@
 * Adding the `run` command.
 * Adding the `build` command.
 * Adding the `--minify` option.
+* Better `--output` option.
 * Improving UX.
 
 ## 0.6.0

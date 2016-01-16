@@ -358,8 +358,9 @@ Every method of the library uses the same configuration object (similar to the C
 * **es2015** *boolean* [`false`]: should we handle ES2015 files?
 * **index** *string* [`null`]: path of the HTML index file to serve.
 * **jsx** *boolean* [`false`]: should we handle JSX?
+* **minify** *boolean* [`false`]: should the bundle be minified.
 * **mountNode** *string* [`'app'`]: id of the mount node in the generated HTML index file.
-* **output** *string* [`.kotatsu`]: path of the directory where built should go.
+* **output** *string* [`.kotatsu`]: path of the built file.
 * **port** *integer* [`3000`]: port that the server should listen to.
 * **pragma** *string* [`null`]: custom JSX pragma.
 * **presets** *array* [`null`]: Babel 6 presets to apply.

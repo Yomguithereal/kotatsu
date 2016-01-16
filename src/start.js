@@ -8,6 +8,7 @@
 var defaults = require('./defaults.js'),
     createCompiler = require('./createCompiler.js'),
     createLogger = require('./createLogger.js'),
+    solveOutput = require('./solveOutput.js'),
     pretty = require('pretty-ms'),
     path = require('path'),
     fork = require('child_process').fork,
@@ -29,15 +30,13 @@ module.exports = function start(command, opts) {
 
   opts.side = 'back';
   opts.hot = command !== 'run';
+  opts.output = solveOutput(opts.output);
 
   var logger = createLogger(opts.quiet);
 
   // Ensuring we do have an entry
   if (!opts.entry)
     throw Error('kotatsu: no entry provided.');
-
-  // Creating base path
-  var output = path.resolve(opts.cwd, opts.output);
 
   // State
   var running = false,
@@ -48,7 +47,7 @@ module.exports = function start(command, opts) {
 
   // Creating a cleanup function
   var cleanup = function() {
-    rmrf.sync(output);
+    rmrf.sync(opts.output.directory);
   };
 
   // Hooking into the compiler
@@ -101,7 +100,9 @@ module.exports = function start(command, opts) {
       else
         logger.info('Starting your script...');
 
-      child = fork(path.join(output, 'bundle.js'), opts.args || [], {
+      var scriptPath = path.join(opts.output.directory, opts.output.filename)
+
+      child = fork(scriptPath, opts.args || [], {
         uid: process.getuid(),
         gid: process.getgid()
       });

@@ -76,7 +76,7 @@ var argv = yargs
   })
   .option('o', {
     alias: 'output',
-    describe: 'Output directory.',
+    describe: 'Output path (either directory or filename).',
     type: 'string'
   })
   .option('p', {
@@ -209,7 +209,7 @@ var opts = {
   jsx: argv.jsx,
   minify: argv.minify,
   mountNode: argv.mountNode,
-  output: argv.output,
+  output: argv.output ? path.resolve(cwd, argv.output) : null,
   port: argv.port,
   pragma: argv.pragma,
   presets: argv.presets ? argv.presets.split(',') : null,

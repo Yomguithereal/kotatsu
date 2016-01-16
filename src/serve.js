@@ -6,6 +6,7 @@
  * HMR updates to the client.
  */
 var defaults = require('./defaults.js'),
+    solveOutput = require('./solveOutput.js'),
     createServer = require('./createServer.js'),
     createCompiler = require('./createCompiler.js'),
     createLogger = require('./createLogger.js'),
@@ -19,6 +20,7 @@ module.exports = function serve(opts) {
   opts = _.merge({}, defaults, opts);
 
   opts.side = 'front';
+  opts.output = solveOutput(opts.output);
 
   var logger = createLogger(opts.quiet);
 
