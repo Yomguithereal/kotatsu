@@ -126,7 +126,7 @@ module.exports = function createCompiler(opts) {
   });
 
   // - Babel & ES2015
-  if (opts.babel || opts.es2015 || opts.presets.length) {
+  if (opts.babel || opts.es2015 || opts.presets.length) {
     var presets = opts.presets.map(function(p) {
       if (p === 'es2015')
         return BABEL_ES2015;
