@@ -3,3 +3,4 @@ node_modules
 .npmignore
 test
 *.log
+eslint.config.js
