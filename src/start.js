@@ -34,10 +34,6 @@ module.exports = function start(command, opts) {
 
   var logger = createLogger(opts.quiet);
 
-  // Ensuring we do have an entry
-  if (!opts.entry)
-    throw Error('kotatsu: no entry provided.');
-
   // State
   var running = false,
       child;
@@ -49,7 +45,7 @@ module.exports = function start(command, opts) {
   var dirty = true;
   var cleanup = function() {
     if (dirty) {
-      rmrf.sync(opts.output.directory);
+      rmrf.sync(opts.output.path);
       dirty = false;
     }
   };
@@ -117,7 +113,7 @@ module.exports = function start(command, opts) {
       else
         logger.info('Running your script...');
 
-      var scriptPath = path.join(opts.output.directory, opts.output.filename);
+      var scriptPath = path.join(opts.output.path, opts.output.filename);
 
       child = fork(scriptPath, opts.args || [], {
         uid: process.getuid(),

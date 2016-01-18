@@ -17,7 +17,7 @@ module.exports = function(output) {
   }
 
   return {
-    directory: directory,
+    path: directory,
     filename: filename
   };
 };

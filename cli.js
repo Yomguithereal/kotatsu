@@ -26,6 +26,8 @@ function error(message) {
   throw Error('\n' + red('Error: ' + message));
 }
 
+var webpackConfig = {};
+
 // Building the CLI
 var argv = yargs
   .locale('en')
@@ -33,7 +35,8 @@ var argv = yargs
   .usage('Usage: kotatsu <command> {options} [entry]')
   .demand(1)
   .check(function(argv) {
-    var command = argv._[0];
+    var command = argv._[0],
+        neededArgs = 2;
 
     if (!Number.isInteger(argv.port))
       error('Invalid port: ' + argv.port);
@@ -41,15 +44,30 @@ var argv = yargs
     if (!~COMMANDS.indexOf(command))
       error('Invalid command: ' + command);
 
+    // Should we load a config file?
+    if (argv.config) {
+      try {
+        webpackConfig = require(path.join(process.cwd(), argv.config));
+      }
+      catch (e) {
+        error('Could not find your config file: "' + argv.config + '".');
+      }
+
+      if (webpackConfig.entry)
+        neededArgs--;
+    }
+
     if (command === 'build') {
-      if (argv._.length < 3)
+      neededArgs++;
+
+      if (argv._.length < neededArgs)
         error('The "build" command takes 2 arguments: client or server, and the entry.');
 
       if (!~['client', 'server'].indexOf(argv._[1]))
         error('Do you want to build for client or server? You gave: "' + argv._[1] + '".');
     }
     else {
-      if (argv._.length < 2)
+      if (argv._.length < neededArgs)
         error('Expecting two arguments: the command and the path to your entry.');
     }
 
@@ -167,7 +185,6 @@ var argv = yargs
 
 var command = argv._[0],
     entry = argv._[1],
-    config = {},
     side;
 
 if (command === 'build') {
@@ -175,22 +192,20 @@ if (command === 'build') {
   entry = argv._[2];
 }
 
-// Should we load a config file?
-if (argv.config)
-  config = require(path.join(process.cwd(), argv.config));
-
 // Ensuring that our entry exists
-try {
-  var stats = fs.lstatSync(entry);
-}
-catch (e) {
-  console.error('Entry file does not exist:', entry);
-  process.exit(1);
-}
+if (entry) {
+  try {
+    var stats = fs.lstatSync(entry);
+  }
+  catch (e) {
+    console.error('Entry file does not exist:', entry);
+    process.exit(1);
+  }
 
-if (!stats.isFile()) {
-  console.error('Entry file does not exist:', entry);
-  process.exit(1);
+  if (!stats.isFile()) {
+    console.error('Entry file does not exist:', entry);
+    process.exit(1);
+  }
 }
 
 var cwd = process.cwd();
@@ -205,9 +220,9 @@ var opts = {
   args: argv._.slice(EXPECTED_PARTS),
   babel: argv.babel,
   cwd: cwd,
-  config: config,
+  config: webpackConfig,
   devtool: argv.devtool,
-  entry: path.resolve(cwd, entry),
+  entry: entry ? path.resolve(cwd, entry) : null,
   es2015: argv.es2015,
   index: argv.index ? path.resolve(cwd, argv.index) : null,
   public: publicPaths,

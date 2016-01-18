@@ -26,7 +26,14 @@ var NODE_ENVIRONMENT = {
 };
 
 var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
-    BABEL_JSX = require.resolve('babel-plugin-transform-react-jsx');
+    BABEL_JSX = require.resolve('babel-plugin-transform-react-jsx'),
+    BABEL_LOADER = require.resolve('babel-loader'),
+    JSON_LOADER = require.resolve('json-loader'),
+    SOURCE_MAP_SUPPORT = require.resolve('source-map-support');
+
+/**
+ * Helpers.
+ */
 
 /**
  * Main function.
@@ -57,7 +64,7 @@ module.exports = function createCompiler(opts) {
   var config = {
     entry: entries,
     output: {
-      path: frontEnd && !opts.build ? '/kotatsu' : output.directory,
+      path: frontEnd && !opts.build ? '/kotatsu' : output.path,
       filename: output.filename || 'bundle.js',
       publicPath: '/build/'
     },
@@ -108,7 +115,7 @@ module.exports = function createCompiler(opts) {
   if (opts.sourceMaps || opts.devtool) {
 
     if (backEnd) {
-      var sourceMapModulePath = require.resolve('source-map-support'),
+      var sourceMapModulePath = SOURCE_MAP_SUPPORT,
           injectString = 'require(\'' + sourceMapModulePath + '\').install();';
 
       config.plugins.push(new webpack.BannerPlugin(injectString, {
@@ -131,7 +138,7 @@ module.exports = function createCompiler(opts) {
   // - JSON
   loaders.push({
     test: /\.json$/,
-    loader: require.resolve('json-loader')
+    loader: JSON_LOADER
   });
 
   // - Babel & ES2015
@@ -151,7 +158,7 @@ module.exports = function createCompiler(opts) {
     var babel = {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loader: require.resolve('babel-loader'),
+      loader: BABEL_LOADER,
       query: {
         presets: presets
       }
