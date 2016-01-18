@@ -7,6 +7,7 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
+    "api": "concurrent --kill-others \"node ./test/api/api.js\" \"./cli.js serve --proxy /api http://localhost:4000 ./test/api/main.js\"",
     "config": "./cli.js serve -s --progress -c ./test/react/config.js -m mount",
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
@@ -63,8 +64,10 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-2": "^6.3.13",
+    "concurrently": "^1.0.0",
     "deku": "^2.0.0-rc11",
     "eslint": "^1.10.3",
+    "http-proxy-middleware": "^0.9.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6"
   }

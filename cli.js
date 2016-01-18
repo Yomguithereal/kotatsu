@@ -150,8 +150,13 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('proxy', {
+    describe: 'Proxy information (example: /api http://localhost:4000)',
+    type: 'string',
+    nargs: 2
+  })
   .option('public', {
-    describe: 'Path to a public folder.',
+    describe: 'Path to a public folder (can be used multiple times).',
     type: 'string'
   })
   .option('quiet', {
@@ -171,6 +176,7 @@ var argv = yargs
   .example('kotatsu serve --es2015 --jsx entry.jsx', 'Serving the given ES2015 & JSX app.')
   .example('kotatsu serve --port 8000 entry.jsx', 'Serving the app on a different port.')
   .example('kotatsu serve --babel entry.js', 'Enable Babel to use .babelrc files.')
+  .example('kotatsu serve --proxy /api http://localhost:4000', 'Proxying an API.')
   .example('')
   .example('kotatsu build server --es2015 entry.js -o ./', 'Build the given script.')
   .example('kotatsu build client entry.js -o build', 'Build the given client app.')
@@ -234,6 +240,7 @@ var opts = {
   pragma: argv.pragma,
   presets: argv.presets ? argv.presets.split(',') : null,
   progress: argv.progress,
+  proxy: argv.proxy,
   quiet: argv.quiet,
   sourceMaps: argv.sourceMaps
 };

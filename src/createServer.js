@@ -6,6 +6,7 @@
  * hot-loading updates.
  */
 var express = require('express'),
+    proxy = require('http-proxy-middleware'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
     _ = require('lodash');
@@ -80,6 +81,25 @@ module.exports = function createServer(compiler, opts) {
 
     return res.send(index);
   });
+
+  // Proxy
+  if (opts.proxy) {
+    var proxies = _.chunk(opts.proxy, 2);
+
+    proxies.forEach(function(spec) {
+      var namespace = spec[0],
+          target = spec[1],
+          pathRewrite = {};
+
+      pathRewrite['^' + namespace] = '';
+
+      app.use(proxy(namespace, {
+        target: target,
+        pathRewrite: pathRewrite,
+        logLevel: 'silent'
+      }));
+    });
+  }
 
   // res.sendFile
   return app;

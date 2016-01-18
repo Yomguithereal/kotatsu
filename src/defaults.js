@@ -20,6 +20,7 @@ module.exports = {
   pragma: null,
   presets: [],
   progress: false,
+  proxy: null,
   public: null,
   quiet: false,
   sourceMaps: false

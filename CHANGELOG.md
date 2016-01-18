@@ -2,6 +2,7 @@
 
 ## 0.8.0
 
+* Adding `--proxy`.
 * The `devServer` options of the webpack config are now passed to `webpack-dev-middleware`.
 * Possibility to read the entry from a webpack config.
 * Fixing an issue with the `run` command watching for changes.

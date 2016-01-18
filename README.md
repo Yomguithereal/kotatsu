@@ -70,25 +70,27 @@ Options:
   --pragma           JSX pragma.                                                            [string]
   --presets          Babel 6 presets separated by a comma (example: es2015,react).          [string]
   --progress         Should it display the compilation's progress?        [boolean] [default: false]
-  --public           Path to a public folder.                                               [string]
+  --proxy            Proxy information (example: /api http://localhost:4000)                [string]
+  --public           Path to a public folder (can be used multiple times).                  [string]
   --quiet            Disable logs.                                        [boolean] [default: false]
   --version          Show version number                                                   [boolean]
   -h, --help         Show help                                                             [boolean]
 
 Examples:
-  kotatsu start script.js                       Launching the given script with HMR.
-  kotatsu start --es2015 scripts.js             Launching a ES2015 script.
-  kotatsu start -c webpack.config.js script.js  Using a specific webpack config.
-  kotatsu start --source-maps script.js         Computing source maps.
-  kotatsu start script.js -- --path test.js     Passing arguments to the script.
+  kotatsu start script.js                           Launching the given script with HMR.
+  kotatsu start --es2015 scripts.js                 Launching a ES2015 script.
+  kotatsu start -c webpack.config.js script.js      Using a specific webpack config.
+  kotatsu start --source-maps script.js             Computing source maps.
+  kotatsu start script.js -- --path test.js         Passing arguments to the script.
 
-  kotatsu serve entry.js                        Serving the given app.
-  kotatsu serve --es2015 --jsx entry.jsx        Serving the given ES2015 & JSX app.
-  kotatsu serve --port 8000 entry.jsx           Serving the app on a different port.
-  kotatsu serve --babel entry.js                Enable Babel to use .babelrc files.
+  kotatsu serve entry.js                            Serving the given app.
+  kotatsu serve --es2015 --jsx entry.jsx            Serving the given ES2015 & JSX app.
+  kotatsu serve --port 8000 entry.jsx               Serving the app on a different port.
+  kotatsu serve --babel entry.js                    Enable Babel to use .babelrc files.
+  kotatsu serve --proxy /api http://localhost:4000  Proxying an API.
 
-  kotatsu build server --es2015 entry.js -o ./  Build the given script.
-  kotatsu build client entry.js -o build        Build the given client app.
+  kotatsu build server --es2015 entry.js -o ./      Build the given script.
+  kotatsu build client entry.js -o build            Build the given client app.
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
@@ -356,20 +358,21 @@ Every method of the library uses the same configuration object (similar to the C
 
 *optional*
 
-* **args** *array* [`null`]: array of arguments to pass to the child script.
+* **args** *array*: array of arguments to pass to the child script.
 * **cwd** *string* [`process.cwd()`]: current working directory.
-* **config** *object* [`null`]: a webpack config object.
-* **devtool** *string* [`null`]: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).
+* **config** *object*: a webpack config object.
+* **devtool** *string*: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).
 * **es2015** *boolean* [`false`]: should we handle ES2015 files?
-* **index** *string* [`null`]: path of the HTML index file to serve.
+* **index** *string*: path of the HTML index file to serve.
 * **jsx** *boolean* [`false`]: should we handle JSX?
 * **minify** *boolean* [`false`]: should the bundle be minified.
 * **mountNode** *string* [`'app'`]: id of the mount node in the generated HTML index file.
 * **output** *string* [`.kotatsu`]: path of the built file.
 * **port** *integer* [`3000`]: port that the server should listen to.
-* **pragma** *string* [`null`]: custom JSX pragma.
-* **presets** *array* [`null`]: Babel 6 presets to apply.
+* **pragma** *string*: custom JSX pragma.
+* **presets** *array*: Babel 6 presets to apply.
 * **progress** *boolean* [`false`]: should the compiler display a progress bar?
+* **proxy** *array*: proxy information.
 * **quiet** *boolean* [`false`]: if true, will disable all console logs.
 * **sourceMaps** *boolean* [`false`]: should it compute source maps?
 
