@@ -6,7 +6,13 @@
  */
 var path = require('path');
 
-module.exports = function(output) {
+module.exports = function(output, cwd) {
+  if (!output)
+    return {
+      path: path.join(cwd, '.kotatsu'),
+      filename: 'bundle.js'
+    };
+
   var ext = path.extname(output),
       directory = output,
       filename = 'bundle.js';

@@ -63,8 +63,8 @@ module.exports = function createCompiler(opts) {
 
   var hot = opts.hot !== false;
 
-  var entry = opts.entry || opts.config.entry,
-      output = opts.output;
+  // NOTE: options take precedence over the webpack config
+  var entry = opts.entry || opts.config.entry;
 
   // Building the entry
   var hotClient = null;
@@ -79,13 +79,14 @@ module.exports = function createCompiler(opts) {
   var entryConfig = handleEntry(entry, hotClient);
 
   // Building the output
-  var outputConfig = opts.config.output || {};
-
-  outputConfig = _.merge({}, {
-    path: frontEnd && !opts.build ? '/kotatsu' : output.path,
-    filename: output.filename || 'bundle.js',
-    publicPath: '/build/'
-  }, outputConfig);
+  var outputConfig = _.merge(
+    {
+      publicPath: '/build/'
+    },
+    opts.solvedOutput,
+    opts.config.output || {},
+    opts.output ? opts.solvedOutput : {}
+  );
 
   // Creating the webpack config
   var config = {

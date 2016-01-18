@@ -15,7 +15,7 @@ module.exports = {
   jsx: false,
   minify: false,
   mountNode: 'app',
-  output: '.kotatsu',
+  output: null,
   port: 3000,
   pragma: null,
   presets: [],

@@ -30,7 +30,7 @@ module.exports = function start(command, opts) {
 
   opts.side = 'back';
   opts.hot = command === 'start';
-  opts.output = solveOutput(opts.output);
+  opts.solvedOutput = solveOutput(opts.output, opts.cwd);
 
   var logger = createLogger(opts.quiet);
 
@@ -45,7 +45,7 @@ module.exports = function start(command, opts) {
   var dirty = true;
   var cleanup = function() {
     if (dirty) {
-      rmrf.sync(opts.output.path);
+      rmrf.sync(opts.solvedOutput.path);
       dirty = false;
     }
   };
@@ -113,7 +113,7 @@ module.exports = function start(command, opts) {
       else
         logger.info('Running your script...');
 
-      var scriptPath = path.join(opts.output.path, opts.output.filename);
+      var scriptPath = path.join(opts.solvedOutput.path, opts.solvedOutput.filename);
 
       child = fork(scriptPath, opts.args || [], {
         uid: process.getuid(),

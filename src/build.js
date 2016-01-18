@@ -16,7 +16,7 @@ module.exports = function build(side, opts) {
   opts.side = side;
   opts.hot = false;
   opts.build = true;
-  opts.output = solveOutput(opts.output);
+  opts.solvedOutput = solveOutput(opts.output, opts.cwd);
 
   var logger = createLogger(opts.quiet);
 
