@@ -2,6 +2,7 @@
 
 ## 0.8.3
 
+* Attempting to resolve entry file rather than checking the file's existence.
 * Fixing update logs.
 
 ## 0.8.2

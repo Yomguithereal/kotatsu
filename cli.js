@@ -12,6 +12,8 @@ var kotatsu = require('./kotatsu.js'),
     pkg = require('./package.json'),
     fs = require('fs');
 
+var CWD = process.cwd();
+
 var COMMANDS = [
   'start',
   'serve',
@@ -29,7 +31,10 @@ function error(message, details) {
   throw Error('\n' + red('Error: ' + message) + (details ? '\n' + details : ''));
 }
 
-var webpackConfig = {};
+var webpackConfig = {},
+    entry = null,
+    command,
+    side;
 
 // Building the CLI
 var argv = yargs
@@ -37,7 +42,7 @@ var argv = yargs
   .wrap(100)
   .usage(USAGE)
   .check(function(argv) {
-    var command = argv._[0];
+    command = argv._[0];
 
     if (!argv._.length)
       error('Not enough arguments.', [
@@ -70,6 +75,7 @@ var argv = yargs
         EXPECTED_PARTS--;
     }
 
+    // Build specifics
     if (command === 'build') {
       EXPECTED_PARTS++;
 
@@ -78,10 +84,27 @@ var argv = yargs
 
       if (!~['client', 'server'].indexOf(argv._[1]))
         error('Do you want to build for client or server? You gave: "' + argv._[1] + '".');
+
+      side = argv._[1] === 'client' ? 'front' : 'back';
+      entry = argv._[2];
     }
     else {
       if (argv._.length < EXPECTED_PARTS)
         error('Expecting two arguments: the command and the path to your entry.');
+
+      entry = argv._[1];
+    }
+
+    // Attempting to resolve our entry
+    if (entry) {
+      entry = path.resolve(CWD, entry);
+
+      try {
+        require.resolve(entry);
+      }
+      catch (e) {
+        error('Could not resolve your entry: "' + argv._[1] + '".', e.stack);
+      }
     }
 
     return true;
@@ -202,53 +225,26 @@ var argv = yargs
   .epilogue('Repository: ' + pkg.repository.url)
   .argv;
 
-var command = argv._[0],
-    entry = argv._[1],
-    side;
-
-if (command === 'build') {
-  side = entry === 'client' ? 'front' : 'back';
-  entry = argv._[2];
-}
-
-// Ensuring that our entry exists
-if (entry) {
-  try {
-    var stats = fs.lstatSync(entry);
-  }
-  catch (e) {
-    console.error('Entry file does not exist:', entry);
-    process.exit(1);
-  }
-
-  if (!stats.isFile()) {
-    console.error('Entry file does not exist:', entry);
-    process.exit(1);
-  }
-}
-
-var cwd = process.cwd();
-
 var publicPaths = argv.public ?
   [].concat(argv.public).map(function(p) {
-    return path.resolve(cwd, p);
+    return path.resolve(CWD, p);
   }) :
   null;
 
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
   babel: argv.babel,
-  cwd: cwd,
+  cwd: CWD,
   config: webpackConfig,
   devtool: argv.devtool,
-  entry: entry ? path.resolve(cwd, entry) : null,
+  entry: entry ? path.resolve(CWD, entry) : null,
   es2015: argv.es2015,
-  index: argv.index ? path.resolve(cwd, argv.index) : null,
+  index: argv.index ? path.resolve(CWD, argv.index) : null,
   public: publicPaths,
   jsx: argv.jsx,
   minify: argv.minify,
   mountNode: argv.mountNode,
-  output: argv.output ? path.resolve(cwd, argv.output) : null,
+  output: argv.output ? path.resolve(CWD, argv.output) : null,
   port: argv.port,
   pragma: argv.pragma,
   presets: argv.presets ? argv.presets.split(',') : null,
