@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+* Fixing missing dependency.
+
 ## 0.8.0
 
 * Adding `--proxy`.

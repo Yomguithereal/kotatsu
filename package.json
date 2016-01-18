@@ -1,6 +1,6 @@
 {
   "name": "kotatsu",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Straightforward command line tool to setup a development environment for modern JavaScript.",
   "main": "kotatsu.js",
   "bin": {
@@ -46,6 +46,7 @@
     "babel-preset-es2015": "^6.3.13",
     "chalk": "^1.1.1",
     "express": "^4.13.3",
+    "http-proxy-middleware": "^0.9.0",
     "json-loader": "^0.5.4",
     "lodash": "^3.10.0",
     "pretty-ms": "^2.1.0",
@@ -67,7 +68,6 @@
     "concurrently": "^1.0.0",
     "deku": "^2.0.0-rc11",
     "eslint": "^1.10.3",
-    "http-proxy-middleware": "^0.9.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6"
   }
