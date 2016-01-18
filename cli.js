@@ -31,7 +31,7 @@ var argv = yargs
   .locale('en')
   .wrap(100)
   .usage('Usage: kotatsu <command> {options} [entry]')
-  .demand(2)
+  .demand(1)
   .check(function(argv) {
     var command = argv._[0];
 
@@ -47,6 +47,10 @@ var argv = yargs
 
       if (!~['client', 'server'].indexOf(argv._[1]))
         error('Do you want to build for client or server? You gave: "' + argv._[1] + '".');
+    }
+    else {
+      if (argv._.length < 2)
+        error('Expecting two arguments: the command and the path to your entry.');
     }
 
     return true;
