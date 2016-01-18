@@ -20,7 +20,8 @@ module.exports = function formatter(options) {
     return options.message;
 
   return [
-    chalk[COLORS[options.level]]('[kotatsu] '),
+    chalk[COLORS[options.level]]('[kotatsu]'),
+    ' ',
     options.message
   ].join('');
 };
