@@ -7,7 +7,20 @@
  */
 var express = require('express'),
     dev = require('webpack-dev-middleware'),
-    hot = require('webpack-hot-middleware');
+    hot = require('webpack-hot-middleware'),
+    _ = require('lodash');
+
+/**
+ * Constants.
+ */
+var DEV_MIDDLEWARE_OPTS = {
+  publicPath: '/build/',
+  quiet: true
+};
+
+var HOT_MIDDLEWARE_OPTS = {
+  log: false
+};
 
 /**
  * Helpers.
@@ -36,17 +49,20 @@ function createIndex(mountNode) {
 module.exports = function createServer(compiler, opts) {
   var app = express();
 
-  app.use(dev(compiler, {
-    publicPath: '/build/',
-    quiet: true
-  }));
+  var devMiddlewareOpts = _.merge(
+    {},
+    DEV_MIDDLEWARE_OPTS,
+    _.get(opts, ['config', 'devServer'], {})
+  );
 
-  app.use(hot(compiler, {
-    log: false
-  }));
+  // Middlewares
+  app.use(dev(compiler, devMiddlewareOpts));
+  app.use(hot(compiler, HOT_MIDDLEWARE_OPTS));
 
+  // Index file
   var index = createIndex(opts.mountNode);
 
+  // Public folder
   if (opts.public) {
 
     var paths = [].concat(opts.public);
@@ -56,6 +72,7 @@ module.exports = function createServer(compiler, opts) {
     });
   }
 
+  // Sending the index
   app.get('/', function(req, res) {
 
     if (opts.index)
