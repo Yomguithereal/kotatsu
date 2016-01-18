@@ -34,6 +34,19 @@ var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
 /**
  * Helpers.
  */
+function handleEntry(entry, hotClient) {
+  var entryConfig = [];
+
+  if (typeof entry === 'string') {
+
+    if (hotClient)
+      entryConfig.push(hotClient);
+
+    entryConfig.push(entry);
+  }
+
+  return entryConfig;
+}
 
 /**
  * Main function.
@@ -44,30 +57,34 @@ module.exports = function createCompiler(opts) {
 
   var hot = opts.hot !== false;
 
-  var entry = opts.entry,
+  var entry = opts.entry || opts.config.entry,
       output = opts.output;
 
   // Building the entry
-  var entries = [];
+  var hotClient = null;
 
   if (hot) {
     if (backEnd)
-    entries.push(path.join(__dirname, '..', 'hot', 'client.js'));
-
-    if (frontEnd)
-      entries.push('webpack-hot-middleware/client');
+      hotClient = path.join(__dirname, '..', 'hot', 'client.js');
+    else
+      hotClient = require.resolve('webpack-hot-middleware/client');
   }
 
-  entries.push(entry);
+  var entryConfig = handleEntry(entry, hotClient);
+
+  // Building the output
+  var outputConfig = opts.config.output || {};
+
+  outputConfig = _.merge({}, {
+    path: frontEnd && !opts.build ? '/kotatsu' : output.path,
+    filename: output.filename || 'bundle.js',
+    publicPath: '/build/'
+  }, outputConfig);
 
   // Creating the webpack config
   var config = {
-    entry: entries,
-    output: {
-      path: frontEnd && !opts.build ? '/kotatsu' : output.path,
-      filename: output.filename || 'bundle.js',
-      publicPath: '/build/'
-    },
+    entry: entryConfig,
+    output: outputConfig,
     plugins: hot ? [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
