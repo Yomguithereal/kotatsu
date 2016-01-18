@@ -1,5 +1,7 @@
+var path = require('path');
+
 module.exports = {
-  entry: './main.jsx',
+  entry: [path.join(__dirname, './main.jsx')],
   module: {
     loaders: [
       {

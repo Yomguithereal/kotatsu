@@ -35,14 +35,20 @@ var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
  * Helpers.
  */
 function handleEntry(entry, hotClient) {
-  var entryConfig = [];
+  var entryConfig;
 
-  if (typeof entry === 'string') {
+  if (typeof entry === 'string' || Array.isArray(entry)) {
+    entryConfig = [].concat(entry);
 
     if (hotClient)
-      entryConfig.push(hotClient);
+      entryConfig.unshift(hotClient);
+  }
+  else if (typeof entry === 'object') {
+    entryConfig = {};
 
-    entryConfig.push(entry);
+    for (var k in entry) {
+      entryConfig[k] = handleEntry(entry[k], hotClient);
+    }
   }
 
   return entryConfig;
@@ -85,16 +91,20 @@ module.exports = function createCompiler(opts) {
   var config = {
     entry: entryConfig,
     output: outputConfig,
+
+    // TODO: better merge plugins
     plugins: hot ? [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-      new BundleUpdateHookPlugin()
+      new webpack.NoErrorsPlugin()
     ] : [],
     module: {}
   };
 
   // Additional plugins
   config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin());
+
+  if (frontEnd)
+    config.plugins.push(new BundleUpdateHookPlugin());
 
   if (opts.minify)
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());

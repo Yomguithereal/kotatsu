@@ -7,6 +7,7 @@
     "kotatsu": "./cli.js"
   },
   "scripts": {
+    "config": "./cli.js serve -s --progress -c ./test/react/config.js -m mount",
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --es2015 --progress -s ./test/interval/interval.js",
