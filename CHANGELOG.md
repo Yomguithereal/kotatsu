@@ -3,6 +3,7 @@
 ## 0.8.2
 
 * Fixing single string as webpack entry.
+* Fixing error display when failing to load webpack config.
 
 ## 0.8.1
 

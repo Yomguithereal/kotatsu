@@ -22,8 +22,11 @@ var COMMANDS = [
 
 var EXPECTED_PARTS = 2;
 
-function error(message) {
-  throw Error('\n' + red('Error: ' + message));
+var USAGE = 'Usage: kotatsu <command> {options} [entry]',
+    AVAILABLE_COMMANDS = 'Available commands: ' + COMMANDS.join(', ');
+
+function error(message, details) {
+  throw Error('\n' + red('Error: ' + message) + (details ? '\n' + details : ''));
 }
 
 var webpackConfig = {};
@@ -32,17 +35,24 @@ var webpackConfig = {};
 var argv = yargs
   .locale('en')
   .wrap(100)
-  .usage('Usage: kotatsu <command> {options} [entry]')
-  .demand(1)
+  .usage(USAGE)
   .check(function(argv) {
-    var command = argv._[0],
-        neededArgs = 2;
+    var command = argv._[0];
+
+    if (!argv._.length)
+      error('Not enough arguments.', [
+        USAGE,
+        AVAILABLE_COMMANDS
+      ].join('\n'));
 
     if (!Number.isInteger(argv.port))
       error('Invalid port: ' + argv.port);
 
     if (!~COMMANDS.indexOf(command))
-      error('Invalid command: ' + command);
+      error(
+        'Invalid command: ' + command,
+        AVAILABLE_COMMANDS
+      );
 
     // Should we load a config file?
     if (argv.config) {
@@ -50,24 +60,27 @@ var argv = yargs
         webpackConfig = require(path.join(process.cwd(), argv.config));
       }
       catch (e) {
-        error('Could not find your config file: "' + argv.config + '".');
+        error(
+          'Error while loading your config file: "' + argv.config + '".',
+          e.stack || ''
+        );
       }
 
       if (webpackConfig.entry)
-        neededArgs--;
+        EXPECTED_PARTS--;
     }
 
     if (command === 'build') {
-      neededArgs++;
+      EXPECTED_PARTS++;
 
-      if (argv._.length < neededArgs)
+      if (argv._.length < EXPECTED_PARTS)
         error('The "build" command takes 2 arguments: client or server, and the entry.');
 
       if (!~['client', 'server'].indexOf(argv._[1]))
         error('Do you want to build for client or server? You gave: "' + argv._[1] + '".');
     }
     else {
-      if (argv._.length < neededArgs)
+      if (argv._.length < EXPECTED_PARTS)
         error('Expecting two arguments: the command and the path to your entry.');
     }
 
