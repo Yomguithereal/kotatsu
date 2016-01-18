@@ -110,7 +110,7 @@ module.exports = function start(command, opts) {
       else
         logger.info('Running your script...');
 
-      var scriptPath = path.join(opts.output.directory, opts.output.filename)
+      var scriptPath = path.join(opts.output.directory, opts.output.filename);
 
       child = fork(scriptPath, opts.args || [], {
         uid: process.getuid(),

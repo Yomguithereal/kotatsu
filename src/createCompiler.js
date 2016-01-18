@@ -58,7 +58,7 @@ module.exports = function createCompiler(opts) {
     entry: entries,
     output: {
       path: frontEnd && !opts.build ? '/kotatsu' : output.directory,
-      filename: output.filename || 'bundle.js',
+      filename: output.filename || 'bundle.js',
       publicPath: '/build/'
     },
     plugins: hot ? [
