@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.3
+
+* Fixing update logs.
+
 ## 0.8.2
 
 * Fixing single string as webpack entry.

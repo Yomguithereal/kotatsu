@@ -58,21 +58,24 @@ module.exports = function serve(opts) {
       if (newModules.length) {
         logger.info('Added modules:');
         newModules.forEach(function(m) {
-          logger.info('  - ' + map[m] || m);
+          if (map[m])
+            logger.info('  - ' + map[m]);
         });
       }
 
       if (changedModules.length) {
         logger.info('Updated modules:');
         changedModules.forEach(function(m) {
-          logger.info('  - ' + map[m] || m);
+          if (map[m])
+            logger.info('  - ' + map[m]);
         });
       }
 
       if (removedModules.length) {
         logger.info('Removed modules:');
         removedModules.forEach(function(m) {
-          logger.info('  - ' + lastMap[m] || m);
+          if (lastMap[m])
+            logger.info('  - ' + lastMap[m]);
         });
       }
 
