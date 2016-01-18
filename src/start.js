@@ -74,8 +74,15 @@ module.exports = function start(command, opts) {
   if (!opts.progress)
     logger.info('Compiling...');
 
+  // Forging the action
+  var run = function(callback) {
+    if (command === 'run')
+      return compiler.run(callback);
+    return compiler.watch({aggregateTimeout: 200}, callback);
+  };
+
   // Starting to watch
-  var watcher = compiler.watch({aggregateTimeout: 200}, function(err, stats) {
+  var handle = run(function(err, stats) {
     if (err) throw err;
 
     // Compiling stats to JSON
@@ -178,5 +185,5 @@ module.exports = function start(command, opts) {
     cleanup();
   });
 
-  return watcher;
+  return handle;
 };
