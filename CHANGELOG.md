@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2
+
+* Fixing single string as webpack entry.
+
 ## 0.8.1
 
 * Fixing missing dependency.
