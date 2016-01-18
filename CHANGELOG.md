@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+* The `devServer` options of the webpack config are now passed to `webpack-dev-middleware`.
+
 ## 0.7.0
 
 * Adding the `run` command.
