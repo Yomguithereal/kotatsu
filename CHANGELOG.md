@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+* Handling `webpack.config.babel.js`.
+
 ## 0.8.3
 
 * Attempting to resolve entry file rather than checking the file's existence.

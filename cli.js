@@ -12,6 +12,12 @@ var kotatsu = require('./kotatsu.js'),
     pkg = require('./package.json'),
     fs = require('fs');
 
+// Handling ES6 configuration
+require('babel-core/register')({
+  only: /\.babel\.js/,
+  presets: ['es2015']
+});
+
 var CWD = process.cwd();
 
 var COMMANDS = [
@@ -62,7 +68,8 @@ var argv = yargs
     // Should we load a config file?
     if (argv.config) {
       try {
-        webpackConfig = require(path.join(process.cwd(), argv.config));
+        var configPath = require.resolve(path.join(process.cwd(), argv.config));
+        webpackConfig = require(configPath);
       }
       catch (e) {
         error(
