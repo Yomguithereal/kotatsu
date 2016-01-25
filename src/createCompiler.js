@@ -101,6 +101,10 @@ module.exports = function createCompiler(opts) {
     module: {}
   };
 
+  // Merging the user's config
+  var mergeTarget = _.omit(opts.config || {}, ['entry', 'output', 'plugins']);
+  config = _.merge({}, mergeTarget, config);
+
   // Additional plugins
   config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin());
 
@@ -154,10 +158,6 @@ module.exports = function createCompiler(opts) {
 
     config.devtool = opts.devtool || 'source-map';
   }
-
-  // Merging the user's config
-  var mergeTarget = _.omit(opts.config || {}, ['entry', 'output', 'plugins']);
-  config = _.merge({}, mergeTarget, config);
 
   // Additional loaders
   var loaders = config.module.loaders || [];

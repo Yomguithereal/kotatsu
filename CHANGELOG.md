@@ -3,6 +3,7 @@
 ## 0.9.1
 
 * Cleaner log for the `serve` command.
+* Fixing config merging precedences.
 
 ## 0.9.0
 
