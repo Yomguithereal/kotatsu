@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+
+* Cleaner log for the `serve` command.
+
 ## 0.9.0
 
 * Handling `webpack.config.babel.js`.

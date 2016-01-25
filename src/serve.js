@@ -38,11 +38,8 @@ module.exports = function serve(opts) {
     }
   });
 
-  var lastMap = {};
-  compiler.plugin('bundle-update', function(newModules, changedModules, removedModules, stats) {
-    newModules = Object.keys(newModules);
-    changedModules = Object.keys(changedModules);
-    removedModules = Object.keys(removedModules);
+  compiler.plugin('bundle-update', function(newModules, updatedModules, removedModules, stats) {
+    updatedModules = Object.keys(updatedModules);
 
     stats = stats.toJson();
 
@@ -55,31 +52,13 @@ module.exports = function serve(opts) {
         map[m.id] = m.name;
       });
 
-      if (newModules.length) {
-        logger.info('Added modules:');
-        newModules.forEach(function(m) {
-          if (map[m])
-            logger.info('  - ' + map[m]);
-        });
-      }
-
-      if (changedModules.length) {
+      if (updatedModules.length) {
         logger.info('Updated modules:');
-        changedModules.forEach(function(m) {
+        updatedModules.forEach(function(m) {
           if (map[m])
             logger.info('  - ' + map[m]);
         });
       }
-
-      if (removedModules.length) {
-        logger.info('Removed modules:');
-        removedModules.forEach(function(m) {
-          if (lastMap[m])
-            logger.info('  - ' + lastMap[m]);
-        });
-      }
-
-      lastMap = map;
     });
   });
 
