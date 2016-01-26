@@ -5,6 +5,7 @@
  * Function building the script as a bundle.
  */
 var defaults = require('./defaults.js'),
+    pretty = require('pretty-ms'),
     solveOutput = require('./solveOutput.js'),
     createCompiler = require('./createCompiler.js'),
     createLogger = require('./createLogger.js'),
@@ -21,6 +22,9 @@ module.exports = function build(side, opts) {
   var logger = createLogger(opts.quiet);
 
   logger.announce();
+
+  if (!opts.progress)
+    logger.info('Compiling...');
 
   var compiler = createCompiler(opts);
 
@@ -48,6 +52,7 @@ module.exports = function build(side, opts) {
       });
     }
 
+    logger.info('Built in ' + pretty(stats.time) + '.');
     logger.success('Done!');
   });
 };
