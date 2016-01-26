@@ -9,8 +9,7 @@ var kotatsu = require('./kotatsu.js'),
     red = require('chalk').red,
     yargs = require('yargs'),
     path = require('path'),
-    pkg = require('./package.json'),
-    fs = require('fs');
+    pkg = require('./package.json');
 
 // Handling ES6 configuration
 require('babel-core/register')({
