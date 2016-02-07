@@ -111,8 +111,14 @@ module.exports = function createCompiler(opts) {
   if (frontEnd)
     config.plugins.push(new BundleUpdateHookPlugin());
 
-  if (opts.minify)
+  if (opts.minify) {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+    config.plugins.push(new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }));
+  }
 
   // Are we creating a config for backend?
   if (backEnd) {
