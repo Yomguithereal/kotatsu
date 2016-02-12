@@ -31,6 +31,14 @@ var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
     JSON_LOADER = require.resolve('json-loader'),
     SOURCE_MAP_SUPPORT = require.resolve('source-map-support');
 
+var KOTATSU_PLUGINS = {
+  hmr: webpack.HotModuleReplacementPlugin,
+  noErrors: webpack.NoErrorsPlugin,
+  occurenceOrder: webpack.optimize.OccurenceOrderPlugin,
+  bundleUpdate: BundleUpdateHookPlugin,
+  uglify: webpack.optimize.UglifyJsPlugin
+};
+
 /**
  * Helpers.
  */
@@ -54,12 +62,27 @@ function handleEntry(entry, hotClient) {
   return entryConfig;
 }
 
+function checkUsedPlugins(plugins) {
+  var used = {},
+      k;
+
+  plugins.forEach(function(plugin) {
+    for (k in KOTATSU_PLUGINS) {
+      if (plugin instanceof KOTATSU_PLUGINS[k])
+        used[k] = true;
+    }
+  });
+
+  return used;
+}
+
 /**
  * Main function.
  */
 module.exports = function createCompiler(opts) {
   var frontEnd = opts.side === 'front',
-      backEnd = !frontEnd;
+      backEnd = !frontEnd,
+      usedPlugins = checkUsedPlugins(opts.config.plugins || []);
 
   var hot = opts.hot !== false;
 
@@ -92,14 +115,16 @@ module.exports = function createCompiler(opts) {
   var config = {
     entry: entryConfig,
     output: outputConfig,
-    plugins: [],
+    plugins: opts.config.plugins || [],
     module: {}
   };
 
   // HMR & No Errors
   if (hot) {
-    config.plugins.push(new webpack.HotModuleReplacementPlugin());
-    config.plugins.push(new webpack.NoErrorsPlugin());
+    if (!usedPlugins.hmr)
+      config.plugins.push(new webpack.HotModuleReplacementPlugin());
+    if (!usedPlugins.noErrors)
+      config.plugins.push(new webpack.NoErrorsPlugin());
   }
 
   // Merging the user's config
@@ -107,12 +132,13 @@ module.exports = function createCompiler(opts) {
   config = _.merge({}, mergeTarget, config);
 
   // Additional plugins
-  config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin());
+  if (!usedPlugins.occurenceOrder)
+    config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin());
 
-  if (frontEnd)
+  if (frontEnd && !usedPlugins.bundleUpdate)
     config.plugins.push(new BundleUpdateHookPlugin());
 
-  if (opts.minify)
+  if (opts.minify && !usedPlugins.uglify)
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 
   // Are we creating a config for backend?

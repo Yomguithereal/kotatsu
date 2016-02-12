@@ -1,7 +1,8 @@
 # Changelog
 
-## 0.9.2
+## 0.10.1
 
+* Adding plugins merging.
 * Fixing ES6 config support.
 
 ## 0.9.1
