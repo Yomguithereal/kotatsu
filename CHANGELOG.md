@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2
+
+* Fixing ES6 config support.
+
 ## 0.9.1
 
 * Cleaner log for the `serve` command.

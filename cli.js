@@ -69,6 +69,10 @@ var argv = yargs
       try {
         var configPath = require.resolve(path.join(process.cwd(), argv.config));
         webpackConfig = require(configPath);
+
+        // Handling ES6 export
+        if ('default' in webpackConfig)
+          webpackConfig = webpackConfig.default;
       }
       catch (e) {
         error(

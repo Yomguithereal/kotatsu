@@ -1,6 +1,6 @@
 import path from 'path';
 
-module.exports = {
+export default {
   entry: [path.join(__dirname, './main.jsx')],
   module: {
     loaders: [
@@ -14,4 +14,4 @@ module.exports = {
       }
     ]
   }
-}
+};
