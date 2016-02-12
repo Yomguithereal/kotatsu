@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint no-shadow: 0 */
 /**
  * Kotatsu CLI
  * ============
