@@ -92,14 +92,15 @@ module.exports = function createCompiler(opts) {
   var config = {
     entry: entryConfig,
     output: outputConfig,
-
-    // TODO: better merge plugins
-    plugins: hot ? [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
-    ] : [],
+    plugins: [],
     module: {}
   };
+
+  // HMR & No Errors
+  if (hot) {
+    config.plugins.push(new webpack.HotModuleReplacementPlugin());
+    config.plugins.push(new webpack.NoErrorsPlugin());
+  }
 
   // Merging the user's config
   var mergeTarget = _.omit(opts.config || {}, ['entry', 'output', 'plugins']);
