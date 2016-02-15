@@ -12,7 +12,7 @@
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --es2015 --progress -s ./test/interval/interval.js",
-    "lint": "eslint -c eslint.config.js index.js cli.js ./src",
+    "lint": "eslint index.js cli.js ./src",
     "react": "./cli.js serve -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "react-hmr": "./cli.js serve --presets es2015,react,react-hmre --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run interval",
@@ -61,14 +61,21 @@
     "yargs": "^3.31.0"
   },
   "devDependencies": {
-    "@yomguithereal/eslint-config": "^1.1.0",
+    "@yomguithereal/eslint-config": "^2.0.0",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-2": "^6.3.13",
     "concurrently": "^1.0.0",
     "deku": "^2.0.0-rc11",
-    "eslint": "^1.10.3",
+    "eslint": "^2.0.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6"
+  },
+  "eslintConfig": {
+    "extends": "@yomguithereal/eslint-config",
+    "rules": {
+      "no-console": 0,
+      "vars-on-top": 0
+    }
   }
 }
