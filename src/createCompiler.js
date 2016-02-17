@@ -214,7 +214,8 @@ module.exports = function createCompiler(opts) {
       exclude: /(node_modules|bower_components)/,
       loader: BABEL_LOADER,
       query: {
-        presets: presets
+        presets: presets,
+        babelrc: opts.babel
       }
     };
 
