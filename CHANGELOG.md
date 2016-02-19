@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+* Updating dependencies.
+
 ## 0.10.0
 
 * Adding plugins merging.
