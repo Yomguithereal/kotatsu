@@ -61,7 +61,7 @@
     "yargs": "^3.31.0"
   },
   "devDependencies": {
-    "@yomguithereal/eslint-config": "^2.0.0",
+    "@yomguithereal/eslint-config": "^2.1.0",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-2": "^6.3.13",
@@ -74,8 +74,7 @@
   "eslintConfig": {
     "extends": "@yomguithereal/eslint-config",
     "rules": {
-      "no-console": 0,
-      "vars-on-top": 0
+      "no-console": 0
     }
   }
 }
