@@ -9,7 +9,9 @@ var express = require('express'),
     proxy = require('http-proxy-middleware'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    copyHeadersToRequest = require('./copyHeadersToRequest.js'),
+    copyHeadersToResponse = require('./copyHeadersToResponse.js');
 
 /**
  * Constants.
@@ -96,7 +98,9 @@ module.exports = function createServer(compiler, opts) {
       app.use(proxy(namespace, {
         target: target,
         pathRewrite: pathRewrite,
-        logLevel: 'silent'
+        logLevel: 'silent',
+        onProxyRes: copyHeadersToResponse,
+        onProxyReq: copyHeadersToRequest
       }));
     });
   }
