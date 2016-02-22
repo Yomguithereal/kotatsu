@@ -3,6 +3,7 @@
 ## 0.11.0
 
 * Updating dependencies.
+* Proxy is now copying headers correctly.
 
 ## 0.10.0
 
