@@ -158,7 +158,7 @@ var argv = yargs
     alias: 'source-maps',
     describe: 'Should source maps be computed for easier debugging?',
     type: 'boolean',
-    default: false
+    default: true
   })
   .option('babel', {
     describe: 'Use Babel to compile the files.',
@@ -216,7 +216,7 @@ var argv = yargs
   .example('kotatsu start script.js', 'Launching the given script with HMR.')
   .example('kotatsu start --es2015 scripts.js', 'Launching a ES2015 script.')
   .example('kotatsu start -c webpack.config.js script.js', 'Using a specific webpack config.')
-  .example('kotatsu start --source-maps script.js', 'Computing source maps.')
+  .example('kotatsu start --no-source-maps script.js', 'Disabling source maps.')
   .example('kotatsu start script.js -- --path test.js', 'Passing arguments to the script.')
   .example('')
   .example('kotatsu serve entry.js', 'Serving the given app.')

@@ -61,7 +61,7 @@ Options:
   -m, --mount-node   Id of the mount node in the generated HMTL index.                      [string]
   -o, --output       Output path (either directory or filename).                            [string]
   -p, --port         Port that the server should listen to.                          [default: 3000]
-  -s, --source-maps  Should source maps be computed for easier debugging? [boolean] [default: false]
+  -s, --source-maps  Should source maps be computed for easier debugging?  [boolean] [default: true]
   --babel            Use Babel to compile the files.                      [boolean] [default: false]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
@@ -80,7 +80,7 @@ Examples:
   kotatsu start script.js                           Launching the given script with HMR.
   kotatsu start --es2015 scripts.js                 Launching a ES2015 script.
   kotatsu start -c webpack.config.js script.js      Using a specific webpack config.
-  kotatsu start --source-maps script.js             Computing source maps.
+  kotatsu start --no-source-maps script.js          Disabling source maps.
   kotatsu start script.js -- --path test.js         Passing arguments to the script.
 
   kotatsu serve entry.js                            Serving the given app.

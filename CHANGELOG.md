@@ -4,6 +4,7 @@
 
 * Updating dependencies.
 * Proxy is now copying headers correctly.
+* Source maps are now default.
 
 ## 0.10.0
 

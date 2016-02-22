@@ -23,5 +23,5 @@ module.exports = {
   proxy: null,
   public: null,
   quiet: false,
-  sourceMaps: false
+  sourceMaps: true
 };
