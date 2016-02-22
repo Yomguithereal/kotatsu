@@ -5,6 +5,7 @@
 * Updating dependencies.
 * Proxy is now copying headers correctly.
 * Source maps are now default.
+* Merging some specific entries to avoid collisions.
 
 ## 0.10.0
 

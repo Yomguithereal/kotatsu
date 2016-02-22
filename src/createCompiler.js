@@ -31,6 +31,8 @@ var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
     JSON_LOADER = require.resolve('json-loader'),
     SOURCE_MAP_SUPPORT = require.resolve('source-map-support');
 
+var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
+
 var KOTATSU_PLUGINS = {
   hmr: webpack.HotModuleReplacementPlugin,
   noErrors: webpack.NoErrorsPlugin,
@@ -42,14 +44,36 @@ var KOTATSU_PLUGINS = {
 /**
  * Helpers.
  */
+function getHMRClientQuery(entryArray) {
+  var relevantEntry = _.find(entryArray, function(entry) {
+    return !!~entry.indexOf(HMR_FRONTEND_CLIENT);
+  });
+
+  if (!relevantEntry)
+    return false;
+
+  var query = _.last(relevantEntry.split('?'));
+
+  return query;
+}
+
 function handleEntry(entry, hotClient) {
   var entryConfig;
 
   if (typeof entry === 'string' || Array.isArray(entry)) {
     entryConfig = [].concat(entry);
 
-    if (hotClient)
+    if (hotClient) {
+
+      // First we need to check if some query was passed to the client
+      var query = getHMRClientQuery(entryConfig);
+
+      if (query)
+        hotClient += '?' + query;
+
+      // Adding the HMR client to the entry array
       entryConfig.unshift(hotClient);
+    }
   }
   else if (typeof entry === 'object') {
     entryConfig = {};
@@ -96,7 +120,7 @@ module.exports = function createCompiler(opts) {
     if (backEnd)
       hotClient = path.join(__dirname, '..', 'hot', 'client.js');
     else
-      hotClient = require.resolve('webpack-hot-middleware/client');
+      hotClient = require.resolve(HMR_FRONTEND_CLIENT);
   }
 
   var entryConfig = handleEntry(entry, hotClient);
