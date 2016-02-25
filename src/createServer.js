@@ -75,15 +75,6 @@ module.exports = function createServer(compiler, opts) {
     });
   }
 
-  // Sending the index
-  app.get('/', function(req, res) {
-
-    if (opts.index)
-      return res.sendFile(opts.index);
-
-    return res.send(index);
-  });
-
   // Proxy
   if (opts.proxy) {
     var proxies = _.chunk(opts.proxy, 2);
@@ -104,6 +95,15 @@ module.exports = function createServer(compiler, opts) {
       }));
     });
   }
+
+  // Sending the index
+  app.get('*', function(req, res) {
+
+    if (opts.index)
+      return res.sendFile(opts.index);
+
+    return res.send(index);
+  });
 
   // res.sendFile
   return app;
