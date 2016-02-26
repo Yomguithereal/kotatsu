@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.0
+
+* Redirecting every route on the index.
+* Fixing an issue concerning default options.
+
 ## 0.11.0
 
 * Updating dependencies.

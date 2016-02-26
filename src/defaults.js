@@ -8,7 +8,7 @@ module.exports = {
   args: [],
   babel: false,
   cwd: process.cwd(),
-  config: null,
+  config: {},
   devtool: null,
   es2015: false,
   index: null,
