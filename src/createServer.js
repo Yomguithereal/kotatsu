@@ -96,6 +96,10 @@ module.exports = function createServer(compiler, opts) {
     });
   }
 
+  // Applying custom middlewares
+  if (typeof opts.server === 'function')
+    opts.server(app);
+
   // Sending the index
   app.get('*', function(req, res) {
 

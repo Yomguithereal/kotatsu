@@ -3,6 +3,7 @@
 ## 0.12.0
 
 * Redirecting every route on the index.
+* Adding the `server` option.
 * Fixing an issue concerning default options.
 * Updating `http-proxy-middleware`.
 

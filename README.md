@@ -374,6 +374,7 @@ Every method of the library uses the same configuration object (similar to the C
 * **progress** *boolean* [`false`]: should the compiler display a progress bar?
 * **proxy** *array*: proxy information.
 * **quiet** *boolean* [`false`]: if true, will disable all console logs.
+* **server** *function*: function called with the express app in case you want to apply custom middlewares etc.
 * **sourceMaps** *boolean* [`true`]: should it compute source maps?
 
 ### start
