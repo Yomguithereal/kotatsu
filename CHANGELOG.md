@@ -4,6 +4,7 @@
 
 * Redirecting every route on the index.
 * Fixing an issue concerning default options.
+* Updating `http-proxy-middleware`.
 
 ## 0.11.0
 
