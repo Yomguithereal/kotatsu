@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.1
+
+* Fixing an issue related to child processes with Windows.
+
 ## 0.12.0
 
 * Redirecting every route on the index.

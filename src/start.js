@@ -113,12 +113,15 @@ module.exports = function start(command, opts) {
       else
         logger.info('Running your script...');
 
-      var scriptPath = path.join(opts.solvedOutput.path, opts.solvedOutput.filename);
+      var scriptPath = path.join(opts.solvedOutput.path, opts.solvedOutput.filename),
+          childOptions = {};
 
-      child = fork(scriptPath, opts.args || [], {
-        uid: process.getuid(),
-        gid: process.getgid()
-      });
+      if (process.getuid) {
+        childOptions.uid = process.getuid();
+        childOptions.gid = process.getgid();
+      }
+
+      child = fork(scriptPath, opts.args || [], childOptions);
 
       // Listening to child's log
       child.on('message', function(log) {
