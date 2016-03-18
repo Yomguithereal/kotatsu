@@ -9,9 +9,7 @@ var express = require('express'),
     proxy = require('http-proxy-middleware'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
-    _ = require('lodash'),
-    copyHeadersToRequest = require('./copyHeadersToRequest.js'),
-    copyHeadersToResponse = require('./copyHeadersToResponse.js');
+    _ = require('lodash');
 
 /**
  * Constants.
@@ -45,6 +43,19 @@ function createIndex(mountNode) {
     '</html>'
   ].join('\n');
 }
+
+function copyHeadersToRequest(proxyReq, req) {
+  Object.keys(req.headers).forEach(function (key) {
+    proxyReq.setHeader(key, req.headers[key]);
+  });
+}
+
+function copyHeadersToResponse(proxyRes, req, res) {
+  Object.keys(proxyRes.headers).forEach(function (key) {
+    res.append(key, proxyRes.headers[key]);
+  });
+}
+
 
 /**
  * Main function.
