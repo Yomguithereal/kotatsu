@@ -41,7 +41,7 @@ npm install --save-dev kotatsu
 [sudo] npm install -g kotatsu
 ```
 
-Note that `kotatsu` has been designed to work with npm v3 rather than npm v2. So, while it can work with older version of node & npm, it is recommanded that you use node v5 and npm v3 when using the this tool.
+Note that `kotatsu` has been designed to work with npm v3 rather than npm v2. So, while it can work with older version of node & npm, it is recommended that you use node v5 and npm v3 when using the this tool.
 
 If you wonder how to install & switch node versions comfortably, you should probably check out [nvm](https://github.com/creationix/nvm).
 
