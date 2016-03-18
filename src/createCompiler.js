@@ -174,9 +174,6 @@ module.exports = function createCompiler(opts) {
     config.target = 'node';
     config.node = NODE_ENVIRONMENT;
 
-    // Source maps
-    config.devtoolModuleFilenameTemplate = '[absolute-resource-path]';
-
     // Registering node_modules as externals
     config.externals = {};
     fs.readdirSync(path.join(process.cwd(), 'node_modules'))
