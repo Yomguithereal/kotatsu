@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.2
+
+* Fixing issues concerning `require.resolve` on Windows.
+
 ## 0.12.1
 
 * Fixing an issue related to child processes with Windows.

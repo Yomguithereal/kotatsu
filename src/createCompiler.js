@@ -8,6 +8,7 @@ var webpack = require('webpack'),
     BundleUpdateHookPlugin = require('webpack-bundle-update-hook-plugin'),
     NodePlugin = require('./NodePlugin.js'),
     progress = require('./progress.js'),
+    resolve = require('./resolve.js'),
     path = require('path'),
     fs = require('fs'),
     _ = require('lodash');
@@ -25,11 +26,11 @@ var NODE_ENVIRONMENT = {
   setImmediate: false
 };
 
-var BABEL_ES2015 = require.resolve('babel-preset-es2015'),
-    BABEL_JSX = require.resolve('babel-plugin-transform-react-jsx'),
-    BABEL_LOADER = require.resolve('babel-loader'),
-    JSON_LOADER = require.resolve('json-loader'),
-    SOURCE_MAP_SUPPORT = require.resolve('source-map-support');
+var BABEL_ES2015 = resolve('babel-preset-es2015'),
+    BABEL_JSX = resolve('babel-plugin-transform-react-jsx'),
+    BABEL_LOADER = resolve('babel-loader'),
+    JSON_LOADER = resolve('json-loader'),
+    SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
 var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
 
@@ -120,7 +121,7 @@ module.exports = function createCompiler(opts) {
     if (backEnd)
       hotClient = path.join(__dirname, '..', 'hot', 'client.js');
     else
-      hotClient = require.resolve(HMR_FRONTEND_CLIENT);
+      hotClient = resolve(HMR_FRONTEND_CLIENT);
   }
 
   var entryConfig = handleEntry(entry, hotClient);
