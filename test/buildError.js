@@ -1,0 +1,1 @@
+require('some-nonexistant-modules');

@@ -29,8 +29,10 @@ module.exports = function build(side, opts) {
   var compiler = createCompiler(opts);
 
   compiler.run(function(err, stats) {
-    if (err)
-      return console.error(err);
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
 
     stats = stats.toJson();
 
@@ -43,7 +45,7 @@ module.exports = function build(side, opts) {
         logger.error(error);
       });
 
-      return;
+      process.exit(1);
     }
 
     if (warnings.length) {
