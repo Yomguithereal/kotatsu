@@ -3,6 +3,7 @@
 ## 0.12.2
 
 * Fixing issues concerning `require.resolve` on Windows.
+* Exiting with the correct code when failing a build ([@SeeThruHead](https://github.com/SeeThruHead)).
 
 ## 0.12.1
 
