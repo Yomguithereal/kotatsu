@@ -9,6 +9,7 @@ module.exports = {
   babel: false,
   cwd: process.cwd(),
   config: {},
+  cors: true,
   devtool: null,
   es2015: false,
   index: null,

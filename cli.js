@@ -166,7 +166,7 @@ var argv = yargs
     default: false
   })
   .option('cors', {
-    describe: 'Use CORS',
+    describe: 'Should the server allow CORS?',
     type: 'boolean',
     default: true
   })

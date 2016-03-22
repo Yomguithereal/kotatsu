@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.0
+
+* Adding the `cors` option ([@SeeThruHead](https://github.com/SeeThruHead)).
+
 ## 0.12.2
 
 * Fixing issues concerning `require.resolve` on Windows.

@@ -1,6 +1,6 @@
 {
   "name": "kotatsu",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Straightforward command line tool to setup a development environment for modern JavaScript.",
   "main": "kotatsu.js",
   "bin": {
@@ -8,17 +8,17 @@
   },
   "scripts": {
     "api": "concurrently --kill-others \"node ./test/api/api.js\" \"./cli.js serve --proxy /api http://localhost:4000 ./test/api/main.js\"",
+    "build-error": "./cli.js build --es2015 --progress -s client ./test/buildError.js",
     "config": "./cli.js serve -s --progress -c ./test/react/config.js -m mount",
+    "cors": "./cli.js serve --cors -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --es2015 --progress -s ./test/interval/interval.js",
     "lint": "eslint index.js cli.js ./src",
     "react": "./cli.js serve -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
-    "cors": "./cli.js serve --cors -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "react-hmr": "./cli.js serve --presets es2015,react,react-hmre --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run interval",
-    "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js",
-    "build-error": "./cli.js build --es2015 --progress -s client ./test/buildError.js"
+    "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
   },
   "repository": {
     "type": "git",

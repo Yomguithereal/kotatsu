@@ -67,6 +67,7 @@ Options:
   -p, --port         Port that the server should listen to.                          [default: 3000]
   -s, --source-maps  Should source maps be computed for easier debugging?  [boolean] [default: true]
   --babel            Use Babel to compile the files.                      [boolean] [default: false]
+  --cors             Should the server allow CORS?                         [boolean] [default: true]
   --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
@@ -365,6 +366,7 @@ Every method of the library uses the same configuration object (similar to the C
 * **args** *array*: array of arguments to pass to the child script.
 * **cwd** *string* [`process.cwd()`]: current working directory.
 * **config** *object*: a webpack config object.
+* **cors** *boolean* [`true`]: should the server allow CORS?
 * **devtool** *string*: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).
 * **es2015** *boolean* [`false`]: should we handle ES2015 files?
 * **index** *string*: path of the HTML index file to serve.

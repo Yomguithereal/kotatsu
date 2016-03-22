@@ -71,7 +71,9 @@ module.exports = function createServer(compiler, opts) {
   );
 
   // Middlewares
-  if (opts.cors) app.use(cors());
+  if (opts.cors)
+    app.use(cors());
+
   app.use(dev(compiler, devMiddlewareOpts));
   app.use(hot(compiler, HOT_MIDDLEWARE_OPTS));
 
