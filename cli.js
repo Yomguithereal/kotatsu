@@ -165,6 +165,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('cors', {
+    describe: 'Use CORS',
+    type: 'boolean',
+    default: true
+  })
   .option('es2015', {
     describe: 'Is your code written in ES2015?',
     type: 'boolean',
@@ -245,6 +250,7 @@ var publicPaths = argv.public ?
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
   babel: argv.babel,
+  cors: argv.cors,
   cwd: CWD,
   config: webpackConfig,
   devtool: argv.devtool,

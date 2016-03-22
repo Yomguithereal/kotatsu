@@ -7,6 +7,7 @@
  */
 var express = require('express'),
     proxy = require('http-proxy-middleware'),
+    cors = require('cors'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
     _ = require('lodash');
@@ -70,6 +71,7 @@ module.exports = function createServer(compiler, opts) {
   );
 
   // Middlewares
+  if (opts.cors) app.use(cors());
   app.use(dev(compiler, devMiddlewareOpts));
   app.use(hot(compiler, HOT_MIDDLEWARE_OPTS));
 
