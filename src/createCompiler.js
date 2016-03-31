@@ -124,6 +124,8 @@ module.exports = function createCompiler(opts) {
       hotClient = resolve(HMR_FRONTEND_CLIENT);
   }
 
+  if (opts.hmrurl) hotClient = hotClient + '?path=' + opts.hmrurl + '/__webpack_hmr';
+
   var entryConfig = handleEntry(entry, hotClient);
 
   // Building the output

@@ -20,7 +20,7 @@
     "test": "npm run interval",
     "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js",
     "build-error": "./cli.js build --es2015 --progress -s client ./test/buildError.js",
-    "cross-origin-hmr": "http-server test/crossOrigin/ & ./cli.js serve -c test/crossOrigin/config.js test/crossOrigin/index.js"
+    "cross-origin-hmr": "http-server test/crossOrigin/ & ./cli.js serve --hmrurl http://localhost:3000 -c test/crossOrigin/config.js test/crossOrigin/index.js"
   },
   "repository": {
     "type": "git",

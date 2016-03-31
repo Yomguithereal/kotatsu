@@ -175,6 +175,10 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('hmrurl', {
+    describe: 'The url of your kotatsu server -- useful if you\'re loading the served files onto another domain',
+    type: 'string'
+  })
   .option('index', {
     describe: 'Path to a custom HMTL index file.',
     type: 'string'
@@ -256,6 +260,7 @@ var opts = {
   devtool: argv.devtool,
   entry: entry ? path.resolve(CWD, entry) : null,
   es2015: argv.es2015,
+  hmrurl: argv.hmrurl,
   index: argv.index ? path.resolve(CWD, argv.index) : null,
   public: publicPaths,
   jsx: argv.jsx,

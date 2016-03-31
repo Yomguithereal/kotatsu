@@ -1,1 +1,2 @@
-console.log('hi');
+console.log('hello bob');
+module.hot.accept();
