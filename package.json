@@ -18,7 +18,9 @@
     "react": "./cli.js serve -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "react-hmr": "./cli.js serve --presets es2015,react,react-hmre --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run interval",
-    "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js"
+    "thrower": "./cli.js start --es2015 --progress -s ./test/thrower.js",
+    "build-error": "./cli.js build --es2015 --progress -s client ./test/buildError.js",
+    "cross-origin-hmr": "http-server test/crossOrigin/ & ./cli.js serve -c test/crossOrigin/config.js test/crossOrigin/index.js"
   },
   "repository": {
     "type": "git",
@@ -49,7 +51,7 @@
     "chalk": "^1.1.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "http-proxy-middleware": "^0.12.0",
+    "http-proxy-middleware": "^0.11.0",
     "json-loader": "^0.5.4",
     "lodash": "^3.10.0",
     "pretty-ms": "^2.1.0",
@@ -72,6 +74,7 @@
     "concurrently": "^2.0.0",
     "deku": "^2.0.0-rc11",
     "eslint": "^2.0.0",
+    "http-server": "^0.9.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6"
   },
