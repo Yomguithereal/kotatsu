@@ -319,7 +319,7 @@ import App from './App.jsx';
 
 const mountNode = document.getElementById('app');
 
-render(<App />);
+render(<App />, mountNode);
 ```
 
 **4. Using kotatsu**
