@@ -35,6 +35,7 @@ function createIndex(mountNode) {
     '<html>',
     '  <head>',
     '    <title>kotatsu</title>',
+    '    <meta charset="utf-8" />',
     '    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">',
     '  </head>',
     '  <body>',
