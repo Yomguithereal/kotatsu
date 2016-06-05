@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.0
+
+* Adding unicode support for default HTML ([@bverjat](https://github.com/bverjat)).
+
 ## 0.13.0
 
 * Adding the `cors` option ([@SeeThruHead](https://github.com/SeeThruHead)).
