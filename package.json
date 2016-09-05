@@ -59,6 +59,7 @@
     "source-map-support": "^0.4.0",
     "webpack": "^1.12.13",
     "webpack-bundle-update-hook-plugin": "^1.0.2",
+    "webpack-dashboard": "^0.1.8",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.7.1",
     "winston": "^2.1.1",
