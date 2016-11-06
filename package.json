@@ -49,9 +49,9 @@
     "chalk": "^1.1.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "http-proxy-middleware": "^0.12.0",
+    "http-proxy-middleware": "^0.17.2",
     "json-loader": "^0.5.4",
-    "lodash": "^3.10.0",
+    "lodash": "^4.16.6",
     "pretty-ms": "^2.1.0",
     "progress": "^1.1.8",
     "rimraf": "^2.5.2",
@@ -62,18 +62,18 @@
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.7.1",
     "winston": "^2.1.1",
-    "yargs": "^3.31.0"
+    "yargs": "^6.3.0"
   },
   "devDependencies": {
-    "@yomguithereal/eslint-config": "^2.1.0",
+    "@yomguithereal/eslint-config": "^3.0.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-2": "^6.5.0",
-    "concurrently": "^2.0.0",
+    "concurrently": "^3.1.0",
     "deku": "^2.0.0-rc11",
-    "eslint": "^2.0.0",
-    "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "eslint": "^3.9.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
   },
   "eslintConfig": {
     "extends": "@yomguithereal/eslint-config",
