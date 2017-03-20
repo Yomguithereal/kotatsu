@@ -3,13 +3,15 @@ var path = require('path');
 module.exports = {
   entry: [path.join(__dirname, './main.jsx')],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react', 'react-hmre']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react', 'react-hmre']
+          }
         }
       }
     ]

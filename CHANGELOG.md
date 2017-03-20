@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.15.0
+
+* Upgrading dependencies and switching to webpack 2.
+
 ## 0.14.0
 
 * Adding unicode support for default HTML ([@bverjat](https://github.com/bverjat)).

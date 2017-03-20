@@ -16,28 +16,34 @@ function NodePlugin() {}
 
 NodePlugin.prototype.apply = function(compiler) {
 
-  // __dirname
-  compiler.parser.plugin('expression __dirname', function() {
-    if (!this.state.module)
-      return;
+  compiler.plugin('compilation', function(compilation, params) {
 
-    var dirname = path.dirname(this.state.module.resource);
+    params.normalModuleFactory.plugin('parser', function(parser) {
 
-    this.state.current.addVariable('__dirname', JSON.stringify(dirname));
+      // __dirname
+      parser.plugin('expression __dirname', function() {
+        if (!this.state.module)
+          return;
 
-    return true;
-  });
+        var dirname = path.dirname(this.state.module.resource);
 
-  // __filename
-  compiler.parser.plugin('expression __filename', function() {
-    if (!this.state.module)
-      return;
+        this.state.current.addVariable('__dirname', JSON.stringify(dirname));
 
-    var filename = this.state.module.resource;
+        return true;
+      });
 
-    this.state.current.addVariable('__filename', JSON.stringify(filename));
+      // __filename
+      parser.plugin('expression __filename', function() {
+        if (!this.state.module)
+          return;
 
-    return true;
+        var filename = this.state.module.resource;
+
+        this.state.current.addVariable('__filename', JSON.stringify(filename));
+
+        return true;
+      });
+    });
   });
 };
 

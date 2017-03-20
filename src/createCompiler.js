@@ -29,15 +29,13 @@ var NODE_ENVIRONMENT = {
 var BABEL_ES2015 = resolve('babel-preset-es2015'),
     BABEL_JSX = resolve('babel-plugin-transform-react-jsx'),
     BABEL_LOADER = resolve('babel-loader'),
-    JSON_LOADER = resolve('json-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
 var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
 
 var KOTATSU_PLUGINS = {
   hmr: webpack.HotModuleReplacementPlugin,
-  noErrors: webpack.NoErrorsPlugin,
-  occurenceOrder: webpack.optimize.OccurenceOrderPlugin,
+  noErrors: webpack.NoEmitOnErrorsPlugin,
   bundleUpdate: BundleUpdateHookPlugin,
   uglify: webpack.optimize.UglifyJsPlugin
 };
@@ -149,7 +147,7 @@ module.exports = function createCompiler(opts) {
     if (!usedPlugins.hmr)
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
     if (!usedPlugins.noErrors)
-      config.plugins.push(new webpack.NoErrorsPlugin());
+      config.plugins.push(new webpack.NoEmitOnErrorsPlugin());
   }
 
   // Merging the user's config
@@ -157,9 +155,6 @@ module.exports = function createCompiler(opts) {
   config = _.merge({}, mergeTarget, config);
 
   // Additional plugins
-  if (!usedPlugins.occurenceOrder)
-    config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin());
-
   if (frontEnd && !usedPlugins.bundleUpdate)
     config.plugins.push(new BundleUpdateHookPlugin());
 
@@ -199,7 +194,8 @@ module.exports = function createCompiler(opts) {
       var sourceMapModulePath = SOURCE_MAP_SUPPORT,
           injectString = 'require(\'' + sourceMapModulePath + '\').install();';
 
-      config.plugins.push(new webpack.BannerPlugin(injectString, {
+      config.plugins.push(new webpack.BannerPlugin({
+        banner: injectString,
         raw: true,
         entryOnly: false
       }));
@@ -209,13 +205,7 @@ module.exports = function createCompiler(opts) {
   }
 
   // Additional loaders
-  var loaders = config.module.loaders || [];
-
-  // - JSON
-  loaders.push({
-    test: /\.json$/,
-    loader: JSON_LOADER
-  });
+  var rules = config.module.rules || [];
 
   // - Babel & ES2015
   if (opts.babel || opts.es2015 || opts.presets.length) {
@@ -234,9 +224,11 @@ module.exports = function createCompiler(opts) {
     var babel = {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loader: BABEL_LOADER,
-      query: {
-        presets: presets
+      use: {
+        loader: BABEL_LOADER,
+        options: {
+          presets: presets
+        }
       }
     };
 
@@ -246,13 +238,13 @@ module.exports = function createCompiler(opts) {
       if (opts.pragma)
         plugins[0].push({pragma: opts.pragma});
 
-      babel.query.plugins = plugins;
+      babel.use.options.plugins = plugins;
     }
 
-    loaders.push(babel);
+    rules.push(babel);
   }
 
-  config.module.loaders = loaders;
+  config.module.rules = rules;
 
   return webpack(config);
 };
