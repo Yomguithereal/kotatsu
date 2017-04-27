@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.15.1
+
+* Upgrading to `babel-loader` 7.0.0.
+
 ## 0.15.0
 
 * Upgrading dependencies and switching to webpack 2.
