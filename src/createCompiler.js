@@ -5,6 +5,7 @@
  * Function in charge of creating the webpack compilers for the library.
  */
 var webpack = require('webpack'),
+    nodeExternals = require('webpack-node-externals'),
     BundleUpdateHookPlugin = require('webpack-bundle-update-hook-plugin'),
     NodePlugin = require('./NodePlugin.js'),
     progress = require('./progress.js'),
@@ -170,14 +171,7 @@ module.exports = function createCompiler(opts) {
     config.node = NODE_ENVIRONMENT;
 
     // Registering node_modules as externals
-    config.externals = {};
-    fs.readdirSync(path.join(process.cwd(), 'node_modules'))
-      .filter(function(p) {
-        return p !== '.bin';
-      })
-      .forEach(function(m) {
-        config.externals[m] = 'commonjs ' + m;
-      });
+    config.externals = [nodeExternals()];
 
     // Applying the node plugin
     config.plugins.unshift(new NodePlugin());
