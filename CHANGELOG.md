@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.15.2
+
+* Fixing `node_modules` handling for backend usage.
+
 ## 0.15.1
 
 * Upgrading to `babel-loader` 7.0.0.
