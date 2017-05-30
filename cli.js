@@ -216,6 +216,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('dashboard', {
+    describe: 'Display webpack info via dashboard.',
+    type: 'boolean',
+    default: false
+  })
 
   // Examples
   .example('kotatsu start script.js', 'Launching the given script with HMR.')
@@ -268,7 +273,8 @@ var opts = {
   progress: argv.progress,
   proxy: argv.proxy,
   quiet: argv.quiet,
-  sourceMaps: argv.sourceMaps
+  sourceMaps: argv.sourceMaps,
+  dashboard: argv.dashboard
 };
 
 // Cleaning null values

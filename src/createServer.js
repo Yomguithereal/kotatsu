@@ -10,7 +10,8 @@ var express = require('express'),
     cors = require('cors'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    DashboardPlugin = require('webpack-dashboard/plugin');
 
 /**
  * Constants.
@@ -70,6 +71,9 @@ module.exports = function createServer(compiler, opts) {
     DEV_MIDDLEWARE_OPTS,
     _.get(opts, ['config', 'devServer'], {})
   );
+
+  if (opts.dashboard)
+    compiler.apply(new DashboardPlugin());
 
   // Middlewares
   if (opts.cors)
