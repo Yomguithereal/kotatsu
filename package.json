@@ -51,7 +51,7 @@
     "express": "^4.13.3",
     "http-proxy-middleware": "^0.17.4",
     "lodash": "^4.17.4",
-    "pretty-ms": "^2.1.0",
+    "pretty-ms": "^4.0.0",
     "progress": "^1.1.8",
     "rimraf": "^2.5.2",
     "slash": "^1.0.0",
