@@ -11,7 +11,6 @@ var webpack = require('webpack'),
     progress = require('./progress.js'),
     resolve = require('./resolve.js'),
     path = require('path'),
-    fs = require('fs'),
     _ = require('lodash');
 
 /**

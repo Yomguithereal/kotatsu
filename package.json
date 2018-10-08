@@ -14,7 +14,7 @@
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --es2015 --progress -s ./test/interval/interval.js",
-    "lint": "eslint index.js cli.js ./src",
+    "lint": "eslint cli.js kotatsu.js ./src",
     "react": "./cli.js serve -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "react-hmr": "./cli.js serve --presets es2015,react,react-hmre --progress --index ./test/react/index.html ./test/react/main.jsx",
     "test": "npm run interval",
@@ -46,7 +46,7 @@
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-react-jsx": "^6.5.2",
     "babel-preset-es2015": "^6.5.0",
-    "chalk": "^1.1.1",
+    "chalk": "^2.4.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
     "http-proxy-middleware": "^0.17.4",
@@ -65,13 +65,13 @@
     "yargs": "^7.0.2"
   },
   "devDependencies": {
-    "@yomguithereal/eslint-config": "^3.0.0",
+    "@yomguithereal/eslint-config": "^4.0.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-2": "^6.5.0",
     "concurrently": "^3.4.0",
     "deku": "2.0.0-rc11",
-    "eslint": "^3.18.0",
+    "eslint": "^5.6.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
