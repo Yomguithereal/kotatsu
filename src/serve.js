@@ -31,38 +31,39 @@ module.exports = function serve(opts) {
   var compiler = createCompiler(opts);
 
   // Hooking into the compiler
-  compiler.plugin('compile', function() {
+  compiler.hooks.compile.tap('kotatsu', function() {
     if (running) {
       console.log('');
       logger.info('Bundle rebuilding...');
     }
   });
 
-  compiler.plugin('bundle-update', function(newModules, updatedModules, removedModules, stats) {
-    updatedModules = Object.keys(updatedModules);
+  // NOTE: this does not work anymore
+  // compiler.plugin('bundle-update', function(newModules, updatedModules, removedModules, stats) {
+  //   updatedModules = Object.keys(updatedModules);
 
-    stats = stats.toJson();
+  //   stats = stats.toJson();
 
-    // Delaying to next tick to avoid progress bar collision
-    process.nextTick(function() {
+  //   // Delaying to next tick to avoid progress bar collision
+  //   process.nextTick(function() {
 
-      // Building module map
-      var map = {};
-      stats.modules.forEach(function(m) {
-        map[m.id] = m.name;
-      });
+  //     // Building module map
+  //     var map = {};
+  //     stats.modules.forEach(function(m) {
+  //       map[m.id] = m.name;
+  //     });
 
-      if (updatedModules.length) {
-        logger.info('Updated modules:');
-        updatedModules.forEach(function(m) {
-          if (map[m])
-            logger.info('  - ' + map[m]);
-        });
-      }
-    });
-  });
+  //     if (updatedModules.length) {
+  //       logger.info('Updated modules:');
+  //       updatedModules.forEach(function(m) {
+  //         if (map[m])
+  //           logger.info('  - ' + map[m]);
+  //       });
+  //     }
+  //   });
+  // });
 
-  compiler.plugin('done', function(stats) {
+  compiler.hooks.done.tap('kotatsu', function(stats) {
     stats = stats.toJson();
     logger.info('Built in ' + pretty(stats.time) + '.');
 

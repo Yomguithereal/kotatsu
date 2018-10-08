@@ -17,7 +17,7 @@ var express = require('express'),
  */
 var DEV_MIDDLEWARE_OPTS = {
   publicPath: '/build/',
-  quiet: true
+  logLevel: 'silent'
 };
 
 var HOT_MIDDLEWARE_OPTS = {

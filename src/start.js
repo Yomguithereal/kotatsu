@@ -51,7 +51,7 @@ module.exports = function start(command, opts) {
   };
 
   // Hooking into the compiler
-  compiler.plugin('compile', function() {
+  compiler.hooks.compile.tap('kotatsu', function() {
     if (running) {
       console.log('');
       logger.info('Bundle rebuilding...');

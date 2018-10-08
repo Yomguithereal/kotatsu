@@ -13,9 +13,9 @@ var kotatsu = require('./kotatsu.js'),
     pkg = require('./package.json');
 
 // Handling ES6 configuration
-require('babel-core/register')({
-  only: /\.babel\.js/,
-  presets: ['es2015']
+require('@babel/register')({
+  only: [/\.babel\.js/],
+  presets: ['@babel/env']
 });
 
 var CWD = process.cwd();

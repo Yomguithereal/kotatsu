@@ -6,7 +6,6 @@
  */
 var webpack = require('webpack'),
     nodeExternals = require('webpack-node-externals'),
-    BundleUpdateHookPlugin = require('webpack-bundle-update-hook-plugin'),
     NodePlugin = require('./NodePlugin.js'),
     progress = require('./progress.js'),
     resolve = require('./resolve.js'),
@@ -26,8 +25,8 @@ var NODE_ENVIRONMENT = {
   setImmediate: false
 };
 
-var BABEL_ES2015 = resolve('babel-preset-es2015'),
-    BABEL_JSX = resolve('babel-plugin-transform-react-jsx'),
+var BABEL_ES2015 = resolve('@babel/preset-env'),
+    BABEL_JSX = resolve('@babel/preset-react'),
     BABEL_LOADER = resolve('babel-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
@@ -35,9 +34,7 @@ var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
 
 var KOTATSU_PLUGINS = {
   hmr: webpack.HotModuleReplacementPlugin,
-  noErrors: webpack.NoEmitOnErrorsPlugin,
-  bundleUpdate: BundleUpdateHookPlugin,
-  uglify: webpack.optimize.UglifyJsPlugin
+  noErrors: webpack.NoEmitOnErrorsPlugin
 };
 
 /**
@@ -136,10 +133,12 @@ module.exports = function createCompiler(opts) {
 
   // Creating the webpack config
   var config = {
+    mode: opts.build ? 'production' : 'development',
     entry: entryConfig,
     output: outputConfig,
     plugins: opts.config.plugins || [],
-    module: {}
+    module: {},
+    optimization: {}
   };
 
   // HMR & No Errors
@@ -155,11 +154,8 @@ module.exports = function createCompiler(opts) {
   config = _.merge({}, mergeTarget, config);
 
   // Additional plugins
-  if (frontEnd && !usedPlugins.bundleUpdate)
-    config.plugins.push(new BundleUpdateHookPlugin());
-
-  if (opts.minify && !usedPlugins.uglify)
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+  if (opts.minify)
+    config.optimization.minimize = true;
 
   // Are we creating a config for backend?
   if (backEnd) {
@@ -211,6 +207,14 @@ module.exports = function createCompiler(opts) {
     if (opts.es2015)
       presets.push(BABEL_ES2015);
 
+    if (opts.jsx)
+      presets.push([
+        BABEL_JSX,
+        {
+          pragma: opts.pragma
+        }
+      ])
+
     // Deduping
     presets = _.uniq(presets);
 
@@ -224,15 +228,6 @@ module.exports = function createCompiler(opts) {
         }
       }
     };
-
-    if (opts.jsx && !~opts.presets.indexOf('react')) {
-      var plugins = [[BABEL_JSX]];
-
-      if (opts.pragma)
-        plugins[0].push({pragma: opts.pragma});
-
-      babel.use.options.plugins = plugins;
-    }
 
     rules.push(babel);
   }
