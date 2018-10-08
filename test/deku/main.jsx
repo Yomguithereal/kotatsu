@@ -1,9 +1,9 @@
-import {dom, element} from 'deku';
+import {createApp, element} from 'deku';
 import InitialApp from './App.jsx';
 
 const mountNode = document.getElementById('deku');
 
-const render = dom.createRenderer(mountNode);
+const render = createApp(mountNode);
 
 function refresh(Component) {
   render(<Component />);
