@@ -61,7 +61,7 @@
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.7.1",
     "webpack-node-externals": "^1.5.4",
-    "winston": "^2.1.1",
+    "winston": "^3.1.0",
     "yargs": "^7.0.2"
   },
   "devDependencies": {

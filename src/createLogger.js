@@ -14,10 +14,10 @@ module.exports = function createLogger(quiet) {
 
   if (!quiet)
     transports.push(new winston.transports.Console({
-      formatter: formatter
+      format: winston.format.combine(winston.format.printf(formatter))
     }));
 
-  var logger = new winston.Logger({
+  var logger = winston.createLogger({
     levels: levels,
     transports: transports
   });

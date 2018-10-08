@@ -15,13 +15,10 @@ var COLORS = {
   debug: 'magenta'
 };
 
-module.exports = function formatter(options) {
-  if (options.meta.plain)
-    return options.message;
-
+module.exports = function formatter(info) {
   return [
-    chalk[COLORS[options.level]]('[kotatsu]'),
+    chalk[COLORS[info.level]]('[kotatsu]'),
     ' ',
-    options.message
+    info.message
   ].join('');
 };
