@@ -72,8 +72,8 @@
     "concurrently": "^4.0.1",
     "deku": "2.0.0-rc16",
     "eslint": "^5.6.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
   "eslintConfig": {
     "extends": "@yomguithereal/eslint-config",
