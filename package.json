@@ -62,7 +62,7 @@
     "webpack-hot-middleware": "^2.7.1",
     "webpack-node-externals": "^1.5.4",
     "winston": "^3.1.0",
-    "yargs": "^7.0.2"
+    "yargs": "^12.0.2"
   },
   "devDependencies": {
     "@yomguithereal/eslint-config": "^4.0.0",
