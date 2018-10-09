@@ -45,36 +45,6 @@ NodePlugin.prototype.apply = function(compiler) {
       });
     });
   });
-
-  // compiler.hooks.compilation.tap('kotatsu', function(compilation, params) {
-  //   console.log(params.normalModuleFactory)
-  //   params.normalModuleFactory.hooks.parser.tap('kotatsu', function(parser) {
-
-  //     // __dirname
-  //     parser.plugin('expression __dirname', function() {
-  //       if (!this.state.module)
-  //         return;
-
-  //       var dirname = path.dirname(this.state.module.resource);
-
-  //       this.state.current.addVariable('__dirname', JSON.stringify(dirname));
-
-  //       return true;
-  //     });
-
-  //     // __filename
-  //     parser.plugin('expression __filename', function() {
-  //       if (!this.state.module)
-  //         return;
-
-  //       var filename = this.state.module.resource;
-
-  //       this.state.current.addVariable('__filename', JSON.stringify(filename));
-
-  //       return true;
-  //     });
-  //   });
-  // });
 };
 
 module.exports = NodePlugin;

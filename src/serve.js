@@ -38,30 +38,36 @@ module.exports = function serve(opts) {
     }
   });
 
-  // NOTE: this does not work anymore
-  // compiler.plugin('bundle-update', function(newModules, updatedModules, removedModules, stats) {
-  //   updatedModules = Object.keys(updatedModules);
+  var hashes = {},
+      firstTime = true;
 
-  //   stats = stats.toJson();
+  compiler.hooks.afterCompile.tap('kotatsu', function(compilation) {
 
-  //   // Delaying to next tick to avoid progress bar collision
-  //   process.nextTick(function() {
+    var modified = [],
+        newHashes = {};
 
-  //     // Building module map
-  //     var map = {};
-  //     stats.modules.forEach(function(m) {
-  //       map[m.id] = m.name;
-  //     });
+    compilation.modules.forEach(function(m) {
+      if (
+        typeof hashes[m.id] === 'undefined' ||
+        hashes[m.id] !== m.hash
+      )
+        modified.push(m);
 
-  //     if (updatedModules.length) {
-  //       logger.info('Updated modules:');
-  //       updatedModules.forEach(function(m) {
-  //         if (map[m])
-  //           logger.info('  - ' + map[m]);
-  //       });
-  //     }
-  //   });
-  // });
+      newHashes[m.id] = m.hash;
+    });
+
+    hashes = newHashes;
+
+    if (firstTime) {
+      firstTime = false;
+      return;
+    }
+
+    logger.info('Updated modules:');
+    modified.forEach(function(m) {
+      logger.info('  ' + m.id);
+    });
+  });
 
   compiler.hooks.done.tap('kotatsu', function(stats) {
     stats = stats.toJson();
