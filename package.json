@@ -10,7 +10,7 @@
     "api": "concurrently --kill-others \"node ./test/api/api.js\" \"./cli.js serve --proxy /api http://localhost:4000 ./test/api/main.js\"",
     "build-error": "./cli.js build --es2015 --progress -s client ./test/buildError.js",
     "config": "./cli.js serve -s --progress -c ./test/react/config.js -m mount",
-    "cors": "./cli.js serve --cors -d cheap-eval-source-map --es2015 --presets react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
+    "cors": "./cli.js serve --cors -d cheap-eval-source-map --es2015 --presets @babel/preset-react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "deku": "./cli.js serve -s --progress --mount-node deku --es2015 --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --es2015 --progress -s ./test/interval/interval.js",
