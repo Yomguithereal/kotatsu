@@ -53,7 +53,6 @@ Usage: kotatsu <command> {options} [entry]
 Commands:
   cli.js start    Start a node.js script.
   cli.js serve    Serve a client-side application.
-  cli.js          ---
   cli.js monitor  Monitor a terminating node.js script.
   cli.js run      Run the given node.js script.
   cli.js build    Build your code for client or server.
@@ -70,10 +69,10 @@ Options:
   --cors             Should the server allow CORS?                         [boolean] [default: true]
   --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
-  --minify           Minify the bundle.                                   [boolean] [default: false]
   --pragma           JSX pragma.                                                            [string]
   --presets          Babel presets separated by a comma (example:
                      @babel/preset-stage-2,@babel/preset-react).                            [string]
+  --production       Whether to build for production (minify + define).   [boolean] [default: false]
   --progress         Should it display the compilation's progress?        [boolean] [default: false]
   --proxy            Proxy information (example: /api http://localhost:4000)                [string]
   --public           Path to a public folder (can be used multiple times).                  [string]
@@ -94,7 +93,7 @@ Examples:
   kotatsu serve --proxy /api http://localhost:4000  Proxying an API.
 
   kotatsu build server entry.js -o ./               Build the given server script.
-  kotatsu build client entry.js -o build            Build the given client app.
+  kotatsu build client --production entry.js -o ./  Build the given client app for production.
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
@@ -371,12 +370,12 @@ Every method of the library uses the same configuration object (similar to the C
 * **devtool** *string*: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).
 * **index** *string*: path of the HTML index file to serve.
 * **jsx** *boolean* [`false`]: should we handle JSX?
-* **minify** *boolean* [`false`]: should the bundle be minified.
 * **mountNode** *string* [`'app'`]: id of the mount node in the generated HTML index file.
 * **output** *string* [`.kotatsu`]: path of the built file.
 * **port** *integer* [`3000`]: port that the server should listen to.
 * **pragma** *string*: custom JSX pragma.
 * **presets** *array*: Babel 6 presets to apply.
+* **production** *boolan*: Whethe to build for production, i.e. minify output and define `NODE_ENV` as `production`.
 * **progress** *boolean* [`false`]: should the compiler display a progress bar?
 * **proxy** *array*: proxy information.
 * **quiet** *boolean* [`false`]: if true, will disable all console logs.

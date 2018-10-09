@@ -133,7 +133,7 @@ module.exports = function createCompiler(opts) {
 
   // Creating the webpack config
   var config = {
-    mode: opts.build ? 'production' : 'development',
+    mode: opts.production ? 'production' : 'development',
     entry: entryConfig,
     output: outputConfig,
     plugins: opts.config.plugins || [],
@@ -153,9 +153,16 @@ module.exports = function createCompiler(opts) {
   var mergeTarget = _.omit(opts.config || {}, ['entry', 'output', 'plugins']);
   config = _.merge({}, mergeTarget, config);
 
-  // Additional plugins
-  if (opts.minify)
+  // Additional options & plugins for production
+  if (opts.production) {
     config.optimization.minimize = true;
+
+    config.plugins.push(new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }));
+  }
 
   // Are we creating a config for backend?
   if (backEnd) {

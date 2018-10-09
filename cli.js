@@ -124,7 +124,6 @@ var argv = yargs
   // Commands
   .command('start', 'Start a node.js script.')
   .command('serve', 'Serve a client-side application.')
-  .command('', '---')
   .command('monitor', 'Monitor a terminating node.js script.')
   .command('run', 'Run the given node.js script.')
   .command('build', 'Build your code for client or server.')
@@ -179,11 +178,6 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
-  .option('minify', {
-    describe: 'Minify the bundle.',
-    type: 'boolean',
-    default: false
-  })
   .option('pragma', {
     describe: 'JSX pragma.',
     type: 'string'
@@ -191,6 +185,11 @@ var argv = yargs
   .option('presets', {
     describe: 'Babel presets separated by a comma (example: @babel/preset-stage-2,@babel/preset-react).',
     type: 'string'
+  })
+  .option('production', {
+    describe: 'Whether to build for production (minify + define).',
+    type: 'boolean',
+    default: false
   })
   .option('progress', {
     describe: 'Should it display the compilation\'s progress?',
@@ -225,7 +224,7 @@ var argv = yargs
   .example('kotatsu serve --proxy /api http://localhost:4000', 'Proxying an API.')
   .example('')
   .example('kotatsu build server entry.js -o ./', 'Build the given server script.')
-  .example('kotatsu build client entry.js -o build', 'Build the given client app.')
+  .example('kotatsu build client --production entry.js -o ./', 'Build the given client app for production.')
 
   // Help & Version
   .version(pkg.version)
@@ -252,12 +251,12 @@ var opts = {
   index: argv.index ? path.resolve(CWD, argv.index) : null,
   public: publicPaths,
   jsx: argv.jsx,
-  minify: argv.minify,
   mountNode: argv.mountNode,
   output: argv.output ? path.resolve(CWD, argv.output) : null,
   port: argv.port,
   pragma: argv.pragma,
   presets: argv.presets ? argv.presets.split(',') : null,
+  production: argv.production,
   progress: argv.progress,
   proxy: argv.proxy,
   quiet: argv.quiet,
