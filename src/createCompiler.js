@@ -25,8 +25,8 @@ var NODE_ENVIRONMENT = {
   setImmediate: false
 };
 
-var BABEL_ES2015 = resolve('@babel/preset-env'),
-    BABEL_JSX = resolve('@babel/preset-react'),
+var BABEL_ENV = resolve('@babel/preset-env'),
+    BABEL_REACT = resolve('@babel/preset-react'),
     BABEL_LOADER = resolve('babel-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
@@ -198,25 +198,18 @@ module.exports = function createCompiler(opts) {
 
   // - Babel & ES2015
   if (opts.babel || opts.es2015 || opts.presets.length) {
-    var presets = opts.presets.map(function(p) {
-      if (p === 'es2015')
-        return BABEL_ES2015;
-      return p;
-    });
+    var presets = opts.presets;
 
-    if (opts.es2015)
-      presets.push(BABEL_ES2015);
+    if (opts.es2015 && !opts.presets.length)
+      presets.push(BABEL_ENV);
 
-    if (opts.jsx)
+    if (opts.jsx && !opts.presets.length)
       presets.push([
-        BABEL_JSX,
+        BABEL_REACT,
         {
           pragma: opts.pragma
         }
-      ])
-
-    // Deduping
-    presets = _.uniq(presets);
+      ]);
 
     var babel = {
       test: /\.jsx?$/,

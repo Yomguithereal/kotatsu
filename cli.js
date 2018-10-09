@@ -194,7 +194,7 @@ var argv = yargs
     type: 'string'
   })
   .option('presets', {
-    describe: 'Babel 6 presets separated by a comma (example: es2015,react).',
+    describe: 'Babel presets separated by a comma (example: @babel/preset-stage-2,@babel/preset-react).',
     type: 'string'
   })
   .option('progress', {
