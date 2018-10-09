@@ -51,12 +51,12 @@ If you wonder how to install & switch node versions comfortably, you should prob
 Usage: kotatsu <command> {options} [entry]
 
 Commands:
-  start    Start a node.js script.
-  serve    Serve a client-side application.
-           ---
-  monitor  Monitor a terminating node.js script.
-  run      Run the given node.js script.
-  build    Build your code for client or server.
+  cli.js start    Start a node.js script.
+  cli.js serve    Serve a client-side application.
+  cli.js          ---
+  cli.js monitor  Monitor a terminating node.js script.
+  cli.js run      Run the given node.js script.
+  cli.js build    Build your code for client or server.
 
 Options:
   -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
@@ -68,12 +68,12 @@ Options:
   -s, --source-maps  Should source maps be computed for easier debugging?  [boolean] [default: true]
   --babel            Use Babel to compile the files.                      [boolean] [default: false]
   --cors             Should the server allow CORS?                         [boolean] [default: true]
-  --es2015           Is your code written in ES2015?                      [boolean] [default: false]
   --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
   --minify           Minify the bundle.                                   [boolean] [default: false]
   --pragma           JSX pragma.                                                            [string]
-  --presets          Babel 6 presets separated by a comma (example: es2015,react).          [string]
+  --presets          Babel presets separated by a comma (example:
+                     @babel/preset-stage-2,@babel/preset-react).                            [string]
   --progress         Should it display the compilation's progress?        [boolean] [default: false]
   --proxy            Proxy information (example: /api http://localhost:4000)                [string]
   --public           Path to a public folder (can be used multiple times).                  [string]
@@ -83,18 +83,17 @@ Options:
 
 Examples:
   kotatsu start script.js                           Launching the given script with HMR.
-  kotatsu start --es2015 scripts.js                 Launching a ES2015 script.
   kotatsu start -c webpack.config.js script.js      Using a specific webpack config.
   kotatsu start --no-source-maps script.js          Disabling source maps.
   kotatsu start script.js -- --path test.js         Passing arguments to the script.
 
   kotatsu serve entry.js                            Serving the given app.
-  kotatsu serve --es2015 --jsx entry.jsx            Serving the given ES2015 & JSX app.
+  kotatsu serve --jsx entry.jsx                     Serving the given app with JSX code.
   kotatsu serve --port 8000 entry.jsx               Serving the app on a different port.
   kotatsu serve --babel entry.js                    Enable Babel to use .babelrc files.
   kotatsu serve --proxy /api http://localhost:4000  Proxying an API.
 
-  kotatsu build server --es2015 entry.js -o ./      Build the given script.
+  kotatsu build server entry.js -o ./               Build the given server script.
   kotatsu build client entry.js -o build            Build the given client app.
 ```
 
@@ -265,7 +264,7 @@ if (module.hot) {
 Now let's run a server to host our app:
 
 ```bash
-kotatsu serve --es2015 --jsx --pragma element main.jsx
+kotatsu serve --jsx --pragma element main.jsx
 ```
 
 Note that **kotatsu** will serve for you a HTML index file looking quite like this:
@@ -329,7 +328,7 @@ render(<App />, mountNode);
 Now let's run a server to host our app:
 
 ```bash
-kotatsu serve --presets es2015,react,react-hmre ./main.jsx
+kotatsu serve --jsx ./main.jsx
 ```
 
 Note that **kotatsu** will serve for you a HTML index file looking quite like this:
@@ -370,7 +369,6 @@ Every method of the library uses the same configuration object (similar to the C
 * **config** *object*: a webpack config object.
 * **cors** *boolean* [`true`]: should the server allow CORS?
 * **devtool** *string*: a webpack devtool [spec](https://webpack.github.io/docs/configuration.html#devtool).
-* **es2015** *boolean* [`false`]: should we handle ES2015 files?
 * **index** *string*: path of the HTML index file to serve.
 * **jsx** *boolean* [`false`]: should we handle JSX?
 * **minify** *boolean* [`false`]: should the bundle be minified.

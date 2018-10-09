@@ -170,11 +170,6 @@ var argv = yargs
     type: 'boolean',
     default: true
   })
-  .option('es2015', {
-    describe: 'Is your code written in ES2015?',
-    type: 'boolean',
-    default: false
-  })
   .option('index', {
     describe: 'Path to a custom HMTL index file.',
     type: 'string'
@@ -219,18 +214,17 @@ var argv = yargs
 
   // Examples
   .example('kotatsu start script.js', 'Launching the given script with HMR.')
-  .example('kotatsu start --es2015 scripts.js', 'Launching a ES2015 script.')
   .example('kotatsu start -c webpack.config.js script.js', 'Using a specific webpack config.')
   .example('kotatsu start --no-source-maps script.js', 'Disabling source maps.')
   .example('kotatsu start script.js -- --path test.js', 'Passing arguments to the script.')
   .example('')
   .example('kotatsu serve entry.js', 'Serving the given app.')
-  .example('kotatsu serve --es2015 --jsx entry.jsx', 'Serving the given ES2015 & JSX app.')
+  .example('kotatsu serve --jsx entry.jsx', 'Serving the given app with JSX code.')
   .example('kotatsu serve --port 8000 entry.jsx', 'Serving the app on a different port.')
   .example('kotatsu serve --babel entry.js', 'Enable Babel to use .babelrc files.')
   .example('kotatsu serve --proxy /api http://localhost:4000', 'Proxying an API.')
   .example('')
-  .example('kotatsu build server --es2015 entry.js -o ./', 'Build the given script.')
+  .example('kotatsu build server entry.js -o ./', 'Build the given server script.')
   .example('kotatsu build client entry.js -o build', 'Build the given client app.')
 
   // Help & Version
@@ -255,7 +249,6 @@ var opts = {
   config: webpackConfig,
   devtool: argv.devtool,
   entry: entry ? path.resolve(CWD, entry) : null,
-  es2015: argv.es2015,
   index: argv.index ? path.resolve(CWD, argv.index) : null,
   public: publicPaths,
   jsx: argv.jsx,

@@ -11,7 +11,6 @@ module.exports = {
   config: {},
   cors: true,
   devtool: null,
-  es2015: false,
   index: null,
   jsx: false,
   minify: false,

@@ -197,33 +197,37 @@ module.exports = function createCompiler(opts) {
   var rules = config.module.rules || [];
 
   // - Babel & ES2015
-  if (opts.babel || opts.es2015 || opts.presets.length) {
-    var presets = opts.presets;
+  var presets = opts.presets;
 
-    if (opts.es2015 && !opts.presets.length)
-      presets.push(BABEL_ENV);
+  var babelLoaderAlready = presets.some(function(p) {
+    var pname = Array.isArray(p) ? p[0] : p;
 
-    if (opts.jsx && !opts.presets.length)
-      presets.push([
-        BABEL_REACT,
-        {
-          pragma: opts.pragma
-        }
-      ]);
+    return pname === '@babel/preset-env';
+  });
 
-    var babel = {
-      test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
-      use: {
-        loader: BABEL_LOADER,
-        options: {
-          presets: presets
-        }
+  if (!babelLoaderAlready)
+    presets.push(BABEL_ENV);
+
+  if (opts.jsx)
+    presets.push([
+      BABEL_REACT,
+      {
+        pragma: opts.pragma
       }
-    };
+    ]);
 
-    rules.push(babel);
-  }
+  var babel = {
+    test: /\.jsx?$/,
+    exclude: /(node_modules|bower_components)/,
+    use: {
+      loader: BABEL_LOADER,
+      options: {
+        presets: presets
+      }
+    }
+  };
+
+  rules.push(babel);
 
   config.module.rules = rules;
 
