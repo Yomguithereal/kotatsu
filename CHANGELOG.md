@@ -2,7 +2,7 @@
 
 ## 0.16.0
 
-* Upgrading all dependencies.
+* Upgrading all dependencies (latest babel & webpack).
 * Transpiling `es2015` code by default.
 * Adding callback to `build`.
 * Changing `--minify` into `--production`.
