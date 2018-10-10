@@ -1,6 +1,7 @@
 node_modules
 .gitignore
 .npmignore
+.kotatsu
 test
 *.log
 eslint.config.js
