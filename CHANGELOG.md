@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.16.0
+
+* Upgrading all dependencies.
+* Transpiling `es2015` code by default.
+* Adding callback to `build`.
+* Changing `--minify` into `--production`.
+
 ## 0.15.2
 
 * Fixing `node_modules` handling for backend usage.

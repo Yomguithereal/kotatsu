@@ -269,7 +269,14 @@ for (var k in opts)
     delete opts[k];
 
 // Applying the correct method.
-if (command === 'build')
-  kotatsu.build(side, opts);
-else
+if (command === 'build') {
+  kotatsu.build(side, opts, function(err) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+  });
+}
+else {
   kotatsu[command](opts);
+}

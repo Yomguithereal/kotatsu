@@ -425,7 +425,7 @@ kotatsu.run({
 kotatsu.build(side, {
   entry: 'script.js',
   ...
-});
+}, callback);
 ```
 
 <h2 id="explanation">What on earth is a kotatsu?</h2>

@@ -11,8 +11,9 @@ var defaults = require('./defaults.js'),
     createLogger = require('./createLogger.js'),
     _ = require('lodash');
 
-module.exports = function build(side, opts) {
+module.exports = function build(side, opts, callback) {
   opts = _.merge({}, defaults, opts);
+  callback = callback || Function.prototype;
 
   opts.side = side;
   opts.hot = false;
@@ -29,10 +30,8 @@ module.exports = function build(side, opts) {
   var compiler = createCompiler(opts);
 
   compiler.run(function(err, stats) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
+    if (err)
+      return callback(err);
 
     stats = stats.toJson();
 
@@ -45,7 +44,7 @@ module.exports = function build(side, opts) {
         logger.error(error);
       });
 
-      process.exit(1);
+      return callback(err);
     }
 
     if (warnings.length) {
