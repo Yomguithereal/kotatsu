@@ -7,6 +7,7 @@
 * Adding callback to `build`.
 * Changing `--minify` into `--production`.
 * CSS support.
+* SCSS support.
 
 ## 0.15.2
 

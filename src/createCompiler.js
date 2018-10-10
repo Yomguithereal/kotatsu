@@ -30,6 +30,7 @@ var BABEL_ENV = resolve('@babel/preset-env'),
     BABEL_LOADER = resolve('babel-loader'),
     STYLE_LOADER = resolve('style-loader'),
     CSS_LOADER = resolve('css-loader'),
+    SASS_LOADER = resolve('sass-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
 var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
@@ -237,6 +238,13 @@ module.exports = function createCompiler(opts) {
   };
 
   rules.push(babel);
+
+  // - SCSS Support
+  if (opts.sass)
+    rules.push({
+      test: /\.scss$/,
+      use: [STYLE_LOADER, CSS_LOADER, SASS_LOADER]
+    });
 
   // - CSS Support
   rules.push({

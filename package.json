@@ -17,6 +17,7 @@
     "lint": "eslint cli.js kotatsu.js ./src",
     "react": "./cli.js serve -d cheap-eval-source-map --presets @babel/preset-env,@babel/preset-react --progress -m mount --public ./test/react/assets ./test/react/main.jsx",
     "react-hmr": "./cli.js serve --presets @babel/preset-env,@babel/preset-react --progress --index ./test/react/index.html ./test/react/main.jsx",
+    "sass": "./cli.js serve --sass ./test/simple.js",
     "test": "npm run interval",
     "thrower": "./cli.js start --progress -s ./test/thrower.js"
   },
@@ -56,6 +57,7 @@
     "pretty-ms": "^4.0.0",
     "progress": "^2.0.0",
     "rimraf": "^2.5.2",
+    "sass-loader": "^7.1.0",
     "slash": "^2.0.0",
     "source-map-support": "^0.5.9",
     "style-loader": "^0.23.1",
@@ -71,6 +73,7 @@
     "concurrently": "^4.0.1",
     "deku": "2.0.0-rc16",
     "eslint": "^5.6.1",
+    "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   },

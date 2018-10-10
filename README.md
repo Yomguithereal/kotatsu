@@ -70,6 +70,8 @@ Options:
   --index            Path to a custom HMTL index file.                                      [string]
   --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
   --pragma           JSX pragma.                                                            [string]
+  --sass             Whether to transpile scss files (requires `node-sass`).
+                                                                          [boolean] [default: false]
   --presets          Babel presets separated by a comma (example:
                      @babel/preset-stage-2,@babel/preset-react).                            [string]
   --production       Whether to build for production (minify + define).   [boolean] [default: false]
@@ -97,6 +99,10 @@ Examples:
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
+
+## Style
+
+**kotatsu** lets you import CSS files out of the box. If you need to import SCSS files, you can use the `--sass` flag but be sure to install `node-sass` for it to work.
 
 ## Use cases
 

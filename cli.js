@@ -182,6 +182,11 @@ var argv = yargs
     describe: 'JSX pragma.',
     type: 'string'
   })
+  .option('sass', {
+    describe: 'Whether to transpile scss files (requires `node-sass`).',
+    type: 'boolean',
+    default: false
+  })
   .option('presets', {
     describe: 'Babel presets separated by a comma (example: @babel/preset-stage-2,@babel/preset-react).',
     type: 'string'
@@ -260,6 +265,7 @@ var opts = {
   progress: argv.progress,
   proxy: argv.proxy,
   quiet: argv.quiet,
+  sass: argv.sass,
   sourceMaps: argv.sourceMaps
 };
 
