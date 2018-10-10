@@ -6,6 +6,7 @@
 * Transpiling `es2015` code by default.
 * Adding callback to `build`.
 * Changing `--minify` into `--production`.
+* CSS support.
 
 ## 0.15.2
 

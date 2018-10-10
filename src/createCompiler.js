@@ -28,6 +28,8 @@ var NODE_ENVIRONMENT = {
 var BABEL_ENV = resolve('@babel/preset-env'),
     BABEL_REACT = resolve('@babel/preset-react'),
     BABEL_LOADER = resolve('babel-loader'),
+    STYLE_LOADER = resolve('style-loader'),
+    CSS_LOADER = resolve('css-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
 var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
@@ -235,6 +237,12 @@ module.exports = function createCompiler(opts) {
   };
 
   rules.push(babel);
+
+  // - CSS Support
+  rules.push({
+    test: /\.css$/,
+    use: [STYLE_LOADER, CSS_LOADER]
+  });
 
   config.module.rules = rules;
 
