@@ -8,11 +8,12 @@ var path = require('path');
 
 module.exports = function solveOutput(opts) {
   var output = opts.output,
-      cwd = opts.cwd;
+      cwd = opts.cwd,
+      side = opts.side;
 
   if (!output)
     return {
-      path: path.join(cwd, '.kotatsu'),
+      path: path.join(cwd, side === 'back' ? '.kotatsu' : 'build'),
       filename: 'bundle.js'
     };
 
