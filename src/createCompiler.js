@@ -27,6 +27,8 @@ var NODE_ENVIRONMENT = {
 
 var BABEL_ENV = resolve('@babel/preset-env'),
     BABEL_REACT = resolve('@babel/preset-react'),
+    BABEL_OBJECT_REST_SPREAD = resolve('@babel/plugin-proposal-object-rest-spread'),
+    BABEL_CLASS_PROPERTIES = resolve('@babel/plugin-proposal-class-properties'),
     BABEL_LOADER = resolve('babel-loader'),
     STYLE_LOADER = resolve('style-loader'),
     CSS_LOADER = resolve('css-loader'),
@@ -232,7 +234,10 @@ module.exports = function createCompiler(opts) {
     use: {
       loader: BABEL_LOADER,
       options: {
-        presets: presets
+        presets: presets,
+
+        // TODO: search for plugins before adding them
+        plugins: [BABEL_CLASS_PROPERTIES, BABEL_OBJECT_REST_SPREAD]
       }
     }
   };
