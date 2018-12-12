@@ -20,7 +20,7 @@ module.exports = function serve(opts) {
   opts = _.merge({}, defaults, opts);
 
   opts.side = 'front';
-  opts.solvedOutput = solveOutput(opts.output, opts.cwd);
+  opts.solvedOutput = solveOutput(opts);
 
   var logger = createLogger(opts.quiet);
 

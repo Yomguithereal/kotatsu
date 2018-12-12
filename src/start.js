@@ -30,7 +30,7 @@ module.exports = function start(command, opts) {
 
   opts.side = 'back';
   opts.hot = command === 'start';
-  opts.solvedOutput = solveOutput(opts.output, opts.cwd);
+  opts.solvedOutput = solveOutput(opts);
 
   var logger = createLogger(opts.quiet);
 

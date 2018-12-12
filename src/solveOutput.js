@@ -6,7 +6,10 @@
  */
 var path = require('path');
 
-module.exports = function(output, cwd) {
+module.exports = function solveOutput(opts) {
+  var output = opts.output,
+      cwd = opts.cwd;
+
   if (!output)
     return {
       path: path.join(cwd, '.kotatsu'),
