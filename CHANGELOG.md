@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.0
+
+* Handling object rest spread and class properties by default.
+* Fixing default build path for client.
+* Upgrading dependencies.
+
 ## 0.16.0
 
 * Upgrading all dependencies (latest babel & webpack).
