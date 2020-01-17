@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.18.0
+
+* Upgrading dependencies.
+
 ## 0.17.0
 
 * Handling object rest spread and class properties by default.
