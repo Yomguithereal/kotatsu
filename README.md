@@ -1,6 +1,6 @@
 # kotatsu
 
-**kotatsu** is a straightforward CLI tool aiming either at running node.js scripts or serving JavaScript web applications in a modern environment (modules, ES2015, [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html), etc.).
+**kotatsu** is a straightforward CLI tool aiming either at running node.js scripts or serving JavaScript/TypeScript web applications in a modern environment (modules, ES2015, [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html), etc.).
 
 Its goal is to relieve developers from the really heavy stack that we now face on a daily basis when working with modern JavaScript.
 
@@ -54,29 +54,31 @@ Commands:
   cli.js build    Build your code for client or server.
 
 Options:
-  -c, --config       Optional webpack config that will be merged with kotatsu's one (useful if you
-                     need specific loaders).
-  -d, --devtool      Webpack devtool spec to use to compute source maps.                    [string]
-  -m, --mount-node   Id of the mount node in the generated HMTL index.                      [string]
-  -o, --output       Output path (either directory or filename).                            [string]
-  -p, --port         Port that the server should listen to.                          [default: 3000]
-  -s, --source-maps  Should source maps be computed for easier debugging?  [boolean] [default: true]
-  --babel            Use Babel to compile the files.                      [boolean] [default: false]
-  --cors             Should the server allow CORS?                         [boolean] [default: true]
-  --index            Path to a custom HMTL index file.                                      [string]
-  --jsx              Does your code uses JSX syntax?                      [boolean] [default: false]
-  --pragma           JSX pragma.                                                            [string]
-  --sass             Whether to transpile scss files (requires `node-sass`).
+  -c, --config        Optional webpack config that will be merged with kotatsu's one (useful if you
+                      need specific loaders).
+  -d, --devtool       Webpack devtool spec to use to compute source maps.                   [string]
+  -m, --mount-node    Id of the mount node in the generated HMTL index.                     [string]
+  -o, --output        Output path (either directory or filename).                           [string]
+  -p, --port          Port that the server should listen to.                         [default: 3000]
+  -s, --source-maps   Should source maps be computed for easier debugging? [boolean] [default: true]
+  --babel             Use Babel to compile the files.                     [boolean] [default: false]
+  --cors              Should the server allow CORS?                        [boolean] [default: true]
+  --index             Path to a custom HMTL index file.                                     [string]
+  --jsx               Does your code uses JSX syntax?                     [boolean] [default: false]
+  --pragma            JSX pragma.                                                           [string]
+  --sass              Whether to transpile scss files (requires `node-sass`).
                                                                           [boolean] [default: false]
-  --presets          Babel presets separated by a comma (example:
-                     @babel/preset-stage-2,@babel/preset-react).                            [string]
-  --production       Whether to build for production (minify + define).   [boolean] [default: false]
-  --progress         Should it display the compilation's progress?        [boolean] [default: false]
-  --proxy            Proxy information (example: /api http://localhost:4000)                [string]
-  --public           Path to a public folder (can be used multiple times).                  [string]
-  --quiet            Disable logs.                                        [boolean] [default: false]
-  --version          Show version number                                                   [boolean]
-  -h, --help         Show help                                                             [boolean]
+  --typescript, --ts  Whether to support TypeScript (requires `typescript`).
+                                                                          [boolean] [default: false]
+  --presets           Babel presets separated by a comma (example:
+                      @babel/preset-stage-2,@babel/preset-react).                           [string]
+  --production        Whether to build for production (minify + define).  [boolean] [default: false]
+  --progress          Should it display the compilation's progress?       [boolean] [default: false]
+  --proxy             Proxy information (example: /api http://localhost:4000)               [string]
+  --public            Path to a public folder (can be used multiple times).                 [string]
+  --quiet             Disable logs.                                       [boolean] [default: false]
+  --version           Show version number                                                  [boolean]
+  -h, --help          Show help                                                            [boolean]
 
 Examples:
   kotatsu start script.js                           Launching the given script with HMR.
@@ -89,12 +91,18 @@ Examples:
   kotatsu serve --port 8000 entry.jsx               Serving the app on a different port.
   kotatsu serve --babel entry.js                    Enable Babel to use .babelrc files.
   kotatsu serve --proxy /api http://localhost:4000  Proxying an API.
+  kotatsu serve --sass entry.js                     Supporting SASS stylesheets.
+  kotatsu serve --typescript entry.ts               Serving a TypeScript app.
 
   kotatsu build server entry.js -o ./               Build the given server script.
   kotatsu build client --production entry.js -o ./  Build the given client app for production.
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
+
+## TypeScript
+
+**kotatsu** supports TypeScript out of the box. If you want to use TypeScript in your project, just ensure you have a valid `tsconfig.json` file and that you have installed the `typescript` dependencies. Then just use the `--typescript` flag and everything should work just fine.
 
 ## Style
 
