@@ -33,6 +33,7 @@ var BABEL_ENV = resolve('@babel/preset-env'),
     STYLE_LOADER = resolve('style-loader'),
     CSS_LOADER = resolve('css-loader'),
     SASS_LOADER = resolve('sass-loader'),
+    TYPESCRIPT_LOADER = resolve('ts-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
 var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
@@ -243,6 +244,14 @@ module.exports = function createCompiler(opts) {
   };
 
   rules.push(babel);
+
+  // - TS Support
+  if (opts.typescript)
+    rules.push({
+      test: /\.tsx?$/,
+      use: [TYPESCRIPT_LOADER],
+      exclude: /(node_modules|bower_components)/
+    });
 
   // - SCSS Support
   if (opts.sass)

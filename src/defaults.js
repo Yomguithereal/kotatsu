@@ -25,5 +25,6 @@ module.exports = {
   quiet: false,
   sass: false,
   server: null,
-  sourceMaps: true
+  sourceMaps: true,
+  typescript: false
 };

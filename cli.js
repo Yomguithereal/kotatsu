@@ -187,6 +187,12 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('typescript', {
+    alias: 'ts',
+    describe: 'Whether to support TypeScript (requires `typescript`).',
+    type: 'boolean',
+    default: false
+  })
   .option('presets', {
     describe: 'Babel presets separated by a comma (example: @babel/preset-stage-2,@babel/preset-react).',
     type: 'string'
@@ -227,6 +233,8 @@ var argv = yargs
   .example('kotatsu serve --port 8000 entry.jsx', 'Serving the app on a different port.')
   .example('kotatsu serve --babel entry.js', 'Enable Babel to use .babelrc files.')
   .example('kotatsu serve --proxy /api http://localhost:4000', 'Proxying an API.')
+  .example('kotatsu serve --sass entry.js', 'Supporting SASS stylesheets.')
+  .example('kotatsu serve --typescript entry.ts', 'Serving a TypeScript app.')
   .example('')
   .example('kotatsu build server entry.js -o ./', 'Build the given server script.')
   .example('kotatsu build client --production entry.js -o ./', 'Build the given client app for production.')
@@ -266,7 +274,8 @@ var opts = {
   proxy: argv.proxy,
   quiet: argv.quiet,
   sass: argv.sass,
-  sourceMaps: argv.sourceMaps
+  sourceMaps: argv.sourceMaps,
+  typescript: argv.typescript
 };
 
 // Cleaning null values
