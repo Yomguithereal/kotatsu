@@ -12,10 +12,10 @@ var winston = require('winston'),
 module.exports = function createLogger(quiet) {
   var transports = [];
 
-  if (!quiet)
-    transports.push(new winston.transports.Console({
-      format: winston.format.combine(winston.format.printf(formatter))
-    }));
+  transports.push(new winston.transports.Console({
+    format: winston.format.combine(winston.format.printf(formatter)),
+    silent: quiet
+  }));
 
   var logger = winston.createLogger({
     levels: levels,
