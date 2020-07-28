@@ -256,7 +256,7 @@ module.exports = function createCompiler(opts) {
   // - SCSS Support
   if (opts.sass)
     rules.push({
-      test: /\.scss$/,
+      test: /\.s[ac]ss$/,
       use: [STYLE_LOADER, CSS_LOADER, SASS_LOADER]
     });
 
