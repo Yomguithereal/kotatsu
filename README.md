@@ -111,7 +111,7 @@ If you don't want to repeat yourself in your npm scripts know that you can use t
 
 ```json
 {
-  "scripts": {
+  "scripts": {
     "dev": "kotatsu serve ./entry.js"
   },
   "kotatsu": {
