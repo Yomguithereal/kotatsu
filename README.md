@@ -14,6 +14,9 @@ Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) 
 
 * [Installation](#installation)
 * [Usage](#usage)
+* [Package Config](#package-config)
+* [Typescript](#typescript)
+* [Style](#style)
 * [Use Cases](#use-cases)
   * [Interval](#interval)
   * [Express](#express)
@@ -101,6 +104,22 @@ Examples:
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
+
+## Package config
+
+If you don't want to repeat yourself in your npm scripts know that you can use the `kotatsu` key of your project's `package.json` to keep a global configuration for the CLI:
+
+```json
+{
+  "scripts": {
+    "dev": "kotatsu serve ./entry.js"
+  },
+  "kotatsu": {
+    "progress": true,
+    "public": ["/data", "./src/data"]
+  }
+}
+```
 
 ## TypeScript
 

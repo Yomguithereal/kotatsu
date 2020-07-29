@@ -48,6 +48,7 @@ var argv = yargs
   .locale('en')
   .wrap(100)
   .usage(USAGE)
+  .pkgConf('kotatsu')
   .check(function(argv) {
     command = argv._[0];
 
