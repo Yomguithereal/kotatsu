@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.19.0 (provisional)
+
+* `--public` is now nargs=2 so you can specify a custom mounting point.
+
 ## 0.18.0
 
 * Upgrading dependencies.

@@ -74,8 +74,9 @@ Options:
                       @babel/preset-stage-2,@babel/preset-react).                           [string]
   --production        Whether to build for production (minify + define).  [boolean] [default: false]
   --progress          Should it display the compilation's progress?       [boolean] [default: false]
-  --proxy             Proxy information (example: /api http://localhost:4000)               [string]
-  --public            Path to a public folder (can be used multiple times).                 [string]
+  --proxy             Proxy information (example: --proxy /api http://localhost:4000)       [string]
+  --public            Mounting a path to a public folder (example: --public /data ./src/data). Can
+                      be used several times.                                                [string]
   --quiet             Disable logs.                                       [boolean] [default: false]
   --version           Show version number                                                  [boolean]
   -h, --help          Show help                                                            [boolean]
@@ -91,6 +92,7 @@ Examples:
   kotatsu serve --port 8000 entry.jsx               Serving the app on a different port.
   kotatsu serve --babel entry.js                    Enable Babel to use .babelrc files.
   kotatsu serve --proxy /api http://localhost:4000  Proxying an API.
+  kotatsu serve --public /data ./src/data           Serving local static files.
   kotatsu serve --sass entry.js                     Supporting SASS stylesheets.
   kotatsu serve --typescript entry.ts               Serving a TypeScript app.
 

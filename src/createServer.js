@@ -83,11 +83,8 @@ module.exports = function createServer(compiler, opts) {
 
   // Public folder
   if (opts.public) {
-
-    var paths = [].concat(opts.public);
-
-    paths.forEach(function(p) {
-      app.use(express.static(p));
+    opts.public.forEach(function(p) {
+      app.use(p[0], express.static(p[1]));
     });
   }
 

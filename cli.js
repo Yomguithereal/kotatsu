@@ -10,7 +10,8 @@ var kotatsu = require('./kotatsu.js'),
     red = require('chalk').red,
     yargs = require('yargs'),
     path = require('path'),
-    pkg = require('./package.json');
+    pkg = require('./package.json'),
+    _ = require('lodash');
 
 // Handling ES6 configuration
 require('@babel/register')({
@@ -208,13 +209,14 @@ var argv = yargs
     default: false
   })
   .option('proxy', {
-    describe: 'Proxy information (example: /api http://localhost:4000)',
+    describe: 'Proxy information (example: --proxy /api http://localhost:4000)',
     type: 'string',
     nargs: 2
   })
   .option('public', {
-    describe: 'Path to a public folder (can be used multiple times).',
-    type: 'string'
+    describe: 'Mounting a path to a public folder (example: --public /data ./src/data). Can be used several times.',
+    type: 'string',
+    nargs: 2
   })
   .option('quiet', {
     describe: 'Disable logs.',
@@ -233,6 +235,7 @@ var argv = yargs
   .example('kotatsu serve --port 8000 entry.jsx', 'Serving the app on a different port.')
   .example('kotatsu serve --babel entry.js', 'Enable Babel to use .babelrc files.')
   .example('kotatsu serve --proxy /api http://localhost:4000', 'Proxying an API.')
+  .example('kotatsu serve --public /data ./src/data', 'Serving local static files.')
   .example('kotatsu serve --sass entry.js', 'Supporting SASS stylesheets.')
   .example('kotatsu serve --typescript entry.ts', 'Serving a TypeScript app.')
   .example('')
@@ -247,11 +250,13 @@ var argv = yargs
   .epilogue('Repository: ' + pkg.repository.url)
   .argv;
 
-var publicPaths = argv.public ?
-  [].concat(argv.public).map(function(p) {
-    return path.resolve(CWD, p);
-  }) :
-  null;
+var publicPaths = argv.public;
+
+if (publicPaths) {
+  publicPaths = _.chunk(publicPaths, 2).map(function(p) {
+    return [p[0], path.resolve(CWD, p[1])];
+  });
+}
 
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
