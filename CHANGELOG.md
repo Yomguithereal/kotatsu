@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.19.0 (provisional)
+## 0.20.0
 
 * `--public` is now nargs=2 so you can specify a custom mounting point.
 * Adding `package.json` configuration through the `kotatsu` key.
