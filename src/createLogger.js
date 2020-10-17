@@ -5,8 +5,17 @@
  * Building kotatsu's logger.
  */
 var levels = require('./levels.js'),
-    formatter = require('./formatter.js'),
-    pkg = require('../package.json');
+    pkg = require('../package.json'),
+    chalk = require('chalk');
+
+var COLORS = {
+  error: 'red',
+  warn: 'yellow',
+  success: 'green',
+  info: 'blue',
+  verbose: 'cyan',
+  debug: 'magenta'
+};
 
 module.exports = function createLogger(quiet) {
   var logger = {
@@ -14,8 +23,9 @@ module.exports = function createLogger(quiet) {
       if (quiet)
         return;
 
-      msg = formatter({level: level, message: msg});
-      console.log(msg);
+      var header = chalk[COLORS[level]]('[kotatsu]');
+
+      console.log(header, msg);
     }
   };
 

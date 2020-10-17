@@ -39,37 +39,6 @@ module.exports = function serve(opts) {
     }
   });
 
-  var hashes = {},
-      firstTime = true;
-
-  compiler.hooks.afterCompile.tap('kotatsu', function(compilation) {
-
-    var modified = [],
-        newHashes = {};
-
-    compilation.modules.forEach(function(m) {
-      if (
-        typeof hashes[m.id] === 'undefined' ||
-        hashes[m.id] !== m.hash
-      )
-        modified.push(m);
-
-      newHashes[m.id] = m.hash;
-    });
-
-    hashes = newHashes;
-
-    if (firstTime) {
-      firstTime = false;
-      return;
-    }
-
-    logger.info('Updated modules:');
-    modified.forEach(function(m) {
-      logger.info('  ' + m.id);
-    });
-  });
-
   compiler.hooks.done.tap('kotatsu', function(stats) {
     stats = stats.toJson();
     logger.info('Built in ' + pretty(stats.time) + '.');
