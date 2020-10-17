@@ -6,7 +6,7 @@
  * hot-loading updates.
  */
 var express = require('express'),
-    proxy = require('http-proxy-middleware'),
+    createProxyMiddleware = require('http-proxy-middleware').createProxyMiddleware,
     cors = require('cors'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
@@ -99,7 +99,7 @@ module.exports = function createServer(compiler, opts) {
 
       pathRewrite['^' + namespace] = '';
 
-      app.use(proxy(namespace, {
+      app.use(createProxyMiddleware(namespace, {
         target: target,
         pathRewrite: pathRewrite,
         logLevel: 'silent',
