@@ -34,6 +34,9 @@ module.exports = function start(command, opts) {
 
   var logger = createLogger(opts.quiet);
 
+  // Announcing
+  logger.announce();
+
   // State
   var running = false,
       child;
@@ -63,9 +66,6 @@ module.exports = function start(command, opts) {
       }
     }
   });
-
-  // Announcing
-  logger.announce();
 
   if (!opts.progress)
     logger.info('Compiling...');
