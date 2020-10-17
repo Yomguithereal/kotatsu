@@ -16,13 +16,9 @@ var webpack = require('webpack'),
  * Constants.
  */
 var NODE_ENVIRONMENT = {
-  console: false,
   global: false,
-  process: false,
-  Buffer: false,
   __filename: false,
-  __dirname: false,
-  setImmediate: false
+  __dirname: false
 };
 
 var BABEL_ENV = resolve('@babel/preset-env'),
