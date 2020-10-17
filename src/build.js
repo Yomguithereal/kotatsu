@@ -21,7 +21,6 @@ module.exports = function build(side, opts, callback) {
   opts.solvedOutput = solveOutput(opts);
 
   var logger = createLogger(opts.quiet);
-
   logger.announce();
 
   if (!opts.progress)

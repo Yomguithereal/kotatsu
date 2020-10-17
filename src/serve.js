@@ -23,6 +23,7 @@ module.exports = function serve(opts) {
   opts.solvedOutput = solveOutput(opts);
 
   var logger = createLogger(opts.quiet);
+  logger.announce();
 
   // State
   var running = false;
@@ -94,9 +95,6 @@ module.exports = function serve(opts) {
         logger.warn(warning);
       });
   });
-
-  // Announcing
-  logger.announce();
 
   if (!opts.progress)
     logger.info('Compiling...');

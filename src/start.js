@@ -33,8 +33,6 @@ module.exports = function start(command, opts) {
   opts.solvedOutput = solveOutput(opts);
 
   var logger = createLogger(opts.quiet);
-
-  // Announcing
   logger.announce();
 
   // State
