@@ -1,29 +1,29 @@
 /**
- * Kotatsu Winston Logger
- * =======================
+ * Kotatsu Logger
+ * ===============
  *
- * Building kotatsu's Winston logger.
+ * Building kotatsu's logger.
  */
-var winston = require('winston'),
-    levels = require('./levels.js'),
+var levels = require('./levels.js'),
     formatter = require('./formatter.js'),
     pkg = require('../package.json');
 
 module.exports = function createLogger(quiet) {
-  var transports = [];
+  var logger = {
+    log: function(level, msg) {
+      if (quiet)
+        return;
 
-  transports.push(new winston.transports.Console({
-    format: winston.format.combine(winston.format.printf(formatter)),
-    silent: quiet
-  }));
+      msg = formatter({level: level, message: msg});
+      console.log(msg);
+    }
+  };
 
-  var logger = winston.createLogger({
-    levels: levels,
-    transports: transports
-  });
+  for (var level in levels)
+    logger[level] = logger.log.bind(logger, level);
 
   logger.announce = function() {
-    this.info('(v' + pkg.version + ')');
+    logger.info('(v' + pkg.version + ')');
   };
 
   return logger;

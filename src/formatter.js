@@ -2,7 +2,7 @@
  * Kotatsu Log Formatter
  * ======================
  *
- * The formatter function passed to the winston logger.
+ * The formatter function used by the logger.
  */
 var chalk = require('chalk');
 

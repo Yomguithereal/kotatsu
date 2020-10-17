@@ -9,16 +9,15 @@ var webpack = require('webpack'),
 
 module.exports = function progress() {
 
-  var fmt = 'Compiling - [:bar] :percent ';
+  var fmt = 'Compiling - [:bar] :percent :message';
   var bar = new ProgressBar(fmt, {
-    total: 30,
+    total: 100,
     width: 30,
     incomplete: ' ',
     complete: '='
   });
 
   return new webpack.ProgressPlugin(function(percent, message) {
-    bar.fmt = fmt + message;
-    bar.update(percent);
+    bar.update(percent, {message: message});
   });
 };
