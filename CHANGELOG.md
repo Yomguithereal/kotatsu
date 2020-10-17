@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.21.0
+
+* Adapting `kotatsu` to webpack v5.
+
 ## 0.20.0
 
 * `--public` is now nargs=2 so you can specify a custom mounting point.
