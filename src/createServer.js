@@ -16,8 +16,7 @@ var express = require('express'),
  * Constants.
  */
 var DEV_MIDDLEWARE_OPTS = {
-  publicPath: '/build/',
-  logLevel: 'silent'
+  publicPath: '/build/'
 };
 
 var HOT_MIDDLEWARE_OPTS = {

@@ -66,8 +66,8 @@
     "source-map-support": "^0.5.19",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.7",
-    "webpack": "^5.3.0",
-    "webpack-dev-middleware": "^3.7.2",
+    "webpack": "^5.3.2",
+    "webpack-dev-middleware": "^4.0.0",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-node-externals": "^2.5.2",
     "yargs": "^16.1.0"

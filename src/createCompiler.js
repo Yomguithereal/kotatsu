@@ -289,5 +289,10 @@ module.exports = function createCompiler(opts) {
 
   config.resolve.extensions = Array.from(extensions);
 
+  // Shunting logs
+  config.infrastructureLogging = {
+    level: 'none'
+  };
+
   return webpack(config);
 };
