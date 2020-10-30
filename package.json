@@ -85,7 +85,8 @@
   "eslintConfig": {
     "extends": "@yomguithereal/eslint-config",
     "globals": {
-      "Map": true
+      "Map": true,
+      "Set": true
     },
     "rules": {
       "no-console": 0

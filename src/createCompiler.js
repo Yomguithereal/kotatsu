@@ -21,6 +21,8 @@ var NODE_ENVIRONMENT = {
   __dirname: false
 };
 
+var DEFAULT_EXTENSIONS = ['.wasm', '.mjs', '.js', '.json'];
+
 var BABEL_ENV = resolve('@babel/preset-env'),
     BABEL_REACT = resolve('@babel/preset-react'),
     BABEL_OBJECT_REST_SPREAD = resolve('@babel/plugin-proposal-object-rest-spread'),
@@ -263,6 +265,29 @@ module.exports = function createCompiler(opts) {
   });
 
   config.module.rules = rules;
+
+  // Extensions
+  var extensions = new Set(DEFAULT_EXTENSIONS);
+
+  config.resolve = {};
+  if (opts.config && opts.config.resolve) {
+    config.resolve = opts.config.resolve;
+
+    if (config.resolve.extensions) {
+      config.resolve.extensions.forEach(function(ext) {
+        extensions.add(ext);
+      });
+    }
+  }
+
+  extensions.add('.jsx');
+
+  if (opts.typescript) {
+    extensions.add('.ts');
+    extensions.add('.tsx');
+  }
+
+  config.resolve.extensions = Array.from(extensions);
 
   return webpack(config);
 };
