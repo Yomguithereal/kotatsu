@@ -66,7 +66,8 @@ Options:
   -s, --source-maps       Should source maps be computed for easier debugging?
                                                                            [boolean] [default: true]
       --cors              Should the server allow CORS?                    [boolean] [default: true]
-      --index             Path to a custom HMTL index file.                                 [string]
+      --index             Path to a custom HMTL index file. Will default to `./index.html` if
+                          present.                                                          [string]
       --jsx               Does your code uses JSX syntax?                 [boolean] [default: false]
       --pragma            JSX pragma.                                                       [string]
       --sass              Whether to transpile scss files (requires `sass` or `node-sass`).

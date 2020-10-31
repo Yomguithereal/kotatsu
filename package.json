@@ -11,6 +11,7 @@
     "build-error": "./cli.js build --progress -s client ./test/buildError.js",
     "config": "./cli.js serve -s --progress -c ./test/react/config.js -m mount",
     "cors": "./cli.js serve --cors -d eval-cheap-source-map --presets @babel/preset-react --progress -m mount --public /assets ./test/react/assets ./test/react/main.jsx",
+    "cwd-index": "cd test/index && ../../cli.js serve main.js",
     "deku": "./cli.js serve -s --progress --mount-node deku --jsx --pragma element ./test/deku/main.jsx",
     "express": "./cli.js start --progress -s -o .express ./test/express/start.js",
     "interval": "./cli.js start --progress -s ./test/interval/interval.js",

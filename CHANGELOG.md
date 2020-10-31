@@ -3,6 +3,7 @@
 ## 0.22.0 (provisional)
 
 * Adding support for `resolve.extensions`.
+* Detecting the presence of `index.html` in cwd for convenience.
 * Dropping obsolete `--babel` flag.
 * Fixing ties to webpack v5.
 

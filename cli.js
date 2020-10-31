@@ -11,6 +11,7 @@ var kotatsu = require('./kotatsu.js'),
     yargs = require('yargs'),
     path = require('path'),
     pkg = require('./package.json'),
+    fs = require('fs'),
     _ = require('lodash');
 
 // Handling ES6 configuration
@@ -167,7 +168,7 @@ var argv = yargs
     default: true
   })
   .option('index', {
-    describe: 'Path to a custom HMTL index file.',
+    describe: 'Path to a custom HMTL index file. Will default to `./index.html` if present.',
     type: 'string'
   })
   .option('jsx', {
@@ -252,6 +253,9 @@ if (publicPaths) {
     return [p[0], path.resolve(CWD, p[1])];
   });
 }
+
+if (!argv.index && fs.existsSync(path.join(CWD, 'index.html')))
+  argv.index = 'index.html';
 
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
