@@ -54,7 +54,6 @@ module.exports = function start(command, opts) {
   // Hooking into the compiler
   compiler.hooks.compile.tap('kotatsu', function() {
     if (running) {
-      console.log('');
       logger.info('Bundle rebuilding...');
 
       if (command === 'monitor') {
@@ -63,6 +62,31 @@ module.exports = function start(command, opts) {
         running = false;
       }
     }
+  });
+
+  compiler.hooks.watchRun.tap('kotatsu', function(compilation) {
+    if (
+      !running ||
+      !compilation.modifiedFiles ||
+      !compilation.modifiedFiles.size
+    )
+      return;
+
+    var modifiedFiles = Array.from(compilation.modifiedFiles)
+      .filter(function(f) {
+        return !!path.extname(f);
+      });
+
+    if (!modifiedFiles.length)
+      return;
+
+    console.log('');
+    logger.info('Modified files:');
+
+    modifiedFiles.forEach(function(f) {
+      f = path.relative(process.cwd(), f);
+      logger.info('  ./' + f);
+    });
   });
 
   if (!opts.progress)

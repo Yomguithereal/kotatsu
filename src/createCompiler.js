@@ -291,7 +291,7 @@ module.exports = function createCompiler(opts) {
 
   // Shunting logs
   config.infrastructureLogging = {
-    level: 'none'
+    level: 'error'
   };
 
   return webpack(config);

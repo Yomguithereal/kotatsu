@@ -11,6 +11,7 @@ var defaults = require('./defaults.js'),
     createCompiler = require('./createCompiler.js'),
     createLogger = require('./createLogger.js'),
     pretty = require('pretty-ms'),
+    path = require('path'),
     _ = require('lodash');
 
 /**
@@ -34,9 +35,33 @@ module.exports = function serve(opts) {
   // Hooking into the compiler
   compiler.hooks.compile.tap('kotatsu', function() {
     if (running) {
-      console.log('');
       logger.info('Bundle rebuilding...');
     }
+  });
+
+  compiler.hooks.watchRun.tap('kotatsu', function(compilation) {
+    if (
+      !running ||
+      !compilation.modifiedFiles ||
+      !compilation.modifiedFiles.size
+    )
+      return;
+
+    var modifiedFiles = Array.from(compilation.modifiedFiles)
+      .filter(function(f) {
+        return !!path.extname(f);
+      });
+
+    if (!modifiedFiles.length)
+      return;
+
+    console.log('');
+    logger.info('Modified files:');
+
+    modifiedFiles.forEach(function(f) {
+      f = path.relative(process.cwd(), f);
+      logger.info('  ./' + f);
+    });
   });
 
   compiler.hooks.done.tap('kotatsu', function(stats) {
