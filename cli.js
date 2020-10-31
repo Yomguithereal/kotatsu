@@ -185,7 +185,7 @@ var argv = yargs
     type: 'string'
   })
   .option('sass', {
-    describe: 'Whether to transpile scss files (requires `node-sass`).',
+    describe: 'Whether to transpile scss files (requires `sass` or `node-sass`).',
     type: 'boolean',
     default: false
   })

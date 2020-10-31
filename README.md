@@ -57,32 +57,34 @@ Commands:
   cli.js build    Build your code for client or server.
 
 Options:
-  -c, --config        Optional webpack config that will be merged with kotatsu's one (useful if you
-                      need specific loaders).
-  -d, --devtool       Webpack devtool spec to use to compute source maps.                   [string]
-  -m, --mount-node    Id of the mount node in the generated HMTL index.                     [string]
-  -o, --output        Output path (either directory or filename).                           [string]
-  -p, --port          Port that the server should listen to.                         [default: 3000]
-  -s, --source-maps   Should source maps be computed for easier debugging? [boolean] [default: true]
-  --babel             Use Babel to compile the files.                     [boolean] [default: false]
-  --cors              Should the server allow CORS?                        [boolean] [default: true]
-  --index             Path to a custom HMTL index file.                                     [string]
-  --jsx               Does your code uses JSX syntax?                     [boolean] [default: false]
-  --pragma            JSX pragma.                                                           [string]
-  --sass              Whether to transpile scss files (requires `node-sass`).
+  -c, --config            Optional webpack config that will be merged with kotatsu's one (useful if
+                          you need specific loaders).
+  -d, --devtool           Webpack devtool spec to use to compute source maps.               [string]
+  -m, --mount-node        Id of the mount node in the generated HMTL index.                 [string]
+  -o, --output            Output path (either directory or filename).                       [string]
+  -p, --port              Port that the server should listen to.                     [default: 3000]
+  -s, --source-maps       Should source maps be computed for easier debugging?
+                                                                           [boolean] [default: true]
+      --babel             Use Babel to compile the files.                 [boolean] [default: false]
+      --cors              Should the server allow CORS?                    [boolean] [default: true]
+      --index             Path to a custom HMTL index file.                                 [string]
+      --jsx               Does your code uses JSX syntax?                 [boolean] [default: false]
+      --pragma            JSX pragma.                                                       [string]
+      --sass              Whether to transpile scss files (requires `sass` or `node-sass`).
                                                                           [boolean] [default: false]
-  --typescript, --ts  Whether to support TypeScript (requires `typescript`).
+      --typescript, --ts  Whether to support TypeScript (requires `typescript`).
                                                                           [boolean] [default: false]
-  --presets           Babel presets separated by a comma (example:
-                      @babel/preset-stage-2,@babel/preset-react).                           [string]
-  --production        Whether to build for production (minify + define).  [boolean] [default: false]
-  --progress          Should it display the compilation's progress?       [boolean] [default: false]
-  --proxy             Proxy information (example: --proxy /api http://localhost:4000)       [string]
-  --public            Mounting a path to a public folder (example: --public /data ./src/data). Can
-                      be used several times.                                                [string]
-  --quiet             Disable logs.                                       [boolean] [default: false]
-  --version           Show version number                                                  [boolean]
-  -h, --help          Show help                                                            [boolean]
+      --presets           Babel presets separated by a comma (example:
+                          @babel/preset-stage-2,@babel/preset-react).                       [string]
+      --production        Whether to build for production (minify + define).
+                                                                          [boolean] [default: false]
+      --progress          Should it display the compilation's progress?   [boolean] [default: false]
+      --proxy             Proxy information (example: --proxy /api http://localhost:4000)   [string]
+      --public            Mounting a path to a public folder (example: --public /data ./src/data).
+                          Can be used several times.                                        [string]
+      --quiet             Disable logs.                                   [boolean] [default: false]
+      --version           Show version number                                              [boolean]
+  -h, --help              Show help                                                        [boolean]
 
 Examples:
   kotatsu start script.js                           Launching the given script with HMR.
@@ -127,7 +129,7 @@ If you don't want to repeat yourself in your npm scripts know that you can use t
 
 ## Style
 
-**kotatsu** lets you import CSS files out of the box. If you need to import SCSS files, you can use the `--sass` flag but be sure to install `node-sass` for it to work.
+**kotatsu** lets you import CSS files out of the box. If you need to import SCSS files, you can use the `--sass` flag but be sure to install `sass` (or `node-sass`) for it to work.
 
 ## Use cases
 
