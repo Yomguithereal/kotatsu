@@ -70,7 +70,7 @@ module.exports = function serve(opts) {
 
     if (!running) {
       logger.success('Done!');
-      logger.info('Serving your app on port ' + opts.port + '...');
+      logger.info('Serving your app on http://localhost:' + opts.port);
       running = true;
     }
 
