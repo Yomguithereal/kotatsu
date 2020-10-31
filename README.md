@@ -65,7 +65,6 @@ Options:
   -p, --port              Port that the server should listen to.                     [default: 3000]
   -s, --source-maps       Should source maps be computed for easier debugging?
                                                                            [boolean] [default: true]
-      --babel             Use Babel to compile the files.                 [boolean] [default: false]
       --cors              Should the server allow CORS?                    [boolean] [default: true]
       --index             Path to a custom HMTL index file.                                 [string]
       --jsx               Does your code uses JSX syntax?                 [boolean] [default: false]
@@ -95,7 +94,6 @@ Examples:
   kotatsu serve entry.js                            Serving the given app.
   kotatsu serve --jsx entry.jsx                     Serving the given app with JSX code.
   kotatsu serve --port 8000 entry.jsx               Serving the app on a different port.
-  kotatsu serve --babel entry.js                    Enable Babel to use .babelrc files.
   kotatsu serve --proxy /api http://localhost:4000  Proxying an API.
   kotatsu serve --public /data ./src/data           Serving local static files.
   kotatsu serve --sass entry.js                     Supporting SASS stylesheets.

@@ -161,11 +161,6 @@ var argv = yargs
     type: 'boolean',
     default: true
   })
-  .option('babel', {
-    describe: 'Use Babel to compile the files.',
-    type: 'boolean',
-    default: false
-  })
   .option('cors', {
     describe: 'Should the server allow CORS?',
     type: 'boolean',
@@ -234,7 +229,6 @@ var argv = yargs
   .example('kotatsu serve entry.js', 'Serving the given app.')
   .example('kotatsu serve --jsx entry.jsx', 'Serving the given app with JSX code.')
   .example('kotatsu serve --port 8000 entry.jsx', 'Serving the app on a different port.')
-  .example('kotatsu serve --babel entry.js', 'Enable Babel to use .babelrc files.')
   .example('kotatsu serve --proxy /api http://localhost:4000', 'Proxying an API.')
   .example('kotatsu serve --public /data ./src/data', 'Serving local static files.')
   .example('kotatsu serve --sass entry.js', 'Supporting SASS stylesheets.')
@@ -261,7 +255,6 @@ if (publicPaths) {
 
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
-  babel: argv.babel,
   cors: argv.cors,
   cwd: CWD,
   config: webpackConfig,

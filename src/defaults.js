@@ -6,7 +6,6 @@
  */
 module.exports = {
   args: [],
-  babel: false,
   cwd: process.cwd(),
   config: {},
   cors: true,

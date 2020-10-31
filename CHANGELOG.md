@@ -3,6 +3,7 @@
 ## 0.22.0 (provisional)
 
 * Adding support for `resolve.extensions`.
+* Dropping obsolete `--babel` flag.
 * Fixing ties to webpack v5.
 
 ## 0.21.0
