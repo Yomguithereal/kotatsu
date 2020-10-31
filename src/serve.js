@@ -11,6 +11,7 @@ var defaults = require('./defaults.js'),
     createCompiler = require('./createCompiler.js'),
     createLogger = require('./createLogger.js'),
     pretty = require('pretty-ms'),
+    open = require('open'),
     path = require('path'),
     _ = require('lodash');
 
@@ -72,6 +73,11 @@ module.exports = function serve(opts) {
       logger.success('Done!');
       logger.info('Serving your app on http://localhost:' + opts.port);
       running = true;
+
+      if (opts.open) {
+        logger.info('Opening app in your web browser...');
+        open('http://localhost:' + opts.port);
+      }
     }
 
     // Errors & warnings?

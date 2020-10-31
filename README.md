@@ -74,6 +74,8 @@ Options:
                                                                           [boolean] [default: false]
       --typescript, --ts  Whether to support TypeScript (requires `typescript`).
                                                                           [boolean] [default: false]
+      --open              Whether to open your browser on the served application.
+                                                                          [boolean] [default: false]
       --presets           Babel presets separated by a comma (example:
                           @babel/preset-stage-2,@babel/preset-react).                       [string]
       --production        Whether to build for production (minify + define).
@@ -403,11 +405,12 @@ Every method of the library uses the same configuration object (similar to the C
 * **index** *string*: path of the HTML index file to serve.
 * **jsx** *boolean* [`false`]: should we handle JSX?
 * **mountNode** *string* [`'app'`]: id of the mount node in the generated HTML index file.
+* **open** *boolean* [`false`]: Whether to open the app in you web browser as soon as served.
 * **output** *string* [`.kotatsu`]: path of the built file.
 * **port** *integer* [`3000`]: port that the server should listen to.
 * **pragma** *string*: custom JSX pragma.
 * **presets** *array*: Babel 6 presets to apply.
-* **production** *boolan*: Whethe to build for production, i.e. minify output and define `NODE_ENV` as `production`.
+* **production** *boolan*: Whether to build for production, i.e. minify output and define `NODE_ENV` as `production`.
 * **progress** *boolean* [`false`]: should the compiler display a progress bar?
 * **proxy** *array*: proxy information.
 * **quiet** *boolean* [`false`]: if true, will disable all console logs.

@@ -191,6 +191,11 @@ var argv = yargs
     type: 'boolean',
     default: false
   })
+  .option('open', {
+    describe: 'Whether to open your browser on the served application.',
+    type: 'boolean',
+    default: false
+  })
   .option('presets', {
     describe: 'Babel presets separated by a comma (example: @babel/preset-stage-2,@babel/preset-react).',
     type: 'string'
@@ -268,6 +273,7 @@ var opts = {
   public: publicPaths,
   jsx: argv.jsx,
   mountNode: argv.mountNode,
+  open: argv.open,
   output: argv.output ? path.resolve(CWD, argv.output) : null,
   port: argv.port,
   pragma: argv.pragma,

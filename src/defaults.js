@@ -13,6 +13,7 @@ module.exports = {
   index: null,
   jsx: false,
   mountNode: 'app',
+  open: false,
   output: null,
   port: 3000,
   pragma: null,
