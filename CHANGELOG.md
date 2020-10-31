@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.22.0 (provisional)
+## 0.22.0
 
 * Adding support for `resolve.extensions`.
 * Adding the `--open` flag.
