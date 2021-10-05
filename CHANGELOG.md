@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.22.2
+
+* Upgrading deps.
+
+
+## 0.22.1
+
+* Upgrading deps.
+
 ## 0.22.0
 
 * Adding support for `resolve.extensions`.
