@@ -1,9 +1,12 @@
 # Changelog
 
+## 0.22.3
+
+* Fixing callback not being called on success with `kotatsu.build`.
+
 ## 0.22.2
 
 * Upgrading deps.
-
 
 ## 0.22.1
 

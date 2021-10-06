@@ -54,5 +54,7 @@ module.exports = function build(side, opts, callback) {
 
     logger.info('Built in ' + pretty(stats.time) + '.');
     logger.success('Done!');
+
+    return callback();
   });
 };
