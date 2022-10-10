@@ -17,6 +17,7 @@ Note that **kotatsu** currently uses [webpack](https://webpack.github.io/docs/) 
 * [Package Config](#package-config)
 * [Typescript](#typescript)
 * [Style](#style)
+* [JSON and YML](#json-and-yaml)
 * [Use Cases](#use-cases)
   * [Interval](#interval)
   * [Express](#express)
@@ -72,8 +73,8 @@ Options:
       --pragma            JSX pragma.                                                       [string]
       --sass              Whether to transpile scss files (requires `sass` or `node-sass`).
                                                                           [boolean] [default: false]
-      --typescript, --ts  Whether to support TypeScript (requires `typescript`).
-                                                                          [boolean] [default: false]
+      --typescript, --ts  Whether to support TypeScript (requires `typescript`). Enabled by default
+                          if target entry has .ts or .tsx extension.      [boolean] [default: false]
       --open              Whether to open your browser on the served application.
                                                                           [boolean] [default: false]
       --presets           Babel presets separated by a comma (example:
@@ -126,11 +127,17 @@ If you don't want to repeat yourself in your npm scripts know that you can use t
 
 ## TypeScript
 
-**kotatsu** supports TypeScript out of the box. If you want to use TypeScript in your project, just ensure you have a valid `tsconfig.json` file and that you have installed the `typescript` dependencies. Then just use the `--typescript` flag and everything should work just fine.
+**kotatsu** supports TypeScript out of the box. If you want to use TypeScript in your project, just ensure you have a valid `tsconfig.json` file and that you have installed the `typescript` dependencies.
+
+If your entry does not have the `.ts` or `.tsx` extension you will need to use the `--typescript` flag else everything should work automatically.
 
 ## Style
 
 **kotatsu** lets you import CSS files out of the box. If you need to import SCSS files, you can use the `--sass` flag but be sure to install `sass` (or `node-sass`) for it to work.
+
+## JSON and YAML
+
+JSON and YAML imports are automatically dealt with.
 
 ## Use cases
 

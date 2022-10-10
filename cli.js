@@ -187,7 +187,7 @@ var argv = yargs
   })
   .option('typescript', {
     alias: 'ts',
-    describe: 'Whether to support TypeScript (requires `typescript`).',
+    describe: 'Whether to support TypeScript (requires `typescript`). Enabled by default if target entry has .ts or .tsx extension.',
     type: 'boolean',
     default: false
   })
@@ -262,6 +262,9 @@ if (publicPaths) {
 if (!argv.index && fs.existsSync(path.join(CWD, 'index.html')))
   argv.index = 'index.html';
 
+var entryExt = path.extname(entry);
+var entryIsTs = entryExt.endsWith('.ts') || entryExt.endsWith('.tsx');
+
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
   cors: argv.cors,
@@ -284,7 +287,7 @@ var opts = {
   quiet: argv.quiet,
   sass: argv.sass,
   sourceMaps: argv.sourceMaps,
-  typescript: argv.typescript
+  typescript: entryIsTs || argv.typescript
 };
 
 // Cleaning null values

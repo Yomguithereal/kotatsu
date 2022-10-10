@@ -22,7 +22,7 @@
     "sass": "./cli.js serve --sass ./test/simple.js",
     "test": "npm run interval",
     "thrower": "./cli.js start --progress -s ./test/thrower.js",
-    "typescript": "./cli.js run --typescript ./test/typescript.ts"
+    "typescript": "./cli.js run ./test/typescript.ts"
   },
   "repository": {
     "type": "git",
