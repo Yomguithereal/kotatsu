@@ -144,7 +144,8 @@ var argv = yargs
   .option('m', {
     alias: 'mount-node',
     describe: 'Id of the mount node in the generated HMTL index.',
-    type: 'string'
+    type: 'string',
+    default: 'app'
   })
   .option('o', {
     alias: 'output',

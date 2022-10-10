@@ -61,7 +61,7 @@ Options:
   -c, --config            Optional webpack config that will be merged with kotatsu's one (useful if
                           you need specific loaders).
   -d, --devtool           Webpack devtool spec to use to compute source maps.               [string]
-  -m, --mount-node        Id of the mount node in the generated HMTL index.                 [string]
+  -m, --mount-node        Id of the mount node in the generated HMTL index.[string] [default: "app"]
   -o, --output            Output path (either directory or filename).                       [string]
   -p, --port              Port that the server should listen to.                     [default: 3000]
   -s, --source-maps       Should source maps be computed for easier debugging?
