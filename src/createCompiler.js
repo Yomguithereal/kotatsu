@@ -250,7 +250,14 @@ module.exports = function createCompiler(opts) {
     }
   };
 
-  rules.push(babel);
+  // We don't add the babel rule if the user already gave one
+  if (!rules.some(function(rule) {
+    return (
+      typeof rule.use === 'string' ? rule.use : rule.use.loader
+    ) === 'babel-loader';
+  })) {
+    rules.push(babel);
+  }
 
   // - TS Support
   if (entryIsTs || opts.typescript)
