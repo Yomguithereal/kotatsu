@@ -23,7 +23,8 @@
     "sass": "./cli.js serve --sass ./test/simple.js",
     "test": "npm run interval",
     "thrower": "./cli.js start --progress -s ./test/thrower.js",
-    "typescript": "./cli.js run ./test/typescript.ts"
+    "typescript": "./cli.js run ./test/typescript.ts",
+    "yaml": "./cli.js run ./test/yaml.js"
   },
   "repository": {
     "type": "git",
@@ -73,6 +74,7 @@
     "webpack-dev-middleware": "^5.3.3",
     "webpack-hot-middleware": "^2.25.2",
     "webpack-node-externals": "^3.0.0",
+    "yaml-loader": "^0.8.0",
     "yargs": "^17.6.0"
   },
   "devDependencies": {

@@ -32,6 +32,7 @@ var BABEL_ENV = resolve('@babel/preset-env'),
     CSS_LOADER = resolve('css-loader'),
     SASS_LOADER = resolve('sass-loader'),
     TYPESCRIPT_LOADER = resolve('ts-loader'),
+    YAML_LOADER = resolve('yaml-loader'),
     SOURCE_MAP_SUPPORT = resolve('source-map-support');
 
 var HMR_FRONTEND_CLIENT = 'webpack-hot-middleware/client';
@@ -251,7 +252,10 @@ module.exports = function createCompiler(opts) {
   };
 
   // We don't add the babel rule if the user already gave one
+  // TODO: create a function for this and test other loaders also
   if (!rules.some(function(rule) {
+
+    // TODO: what if rule.use is an array...
     return (
       typeof rule.use === 'string' ? rule.use : rule.use.loader
     ) === 'babel-loader';
@@ -260,12 +264,27 @@ module.exports = function createCompiler(opts) {
   }
 
   // - TS Support
-  if (entryIsTs || opts.typescript)
+  if (entryIsTs || opts.typescript) {
     rules.push({
       test: /\.tsx?$/,
-      use: [TYPESCRIPT_LOADER],
+      use: TYPESCRIPT_LOADER,
       exclude: /(node_modules|bower_components)/
     });
+  }
+  else {
+
+    // - Basic YAML Support
+    rules.push({
+      test: /\.ya?ml$/,
+      use: {
+        loader: YAML_LOADER,
+        options: {
+          asJSON: true
+        }
+      },
+      type: 'json'
+    });
+  }
 
   // - SCSS Support
   if (opts.sass)
