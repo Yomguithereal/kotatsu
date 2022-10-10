@@ -263,26 +263,24 @@ module.exports = function createCompiler(opts) {
     rules.push(babel);
   }
 
+  // - YAML Support
+  rules.push({
+    test: /\.ya?ml$/,
+    use: {
+      loader: YAML_LOADER,
+      options: {
+        asJSON: true
+      }
+    },
+    type: 'json'
+  });
+
   // - TS Support
   if (entryIsTs || opts.typescript) {
     rules.push({
       test: /\.tsx?$/,
       use: TYPESCRIPT_LOADER,
       exclude: /(node_modules|bower_components)/
-    });
-  }
-  else {
-
-    // - Basic YAML Support
-    rules.push({
-      test: /\.ya?ml$/,
-      use: {
-        loader: YAML_LOADER,
-        options: {
-          asJSON: true
-        }
-      },
-      type: 'json'
     });
   }
 
