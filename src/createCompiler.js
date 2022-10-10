@@ -113,6 +113,9 @@ module.exports = function createCompiler(opts) {
   // NOTE: options take precedence over the webpack config
   var entry = opts.entry || opts.config.entry;
 
+  var entryExt = path.extname(entry);
+  var entryIsTs = entryExt === '.ts' || entryExt === '.tsx';
+
   // Building the entry
   var hotClient = null;
 
@@ -244,7 +247,7 @@ module.exports = function createCompiler(opts) {
   rules.push(babel);
 
   // - TS Support
-  if (opts.typescript)
+  if (entryIsTs || opts.typescript)
     rules.push({
       test: /\.tsx?$/,
       use: [TYPESCRIPT_LOADER],

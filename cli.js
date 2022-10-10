@@ -263,9 +263,6 @@ if (publicPaths) {
 if (!argv.index && fs.existsSync(path.join(CWD, 'index.html')))
   argv.index = 'index.html';
 
-var entryExt = path.extname(entry);
-var entryIsTs = entryExt.endsWith('.ts') || entryExt.endsWith('.tsx');
-
 var opts = {
   args: argv._.slice(EXPECTED_PARTS),
   cors: argv.cors,
@@ -288,7 +285,7 @@ var opts = {
   quiet: argv.quiet,
   sass: argv.sass,
   sourceMaps: argv.sourceMaps,
-  typescript: entryIsTs || argv.typescript
+  typescript: argv.typescript
 };
 
 // Cleaning null values
