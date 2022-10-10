@@ -217,7 +217,7 @@ var argv = yargs
     nargs: 2
   })
   .option('public', {
-    describe: 'Mounting a path to a public folder (example: --public /data ./src/data). Can be used several times.',
+    describe: 'Mounting a path to a public folder (example: --public /data ./src/data). Can be used several times. Works with directories and single files.',
     type: 'string',
     nargs: 2
   })

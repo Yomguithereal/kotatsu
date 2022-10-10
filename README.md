@@ -84,7 +84,8 @@ Options:
       --progress          Should it display the compilation's progress?   [boolean] [default: false]
       --proxy             Proxy information (example: --proxy /api http://localhost:4000)   [string]
       --public            Mounting a path to a public folder (example: --public /data ./src/data).
-                          Can be used several times.                                        [string]
+                          Can be used several times. Works with directories and single files.
+                                                                                            [string]
       --quiet             Disable logs.                                   [boolean] [default: false]
       --version           Show version number                                              [boolean]
   -h, --help              Show help                                                        [boolean]

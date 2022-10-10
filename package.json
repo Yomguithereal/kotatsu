@@ -17,6 +17,7 @@
     "interval": "./cli.js start --progress -s ./test/interval/interval.js",
     "lint": "eslint cli.js kotatsu.js ./src",
     "public": "./cli.js serve ./test/interval/interval.js --public /react-assets ./test/react/assets --public /deku-assets ./test/deku",
+    "public-single-file": "./cli.js serve ./test/interval/interval.js --public /test.json ./test/react/assets/test.json",
     "react": "./cli.js serve -d eval-cheap-source-map --presets @babel/preset-env,@babel/preset-react --progress -m mount --public /assets ./test/react/assets ./test/react/main.jsx --open",
     "react-hmr": "./cli.js serve --presets @babel/preset-env,@babel/preset-react --progress --index ./test/react/index.html ./test/react/main.jsx",
     "sass": "./cli.js serve --sass ./test/simple.js",
