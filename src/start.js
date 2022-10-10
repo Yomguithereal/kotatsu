@@ -107,22 +107,22 @@ module.exports = function start(command, opts) {
     stats = stats.toJson();
 
     // Errors & warnings?
-    var errors = stats.errors || [],
-        warnings = stats.warnings || [];
+    // var errors = stats.errors || [],
+    //     warnings = stats.warnings || [];
 
-    if (errors.length) {
-      errors.forEach(function(error) {
-        logger.error(error);
-      });
+    // if (errors.length) {
+    //   errors.forEach(function(error) {
+    //     logger.error(error);
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
-    if (warnings.length) {
-      warnings.forEach(function(warning) {
-        logger.warn(warning);
-      });
-    }
+    // if (warnings.length) {
+    //   warnings.forEach(function(warning) {
+    //     logger.warn(warning);
+    //   });
+    // }
 
     // Running the script
     if (!running) {

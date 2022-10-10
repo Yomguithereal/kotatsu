@@ -113,8 +113,14 @@ module.exports = function createCompiler(opts) {
   // NOTE: options take precedence over the webpack config
   var entry = opts.entry || opts.config.entry;
 
-  var entryExt = path.extname(entry);
-  var entryIsTs = entryExt === '.ts' || entryExt === '.tsx';
+  var entryIsTs = false;
+
+  // TODO: entry could be an array of strings, or other things
+  // TODO: if needed, do this in `handleEntry`
+  if (typeof entry === 'string') {
+    var entryExt = path.extname(entry);
+    entryIsTs = entryExt === '.ts' || entryExt === '.tsx';
+  }
 
   // Building the entry
   var hotClient = null;

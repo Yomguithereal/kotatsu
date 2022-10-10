@@ -35,22 +35,22 @@ module.exports = function build(side, opts, callback) {
     stats = stats.toJson();
 
     // Errors & warnings?
-    var errors = stats.errors || [],
-        warnings = stats.warnings || [];
+    // var errors = stats.errors || [],
+    //     warnings = stats.warnings || [];
 
-    if (errors.length) {
-      errors.forEach(function(error) {
-        logger.error(error);
-      });
+    // if (errors.length) {
+    //   errors.forEach(function(error) {
+    //     logger.error(error);
+    //   });
 
-      return callback(err);
-    }
+    //   return callback(err);
+    // }
 
-    if (warnings.length) {
-      warnings.forEach(function(warning) {
-        logger.warn(warning);
-      });
-    }
+    // if (warnings.length) {
+    //   warnings.forEach(function(warning) {
+    //     logger.warn(warning);
+    //   });
+    // }
 
     logger.info('Built in ' + pretty(stats.time) + '.');
     logger.success('Done!');
