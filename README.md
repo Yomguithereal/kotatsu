@@ -86,6 +86,8 @@ Options:
       --public            Mounting a path to a public folder (example: --public /data ./src/data).
                           Can be used several times. Works with directories and single files.
                                                                                             [string]
+  -r, --html5-routing     Whether to enable HTML5 routing, i.e. redirect every unknown url on the
+                          index page to avoid reload issues.              [boolean] [default: false]
       --quiet             Disable logs.                                   [boolean] [default: false]
       --version           Show version number                                              [boolean]
   -h, --help              Show help                                                        [boolean]

@@ -10,6 +10,7 @@ module.exports = {
   config: {},
   cors: true,
   devtool: null,
+  html5Routing: false,
   index: null,
   jsx: false,
   mountNode: 'app',

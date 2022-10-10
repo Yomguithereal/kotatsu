@@ -221,6 +221,12 @@ var argv = yargs
     type: 'string',
     nargs: 2
   })
+  .option('r', {
+    alias: 'html5-routing',
+    describe: 'Whether to enable HTML5 routing, i.e. redirect every unknown url on the index page to avoid reload issues.',
+    type: 'boolean',
+    default: false
+  })
   .option('quiet', {
     describe: 'Disable logs.',
     type: 'boolean',
@@ -271,6 +277,7 @@ var opts = {
   devtool: argv.devtool,
   entry: entry ? path.resolve(CWD, entry) : null,
   index: argv.index ? path.resolve(CWD, argv.index) : null,
+  html5Routing: argv.html5Routing,
   public: publicPaths,
   jsx: argv.jsx,
   mountNode: argv.mountNode,

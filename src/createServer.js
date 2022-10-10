@@ -113,7 +113,7 @@ module.exports = function createServer(compiler, opts) {
     opts.server(app);
 
   // Sending the index
-  app.get('*', function(req, res) {
+  app.get(opts.html5Routing ? '*' : '/', function(req, res) {
 
     if (opts.index)
       return res.sendFile(opts.index);
