@@ -7,6 +7,7 @@
  */
 var express = require('express'),
     createProxyMiddleware = require('http-proxy-middleware').createProxyMiddleware,
+    templates = require('./templates.js'),
     cors = require('cors'),
     dev = require('webpack-dev-middleware'),
     hot = require('webpack-hot-middleware'),
@@ -26,25 +27,6 @@ var HOT_MIDDLEWARE_OPTS = {
 /**
  * Helpers.
  */
-function createIndex(mountNode) {
-  mountNode = mountNode || 'app';
-
-  return [
-    '<!DOCTYPE html>',
-    '<html>',
-    '  <head>',
-    '    <title>kotatsu</title>',
-    '    <meta charset="utf-8" />',
-    '    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">',
-    '  </head>',
-    '  <body>',
-    '    <div id="' + mountNode + '"></div>',
-    '    <script type="text/javascript" src="/build/bundle.js"></script>',
-    '  </body>',
-    '</html>'
-  ].join('\n');
-}
-
 function copyHeadersToRequest(proxyReq, req) {
   Object.keys(req.headers).forEach(function (key) {
     proxyReq.setHeader(key, req.headers[key]);
@@ -78,7 +60,7 @@ module.exports = function createServer(compiler, opts) {
   app.use(hot(compiler, HOT_MIDDLEWARE_OPTS));
 
   // Index file
-  var index = createIndex(opts.mountNode);
+  var defaultIndex = templates.templateIndex(opts.mountNode);
 
   // Public folder
   if (opts.public) {
@@ -118,7 +100,7 @@ module.exports = function createServer(compiler, opts) {
     if (opts.index)
       return res.sendFile(opts.index);
 
-    return res.send(index);
+    return res.send(defaultIndex);
   });
 
   // res.sendFile
