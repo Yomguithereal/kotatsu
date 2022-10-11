@@ -27,7 +27,8 @@ var COMMANDS = [
   'serve',
   'monitor',
   'run',
-  'build'
+  'build',
+  'scaffold'
 ];
 
 var EXPECTED_PARTS = 2;
@@ -42,7 +43,8 @@ function error(message, details) {
 var webpackConfig = {},
     entry = null,
     command,
-    side;
+    side,
+    scaffoldingName;
 
 // Building the CLI
 var argv = yargs
@@ -102,6 +104,12 @@ var argv = yargs
       side = argv._[1] === 'client' ? 'front' : 'back';
       entry = argv._[2];
     }
+    else if (command === 'scaffold') {
+      if (argv._.length < 2)
+        error('The "scaffold" command takes a file name to output.');
+
+      scaffoldingName = argv._[1];
+    }
     else {
       if (argv._.length < EXPECTED_PARTS)
         error('Expecting two arguments: the command and the path to your entry.');
@@ -130,6 +138,7 @@ var argv = yargs
   .command('monitor', 'Monitor a terminating node.js script.')
   .command('run', 'Run the given node.js script.')
   .command('build', 'Build your code for client or server.')
+  .command('scaffold', 'Scaffold some typical boilerplate files.')
 
   // Generic options
   .option('c', {
@@ -249,6 +258,8 @@ var argv = yargs
   .example('')
   .example('kotatsu build server entry.js -o ./', 'Build the given server script.')
   .example('kotatsu build client --production entry.js -o ./', 'Build the given client app for production.')
+  .example('')
+  .example('kotatsu scaffold index.html', 'Dump a boilerplate html file in stdout.')
 
   // Help & Version
   .version(pkg.version)
@@ -308,6 +319,9 @@ if (command === 'build') {
       process.exit(1);
     }
   });
+}
+else if (command === 'scaffold') {
+  kotatsu.scaffold(scaffoldingName, opts);
 }
 else {
   kotatsu[command](opts);

@@ -1,3 +1,9 @@
+/**
+ * Kotatsu Templating Functions
+ * =============================
+ *
+ * Function used to template useful things.
+ */
 exports.templateIndex = function templateIndex(mountNode) {
   mountNode = mountNode || 'app';
 
@@ -15,4 +21,13 @@ exports.templateIndex = function templateIndex(mountNode) {
     '  </body>',
     '</html>'
   ].join('\n');
+}
+
+exports.templateTsConfig = function templateTsConfig() {
+  return {
+    compilerOptions: {
+      resolveJsonModule: true,
+      esModuleInterop: true
+    }
+  };
 }

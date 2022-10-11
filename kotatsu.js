@@ -11,5 +11,6 @@ module.exports = {
   monitor: start.bind(null, 'monitor'),
   run: start.bind(null, 'run'),
   serve: require('./src/serve.js'),
-  start: start.bind(null, 'start')
+  start: start.bind(null, 'start'),
+  scaffold: require('./src/scaffold.js')
 };

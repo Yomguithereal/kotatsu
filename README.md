@@ -51,11 +51,12 @@ npm install --save-dev kotatsu
 Usage: kotatsu <command> {options} [entry]
 
 Commands:
-  cli.js start    Start a node.js script.
-  cli.js serve    Serve a client-side application.
-  cli.js monitor  Monitor a terminating node.js script.
-  cli.js run      Run the given node.js script.
-  cli.js build    Build your code for client or server.
+  cli.js start     Start a node.js script.
+  cli.js serve     Serve a client-side application.
+  cli.js monitor   Monitor a terminating node.js script.
+  cli.js run       Run the given node.js script.
+  cli.js build     Build your code for client or server.
+  cli.js scaffold  Scaffold some typical boilerplate files.
 
 Options:
   -c, --config            Optional webpack config that will be merged with kotatsu's one (useful if
@@ -108,6 +109,9 @@ Examples:
 
   kotatsu build server entry.js -o ./               Build the given server script.
   kotatsu build client --production entry.js -o ./  Build the given client app for production.
+
+  kotatsu scaffold index.html                       Dump a boilerplate html file in stdout.
+
 ```
 
 If this is your first time using **kotatsu**, you should really check the use cases below to see how it could fit your workflow.
