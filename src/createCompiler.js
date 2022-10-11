@@ -315,7 +315,7 @@ module.exports = function createCompiler(opts) {
 
   extensions.add('.jsx');
 
-  if (opts.typescript) {
+  if (entryIsTs || opts.typescript) {
     extensions.add('.ts');
     extensions.add('.tsx');
   }
